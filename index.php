@@ -9,7 +9,8 @@
 	Restaurant Inspections 
 </title>
 <link rel="stylesheet" href="css/design.css" type="text/css" />
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=geometry,places"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/script.js"></script>
 </head>
@@ -25,12 +26,12 @@
 			<div class="search-box">
 				<form>
 				<input type="text" id="search" name="search" placeholder="Find a restaurant" />
-				<input type="submit" onClick="javascript:initialize();" />
+				<input type="submit" />
 				</form>
 			</div>
 		</div>
 		<div class="map">
-			<div id="map-canvas"></div>
+			<div id="map"></div>
 		</div>
 		<div class="point-info">
 			<div class="restaurant-name">

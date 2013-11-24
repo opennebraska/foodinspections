@@ -1,35 +1,32 @@
-var map;
+$(document).ready(function() {
+var lat;
+var lng;
+var map = L.map('map');
 
-function getURLParameter(name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+} 
+//Get the latitude and the longitude;
+function successFunction(position) {
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+    map.setView([lat,lng], 13);
+    var center = map.getCenter();
+    var centerLat = center.lat;
+    console.log(centerLat);
 }
 
-function initialize() {
-	var myLatlng = new google.maps.LatLng(41,-99);
-	var mapOptions = {
-		zoom: 7,
-		center: myLatlng
-	}
-
-	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-	var marker = new google.maps.Marker({
-    	position: map.getCenter(),
-    	map: map,
-    	title: 'Click to zoom'
- 	});
-
-	google.maps.event.addListener(map, 'bounds_changed', function() {
-		var bounds = map.getBounds();
-		var ne = bounds.getNorthEast();
-		var sw = bounds.getSouthWest();
-		var yMaxLat = ne.lat();
-		var xMaxLng = ne.lng();
-		var yMinLat = sw.lat();
-		var xMinLng = sw.lng();
-		console.log(yMaxLat); 
-		console.log(xMaxLng);
-	});
+function errorFunction(){
+    alert("Geocoder failed");
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+
+    // create a map in the "map" div, set the view to a given place and zoom
+
+// add an OpenStreetMap tile layer
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+});
+
