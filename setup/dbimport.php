@@ -15,18 +15,24 @@
 // $ exit
 
 $IMPORTFILE = 'State_restaurant_inspections.csv';
+$dbhost = '15.126.244.50';
+$dbname = 'inspections';
+$dbuser = 'ho3';
+$dbpass = '"Cwth8AR+E8J84WYKQo"';
 
 if (($fp = fopen($IMPORTFILE, 'r')) !== FALSE) {
 	$row = 0;
 	
-	// Connec to the database
-	$db = pg_connect('host=15.126.244.50 dbname=inspections user=ho3 password="Cwth8AR+E8J84WYKQo"')
-		or die('error: cannot connect to database');
-		
+	// Connect to the database
+	$cs = 'host=' . $dbhost . ' dbname=' . $dbname . ' user=' . $dbuser . ' password=' . $dbpass;
+	$db = pg_connect($cs) or die('error: cannot connect to database');
+	
+/*
 	// Drop (if needed) and create our table
 	pg_query($db, 'drop table if exists data');
-	pg_query($db, 'create table data (id serial primary key, firm_id bigint, name varchar(255), parent_name varchar(255), inspection_date date, inspection_type integer, business_type integer, critical_violations integer, noncritical_violations integer, followup boolean, inspector_number integer, street varchar(255), city varchar(255), state char(2));');
-	pg_query($db, 'select AddGeometryColumn("coord", 4326, "POINT", 2);');
+	pg_query($db, 'create table data (id serial primary key, firm_id bigint, name varchar(255), parent_name varchar(255), inspection_date date, inspection_type integer, business_type integer, critical_violations integer, noncritical_violations integer, followup boolean, inspector_number integer, street varchar(255), city varchar(255), state char(2))');
+	pg_query($db, 'select AddGeometryColumn("coord", 4326, "POINT", 2)');
+*/
 	
 	// Create a prepared statement for the insert query
 	pg_prepare($db, 'insert_data_query', 'insert into data(firm_id, name, parent_name, inspection_date, inspection_type, business_type, critical_violations, noncritical_violations, followup, inspector_number, street, city, state) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)');
@@ -89,32 +95,27 @@ if (($fp = fopen($IMPORTFILE, 'r')) !== FALSE) {
 		);
 		$coordData = array($lat, $long);
 		$result = pg_execute($db, 'insert_data_query', $mainData);
-		echo "<pre>"; print_r($result); echo "</pre><br>";
 		pg_execute($db, 'set_coords_query', $coordData);
-		echo $result; echo "<br><br><br>";
 
-		if (null == $id || strlen($id) == 0) {
-			echo "<pre>";
-			echo "ID:            " . $id . "<br>";
-			echo "Name:          " . $name . "<br>";
-			echo "Parent:        " . $corporationName . "<br>";
-			echo "City:          " . $city . "<br>";
-			echo "Date:          " . $date . "<br>";
-			echo "Inspection:    " . $inspectionType . "<br>";
-			echo "Business Type: " . $businessType . "<br>";
-			echo "Crit Vio:      " . $criticalViolations . "<br>";
-			echo "Noncrit Vio:   " . $noncriticalViolations . "<br>";
-			echo "Follow Up:     " . $followUp . "<br>";
-			echo "Inspector:     " . $inspectorNumber . "<br>";
-			echo "Address:       " . $street . "<br>";
-			echo "City:          " . $city . "<br>";
-			echo "State:         " . $state . "<br>";
-			echo "Latitude:      " . $lat . "<br>";
-			echo "Longitude:     " . $long . "<br>";
-			echo "<br>";
-			echo "</pre>";
-			die();
-		}
+		echo "<pre>";
+		echo "ID:            " . $id . "<br>";
+		echo "Name:          " . $name . "<br>";
+		echo "Parent:        " . $corporationName . "<br>";
+		echo "City:          " . $city . "<br>";
+		echo "Date:          " . $date . "<br>";
+		echo "Inspection:    " . $inspectionType . "<br>";
+		echo "Business Type: " . $businessType . "<br>";
+		echo "Crit Vio:      " . $criticalViolations . "<br>";
+		echo "Noncrit Vio:   " . $noncriticalViolations . "<br>";
+		echo "Follow Up:     " . $followUp . "<br>";
+		echo "Inspector:     " . $inspectorNumber . "<br>";
+		echo "Address:       " . $street . "<br>";
+		echo "City:          " . $city . "<br>";
+		echo "State:         " . $state . "<br>";
+		echo "Latitude:      " . $lat . "<br>";
+		echo "Longitude:     " . $long . "<br>";
+		echo "<br>";
+		echo "</pre>";
 		
 		$row++;
 	}
