@@ -6,8 +6,13 @@ function Geo() {
 		var query = "SELECT firm_id, name, lat, lng FROM ne_restaurant_inspections l WHERE ST_Dwithin(l.the_geom::geography, ST_GeogFromText('POINT(" + centerLng + " " + centerLat + ")'), " + radius + ")";
 		var url = this.rootUrl + 'q=' + query + '&api_key=' + this.apiKey;
 		
-		$.get(url, function(data) {
-			callback(data);
-		});
+		$.get(url, callback);
+	}
+	
+	this.getChildProperties = function(parent_name, callback) {
+		var query = "SELECT firm_id, name, lat, lng FROM ne_restaurant_inspections l WHERE l.parent_name='" + escape(parent_name) + "'";
+		var url = this.rootUrl + 'q=' + query + '&api_key=' + this.apiKey;
+		
+		$.get(url, callback);
 	}
 }
