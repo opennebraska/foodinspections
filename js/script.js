@@ -1,15 +1,64 @@
 $(document).ready(function() {
+var DEFAULTLAT = 41.255817;
+var DEFAULTLNG = -95.931284;
+
+
 $('#loadingdiv').show();
 var map = L.map('map');
+var plotlayers=[];
+
+function drawMarkers(data) {
+	// center_lat, center_lng, radius (meters), callback
+	for (var i = 0; i < data.total_rows; i++) {
+		var location = data.rows[i];
+		var plotmark = new L.marker([location.lat, location.lng]).addTo(map)
+		.bindPopup(location.name);
+		plotlayers.push(plotmark);
+	}
+}
+
+function drawMap(lat, lng, zoomLevel) {
+    map.setView([lat,lng], zoomLevel);
+    var result = getEndPoints();
+    //console.log('radius!: ' + result.radius);
+    var marker;
+    var g = new Geo();
+    var layers = new Array();
+	g.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarkers);
+	
+	// add an OpenStreetMap tile layer
+	L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: '1234'
+    }).addTo(map);
+	
+	map.on('moveend', function() {
+		console.log('hi!');
+		removeMarkers();
+		var result = getEndPoints();
+		g.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarkers);
+			
+	});
+}
 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-} 
+}
 //Get the latitude and the longitude;
 function successFunction(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
-    map.setView([lat,lng], 13);
+    drawMap(lat, lng, 13);	
+}
+
+function removeMarkers() {
+	for (i=0;i<plotlayers.length;i++) {
+		map.removeLayer(plotlayers[i]);
+	}
+	plotlayers=[];
+}
+
+function getEndPoints() {
     var center = map.getCenter();
     var centerLat = center.lat;
     var centerLng = center.lng;
@@ -20,20 +69,10 @@ function successFunction(position) {
     var southLat = bounds.getSouth();
     var eastLng = bounds.getEast();
     var northLat = bounds.getNorth();
-    // getPoints(northLat, westLng, southLat, eastLng, mapPoints());
     var d = calculateDistance(centerLat, centerLng, eastLng);
     console.log(d);
     var radius = d;
-    
-    var g = new Geo();
-	g.getPointsInBounds(centerLat, centerLng, radius, function(data) {
-		// center_lat, center_lng, radius (meters), callback
-		for (var i = 0; i < data.total_rows; i++) {
-			var location = data.rows[i];
-			L.marker([location.lat, location.lng]).addTo(map)
-			.bindPopup(location.name);
-		}
-	});	
+    return {'centerLat': centerLat, 'centerLng': centerLng, 'radius': radius};
 }
 
 function toRad(Value) {
@@ -61,18 +100,13 @@ function calculateDistance(centerLat, centerLng, eastLng) {
 }
 
 function errorFunction(){
-    alert("Geocoder failed");
+    drawMap(DEFAULTLAT, DEFAULTLNG, 18);
 }
 
 
 
     // create a map in the "map" div, set the view to a given place and zoom
 
-// add an OpenStreetMap tile layer
-L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      subdomains: '1234'
-    }).addTo(map);
 $('#loadingdiv').slideUp().hide();
 
 });
