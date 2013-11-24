@@ -21,15 +21,15 @@
 	<div id="loadingdiv"></div>
 		<div class="heading">
 			<div class="heading-header">
-				Restaurant Inspections
+				Restaurant / Food Inspections
 			</div>
 			<div class="heading-text">
 			</div>
 			<div class="search-box">
-				<form>
+			<form id="form">
 				<input type="text" id="search" name="search" placeholder="Find a restaurant" />
-				<input type="submit" />
-				</form>
+				<input type="submit" id="searchbutton" />
+			</form>
 			</div>
 		</div>
 		<div class="map">
