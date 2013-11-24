@@ -11,10 +11,35 @@ function drawMarkers(data) {
 	// center_lat, center_lng, radius (meters), callback
 	for (var i = 0; i < data.total_rows; i++) {
 		var location = data.rows[i];
-		var plotmark = new L.marker([location.lat, location.lng]).addTo(map)
-		.bindPopup(location.name);
-		plotlayers.push(plotmark);
+		
+		var dg = new DGeo();
+		dg.getViolationCount(location.firm_id, function(dData) {
+//			console.log(dData);
+			var crit = 0;
+			var noncrit = 0;
+			for (var j = 0; j < dData.total_rows; j++) {
+				crit += dData.rows[j].critical;
+				noncrit += dData.rows[j].noncritical;
+			}
+			
+			var plotmark = new L.marker([location.lat, location.lng], {alt: location.firm_id}).addTo(map)
+				.bindPopup("<span class='name'>"+location.name+", crit: " + crit + "</span>");
+			plotlayers.push(plotmark);
+			
+//			var plotmark = new L.marker([location.lat, location.lng], {alt: location.firm_id}).addTo(map)
+//				.bindPopup("<span class='name'>"+location.name+", crit: " + dData.rows[0].critical + "</span>");
+			//console.log(plotmark);
+//			plotlayers.push(plotmark);
+		});
 	}
+	
+	map.on('popupopen', function() {
+		var firm_id = L.marker[this.options.alt];
+		console.log(firm_id);
+		// var result = g.getMetadata(firm_id);
+		// L.bindPopup()
+	});
+
 }
 
 function drawMap(lat, lng, zoomLevel) {
@@ -33,12 +58,13 @@ function drawMap(lat, lng, zoomLevel) {
     }).addTo(map);
 	
 	map.on('moveend', function() {
-		console.log('hi!');
 		removeMarkers();
+		$('#loadingdiv').show();
 		var result = getEndPoints();
 		g.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarkers);
-			
+		$('#loadingdiv').hide();
 	});
+
 }
 
 if (navigator.geolocation) {
@@ -103,7 +129,19 @@ function errorFunction(){
     drawMap(DEFAULTLAT, DEFAULTLNG, 18);
 }
 
+$('#form').submit(function() {
+	searchNames();
+	event.preventDefault();
+});
 
+function searchNames() {
+	// fun
+	removeMarkers();
+	var g = new Geo();
+	var search = $('#search').val();
+	console.log(search);
+	g.getPropertiesLikeName(search, drawMarkers);
+}
 
     // create a map in the "map" div, set the view to a given place and zoom
 
