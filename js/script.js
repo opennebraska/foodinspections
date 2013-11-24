@@ -25,11 +25,15 @@ function successFunction(position) {
     console.log(d);
     var radius = d;
     
-    var cartoClient = new Geo();
-    cartoClient.getPointsInBounds(centerLat, centerLng, radius, function(data) {
-	    // do something with json array 'data'
-	    
-    });
+    var g = new Geo();
+	g.getPointsInBounds(centerLat, centerLng, radius, function(data) {
+		// center_lat, center_lng, radius (meters), callback
+		for (var i = 0; i < data.total_rows; i++) {
+			var location = data.rows[i];
+			L.marker([location.lat, location.lng]).addTo(map)
+			.bindPopup(location.name);
+		}
+	});	
 }
 
 function toRad(Value) {
@@ -59,6 +63,7 @@ function calculateDistance(centerLat, centerLng, eastLng) {
 function errorFunction(){
     alert("Geocoder failed");
 }
+
 
 
     // create a map in the "map" div, set the view to a given place and zoom
