@@ -15,4 +15,22 @@ function Geo() {
 		
 		$.get(url, callback);
 	}
+	
+	this.getPropertiesLikeName = function(name, callback) {
+		var query = "SELECT firm_id, name, lat, lng FROM ne_restaurant_inspections l WHERE l.name ILIKE '%" + escape(name) + "%'";
+		query = encodeURI(query);
+		var url = this.rootUrl + 'q=' + query + '&api_key=' + this.apiKey;
+		$.get(url, callback);
+	}
+}
+
+function DGeo() {
+	this.apiKey = 'afd2a4ed4bac70d838dcbdf2df0aa86be8f0d75b';
+	this.rootUrl = 'http://dlipskey.cartodb.com/api/v2/sql?';
+	
+	this.getViolationCount = function(firmId, callback) {
+		var query = "SELECT firm_id, date, critical, noncritical FROM violations l WHERE l.firm_id=" + firmId
+		var url = this.rootUrl + 'q=' + query + '&api_key=' + this.apiKey;
+		$.get(url, callback);
+	}
 }
