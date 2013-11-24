@@ -1,5 +1,10 @@
 html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
-#loadingdiv { height: 100%; width: 100%; background: #000; color: #fff; }
-.heading { height: 6%; background-color: #000; color: #ccc; text-align: center;  }
+#loadingdiv { display: none; transition: display 1s; height: 100%; width: 100%; background: url('img/loader.gif') center center rgba(0,0,0,.2); color: #fff; }
+.heading { height: 45px; background-color: #000; color: #ccc; text-align: center;  }
 .map { position: relative; height: 94%; width: 100%; }
-#map { height: 100%; }
+#map { height: 100%; clear: both; }
+
+.heading-header { font-size: 23pt; text-align: left; position: relative; left: 10px; top: 4px; color: #fff; float: left; }
+.search-box { float: right; position: relative; right: 20px; }
+.search-box input[type="text"] { width: 300px; height: 29px; -webkit-appearance: none; border-radius: 5px; font-size: 18px; font-style: italic; margin-top: 5px;}
+.search-box input[type="submit"] { -webkit-appearance: none; width: 60px; height: 35px; position: relative; top: -3px; background: #FF3694; border: 0; border-radius: 5px; }
