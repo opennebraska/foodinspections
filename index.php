@@ -12,11 +12,13 @@
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
 <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/geo.js"></script>
 <script src="js/script.js"></script>
 </head>
 
 <body>
 	<div class="container">
+	<div id="loadingdiv"></div>
 		<div class="heading">
 			<div class="heading-header">
 				Restaurant Inspections
