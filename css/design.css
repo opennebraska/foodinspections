@@ -1,0 +1,4 @@
+html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
+.heading { height: 6%; background-color: #000; color: #ccc; text-align: center;  }
+.map { position: relative; height: 94%; width: 100%; }
+#map-canvas { height: 100%; }
