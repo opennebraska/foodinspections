@@ -17,6 +17,7 @@
 
 <body>
 	<div class="container">
+	<div id="loadingdiv"></div>
 		<div class="heading">
 			<div class="heading-header">
 				Restaurant Inspections
