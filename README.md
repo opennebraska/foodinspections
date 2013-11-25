@@ -1,7 +1,7 @@
 Nebraska Food Inspections
 =========================
 
-This repository contains code created at HO3 (Hack Omaha III: Hack with a Vengeance). It's a huge work in progress right now.
+This repository contains code created at HO3 ([Hack Omaha III: Hack with a Vengeance](http://www.meetup.com/Open-Nebraska-Meetup/events/149197282/)). It's a huge work in progress right now.
 
 We ([Ross](http://twitter.com/rossnelson) and [Dustin](http://twitter.com/tacktaco)) will be working in the near future on getting our first real version of it done. We have plans beyond that, such as removing a dependency on a third party database and adding reviews from various social sites, but for now we simply want to get a version up and running.
 
