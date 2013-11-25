@@ -156,7 +156,7 @@ firm_ids.each do |firm_id|
     end
   end
   
-  json_filename = 'data/' + firm_id.to_s + '.json'
+  json_filename = '../data/' + firm_id.to_s + '.json'
   File.open(json_filename, 'w') do |f|
     f.puts JSON.generate(firm_obj)
   end
