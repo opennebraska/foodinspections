@@ -156,8 +156,6 @@ firm_ids.each do |firm_id|
     end
   end
   
-#  puts "Firm #{firm_id} has #{firm_obj['inspection_count']} inspections"
-  
   json_filename = 'data/' + firm_id.to_s + '.json'
   File.open(json_filename, 'w') do |f|
     f.puts JSON.generate(firm_obj)
