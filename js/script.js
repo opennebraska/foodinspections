@@ -8,20 +8,34 @@ var map = L.map('map');
 var plotlayers=[];
 
 function drawMarkers(data) {
+		$.each(data, function(idx) {
+					var o = data[idx];
+					var lat = o.lat;
+					var lng = o.lng;
+					var name = o.name;
+					var firmId = o.firmId;
+					var noncritical = o.noncritical;
+					var critical = o.critical;
+				var plotmark = new L.marker([lat, lng]).addTo(map)
+					.bindPopup("<span class='name'>"+ name+", crit: " + critical + ", noncrit: " + noncritical + "</span>");
+				plotlayers.push(plotmark);
+		});
+/*
 	for (var i = 0; i < data.total_rows; i++) {
 		var location = data.rows[i];
 		
-		var dg = new DGeo();
+		var dg = new neoGeo();
 		dg.getViolationCount(location.firm_id, location.name, location.lat, location.lng, function(dData) {
-			var plotmark = new L.marker([dData.latitude, dData.longitude], {alt: dData.firm_id}).addTo(map)
+			var plotmark = new L.marker([r.lat, dData.lng], {alt: dData.firm_id}).addTo(map)
 				.bindPopup("<span class='name'>"+dData.placeName+", crit: " + dData.cartoData.rows[0].crititcal + ", noncrit: " + dData.cartoData.rows[0].noncritical + "</span>");
 			plotlayers.push(plotmark);
 		});
 	}
+*/
 	
 	map.on('popupopen', function() {
 		var firm_id = L.marker[this.options.alt];
-		console.log(firm_id);
+//		console.log(firm_id);
 		// var result = g.getMetadata(firm_id);
 		// L.bindPopup()
 	});
@@ -33,9 +47,9 @@ function drawMap(lat, lng, zoomLevel) {
     var result = getEndPoints();
     //console.log('radius!: ' + result.radius);
     var marker;
-    var g = new Geo();
+    var g = new NewGeo();
     var layers = new Array();
-	g.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarkers);
+	g.doStuff(result.centerLat, result.centerLng, result.radius, drawMarkers);
 	
 	// add an OpenStreetMap tile layer
 	L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
@@ -47,7 +61,7 @@ function drawMap(lat, lng, zoomLevel) {
 		removeMarkers();
 		$('#loadingdiv').show();
 		var result = getEndPoints();
-		g.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarkers);
+		g.doStuff(result.centerLat, result.centerLng, result.radius, drawMarkers);
 		$('#loadingdiv').hide();
 	});
 
@@ -60,7 +74,7 @@ if (navigator.geolocation) {
 function successFunction(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
-    drawMap(lat, lng, 13);	
+    drawMap(lat, lng, 15);	
 }
 
 function removeMarkers() {
@@ -74,8 +88,10 @@ function getEndPoints() {
     var center = map.getCenter();
     var centerLat = center.lat;
     var centerLng = center.lng;
+/*
     console.log(centerLat);
     console.log(centerLng);
+*/
     var bounds = map.getBounds();
     var westLng = bounds.getWest();
     var southLat = bounds.getSouth();

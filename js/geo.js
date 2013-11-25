@@ -43,3 +43,80 @@ function DGeo() {
 		});
 	}
 }
+
+function NewGeo() {
+	this.doStuff = function(centerLat, centerLng, radius, callback) {
+		var query1 = "SELECT firm_id, name, lat, lng FROM ne_restaurant_inspections l WHERE ST_Dwithin(l.the_geom::geography, ST_GeogFromText('POINT(" + centerLng + " " + centerLat + ")'), " + radius + ")";
+		
+		$.ajax('http://rnelson.cartodb.com/api/v2/sql?q=' + query1 + '&api_key=648c658c812419eb99b6b30962797a0582131c03',
+			{
+				async: false,
+				success: function(rData) {
+					newObjects = [];
+					
+					$.each(rData.rows, function(idx, value) {
+						var query2 = "SELECT firm_id, critical, noncritical FROM violations l WHERE l.firm_id=" + value.firm_id;
+//						console.log(value);
+//						console.log(query2);
+						$.ajax('http://dlipskey.cartodb.com/api/v2/sql?q=' + query2 + '&api_key=afd2a4ed4bac70d838dcbdf2df0aa86be8f0d75b',
+							{
+								async: false,
+								success: function(dData) {
+//									console.log(dData);
+									newObj = {
+										firmId: value.firm_id,
+										lat: value.lat,
+										lng: value.lng,
+										name: value.name,
+										critical: dData.rows[0].critical,
+										noncritical: dData.rows[0].noncritical
+									}
+									
+									newObjects.push(newObj);
+								}
+							}
+						);
+					});
+					
+					callback(newObjects);
+				}
+			}
+		);
+	}
+	
+/*
+	this.doStuffAsync = function(centerLat, centerLng, radius, callback) {
+		var query1 = "SELECT firm_id, name, lat, lng FROM ne_restaurant_inspections l WHERE ST_Dwithin(l.the_geom::geography, ST_GeogFromText('POINT(" + centerLng + " " + centerLat + ")'), " + radius + ")";
+		
+		$.get('http://rnelson.cartodb.com/api/v2/sql?q=' + query1 + '&api_key=648c658c812419eb99b6b30962797a0582131c03', function(rData) {
+			newObjects = [];
+			
+			$.each(rData.rows, function(idx, value) {
+				var query2 = "SELECT firm_id, critical, noncritical FROM violations l WHERE l.firm_id=" + value.firm_id;
+//						console.log(value);
+//						console.log(query2);
+				$.ajax('http://dlipskey.cartodb.com/api/v2/sql?q=' + query2 + '&api_key=afd2a4ed4bac70d838dcbdf2df0aa86be8f0d75b',
+					{
+						async: false,
+						success: function(dData) {
+//									console.log(dData);
+							newObj = {
+								firmId: value.firm_id,
+								lat: value.lat,
+								lng: value.lng,
+								name: value.name,
+								critical: dData.rows[0].critical,
+								noncritical: dData.rows[0].noncritical
+							}
+							
+							newObjects.push(newObj);
+						}
+					}
+				);
+			});
+			
+			callback(newObjects);
+		});
+	}
+*/
+}
