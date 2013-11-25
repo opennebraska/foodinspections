@@ -28,9 +28,18 @@ function DGeo() {
 	this.apiKey = 'afd2a4ed4bac70d838dcbdf2df0aa86be8f0d75b';
 	this.rootUrl = 'http://dlipskey.cartodb.com/api/v2/sql?';
 	
-	this.getViolationCount = function(firmId, callback) {
-		var query = "SELECT firm_id, date, critical, noncritical FROM violations l WHERE l.firm_id=" + firmId
+	this.getViolationCount = function(firm_id, name, lat, lng, callback) {
+		var query = "SELECT firm_id, critical, noncritical FROM violations l WHERE l.firm_id=" + firm_id;
 		var url = this.rootUrl + 'q=' + query + '&api_key=' + this.apiKey;
-		$.get(url, callback);
+		$.get(url, function(data) {
+			var newData = {
+				firmId: firm_id,
+				placeName: name,
+				latitude: lat,
+				longitude: lng,
+				cartoData: data
+			}
+			callback(firm_id, newData);
+		});
 	}
 }

@@ -8,28 +8,14 @@ var map = L.map('map');
 var plotlayers=[];
 
 function drawMarkers(data) {
-	// center_lat, center_lng, radius (meters), callback
 	for (var i = 0; i < data.total_rows; i++) {
 		var location = data.rows[i];
 		
 		var dg = new DGeo();
-		dg.getViolationCount(location.firm_id, function(dData) {
-//			console.log(dData);
-			var crit = 0;
-			var noncrit = 0;
-			for (var j = 0; j < dData.total_rows; j++) {
-				crit += dData.rows[j].critical;
-				noncrit += dData.rows[j].noncritical;
-			}
-			
-			var plotmark = new L.marker([location.lat, location.lng], {alt: location.firm_id}).addTo(map)
-				.bindPopup("<span class='name'>"+location.name+", crit: " + crit + "</span>");
+		dg.getViolationCount(location.firm_id, location.name, location.lat, location.lng, function(dData) {
+			var plotmark = new L.marker([dData.latitude, dData.longitude], {alt: dData.firm_id}).addTo(map)
+				.bindPopup("<span class='name'>"+dData.placeName+", crit: " + dData.cartoData.rows[0].crititcal + ", noncrit: " + dData.cartoData.rows[0].noncritical + "</span>");
 			plotlayers.push(plotmark);
-			
-//			var plotmark = new L.marker([location.lat, location.lng], {alt: location.firm_id}).addTo(map)
-//				.bindPopup("<span class='name'>"+location.name+", crit: " + dData.rows[0].critical + "</span>");
-			//console.log(plotmark);
-//			plotlayers.push(plotmark);
 		});
 	}
 	
