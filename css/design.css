@@ -3,6 +3,7 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 .heading { height: 45px; background-color: #000; color: #ccc; text-align: center;  }
 .map { position: relative; height: 94%; width: 100%; }
 #map { height: 100%; clear: both; }
+.name { font-weight: bold; }
 
 .heading-header { font-size: 23pt; text-align: left; position: relative; left: 10px; top: 4px; color: #fff; float: left; }
 .search-box { float: right; position: relative; right: 20px; }

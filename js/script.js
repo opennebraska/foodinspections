@@ -17,7 +17,7 @@ function drawMarkers(data) {
 					var noncritical = o.noncritical;
 					var critical = o.critical;
 				var plotmark = new L.marker([lat, lng]).addTo(map)
-					.bindPopup("<span class='name'>"+ name+", crit: " + critical + ", noncrit: " + noncritical + "</span>");
+					.bindPopup("<span class='name'>"+ name+"</span><br>Critical Issues: " + critical + "<br>Non-Critical Issues: " + noncritical);
 				plotlayers.push(plotmark);
 		});
 /*
@@ -139,9 +139,8 @@ $('#form').submit(function() {
 function searchNames() {
 	// fun
 	removeMarkers();
-	var g = new Geo();
+	var g = new NewGeo();
 	var search = $('#search').val();
-	console.log(search);
 	g.getPropertiesLikeName(search, drawMarkers);
 }
 
