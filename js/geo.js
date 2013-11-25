@@ -87,7 +87,7 @@ function NewGeo() {
 	this.getPropertiesLikeName = function(name, callback) {
 		var query1 = "SELECT firm_id, name, lat, lng FROM ne_restaurant_inspections l WHERE l.name ILIKE '%" + name + "%'";
 		
-		$.ajax('http://rnelson.cartodb.com/api/v2/sql?q=' + query1 + '&api_key=648c658c812419eb99b6b30962797a0582131c03',
+		$.ajax('http://rnelson.cartodb.com/api/v2/sql?q=' + escapedURI(query1) + '&api_key=648c658c812419eb99b6b30962797a0582131c03',
 			{
 				async: false,
 				success: function(rData) {
