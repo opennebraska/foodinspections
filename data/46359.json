@@ -1,0 +1,1 @@
+{"firm_id":"46359","name":"San Miguel","parent":"","location":{"address":"228 E 13th St\nCrete, NE","lat":"40.62523","lng":" -96.95961"},"total_critical":1,"total_noncritical":8,"inspection_count":1,"inspections":[{"date":"20120827","facod":"3","inspection_type":"1","violations":{"critical":"1","noncritical":"8"},"followup":"2","inspector_number":"13"}]}

@@ -1,0 +1,1 @@
+{"firm_id":"21331","name":"Grama's Inc","parent":"Grama's Inc","location":{"address":"6241 Fulton Ave\nLincoln, NE","lat":"40.87379","lng":" -96.63552"},"total_critical":1,"total_noncritical":4,"inspection_count":1,"inspections":[{"date":"20120221","facod":"6","inspection_type":"1","violations":{"critical":"1","noncritical":"4"},"followup":"2","inspector_number":"60"}]}

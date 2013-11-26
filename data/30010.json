@@ -1,0 +1,1 @@
+{"firm_id":"30010","name":"Maggie's","parent":"","location":{"address":"311 N 8th St\nLincoln, NE","lat":"40.81618","lng":" -96.70993"},"total_critical":1,"total_noncritical":4,"inspection_count":1,"inspections":[{"date":"20120906","facod":"1","inspection_type":"1","violations":{"critical":"1","noncritical":"4"},"followup":"2","inspector_number":"63"}]}

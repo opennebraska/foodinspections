@@ -1,0 +1,1 @@
+{"firm_id":"33950","name":"McDonald's","parent":"McDonald's Corporation","location":{"address":"13708 Q St\nOmaha, NE","lat":"41.20521","lng":" -96.12721"},"total_critical":2,"total_noncritical":8,"inspection_count":1,"inspections":[{"date":"20100318","facod":"1","inspection_type":"1","violations":{"critical":"2","noncritical":"8"},"followup":"2","inspector_number":"88"}]}

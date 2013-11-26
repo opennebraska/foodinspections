@@ -1,0 +1,1 @@
+{"firm_id":"42681","name":"El Taquera Peligro","parent":"","location":{"address":"5133 S 25th St\nOmaha, NE","lat":"41.20609","lng":" -95.94854"},"total_critical":5,"total_noncritical":10,"inspection_count":1,"inspections":[{"date":"20100531","facod":"1","inspection_type":"1","violations":{"critical":"5","noncritical":"10"},"followup":"1","inspector_number":"88"}]}

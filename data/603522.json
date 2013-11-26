@@ -1,0 +1,1 @@
+{"firm_id":"603522","name":"Pantry Inc","parent":"Howser, Howard","location":{"address":"2548 S 48th\nLincoln, NE","lat":"40.78549","lng":" -96.65377"},"total_critical":1,"total_noncritical":3,"inspection_count":1,"inspections":[{"date":"20111007","facod":"1","inspection_type":"1","violations":{"critical":"1","noncritical":"3"},"followup":"2","inspector_number":"65"}]}

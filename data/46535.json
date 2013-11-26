@@ -1,0 +1,1 @@
+{"firm_id":"46535","name":"One More Bar","parent":"Abby Normal Inc","location":{"address":"836 N 70th St\nLincoln, NE","lat":"40.82152","lng":" -96.62493"},"total_critical":0,"total_noncritical":1,"inspection_count":1,"inspections":[{"date":"20130726","facod":"12","inspection_type":"1","violations":{"critical":"0","noncritical":"1"},"followup":"2","inspector_number":"61"}]}

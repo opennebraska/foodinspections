@@ -1,0 +1,1 @@
+{"firm_id":"41733","name":"My Bar","parent":"","location":{"address":"915 Main St Ste 10\nCrete, NE","lat":"40.62178","lng":" -96.96146"},"total_critical":0,"total_noncritical":2,"inspection_count":1,"inspections":[{"date":"20100604","facod":"12","inspection_type":"1","violations":{"critical":"0","noncritical":"2"},"followup":"2","inspector_number":"13"}]}

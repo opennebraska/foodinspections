@@ -1,0 +1,1 @@
+{"firm_id":"18852","name":"Beer City","parent":"Kresl, Ed","location":{"address":"4147 L St\nOmaha, NE","lat":"41.21262","lng":" -95.97593"},"total_critical":3,"total_noncritical":6,"inspection_count":1,"inspections":[{"date":"20130620","facod":"12","inspection_type":"2","violations":{"critical":"3","noncritical":"6"},"followup":"2","inspector_number":"88"}]}

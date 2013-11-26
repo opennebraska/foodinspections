@@ -1,0 +1,1 @@
+{"firm_id":"31063","name":"Panic","parent":"Barkel Enterprises, Inc","location":{"address":"200 S 18th\nLincoln, NE","lat":"40.81238","lng":" -96.69525"},"total_critical":1,"total_noncritical":6,"inspection_count":1,"inspections":[{"date":"20120802","facod":"12","inspection_type":"1","violations":{"critical":"1","noncritical":"6"},"followup":"2","inspector_number":"63"}]}
