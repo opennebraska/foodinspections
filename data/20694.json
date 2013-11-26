@@ -1,0 +1,1 @@
+{"firm_id":"20694","name":"Drift Inn","parent":"Drift Inn Inc","location":{"address":"4332 S 33rd\nOmaha, NE","lat":"41.21687","lng":" -95.96255"},"total_critical":1,"total_noncritical":6,"inspection_count":1,"inspections":[{"date":"20100910","facod":"12","inspection_type":"1","violations":{"critical":"1","noncritical":"6"},"followup":"2","inspector_number":"87"}]}

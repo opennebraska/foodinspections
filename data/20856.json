@@ -1,0 +1,1 @@
+{"firm_id":"20856","name":"Sugar Creek","parent":"Firebird Inc","location":{"address":"7123-29 Harrison\nLa Vista, NE","lat":"41.19068","lng":" -96.02119"},"total_critical":0,"total_noncritical":5,"inspection_count":1,"inspections":[{"date":"20101004","facod":"12","inspection_type":"1","violations":{"critical":"0","noncritical":"5"},"followup":"2","inspector_number":"5"}]}

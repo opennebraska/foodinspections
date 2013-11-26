@@ -1,0 +1,1 @@
+{"firm_id":"44455","name":"N and B Market","parent":"","location":{"address":"4007 O St\nLincoln, NE","lat":"40.81347","lng":" -96.66311"},"total_critical":3,"total_noncritical":4,"inspection_count":1,"inspections":[{"date":"20130703","facod":"3","inspection_type":"1","violations":{"critical":"3","noncritical":"4"},"followup":"2","inspector_number":"60"}]}

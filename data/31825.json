@@ -1,0 +1,1 @@
+{"firm_id":"31825","name":"Twin Dragon","parent":"","location":{"address":"1001 W B\nMc Cook, NE","lat":"40.19893","lng":" -100.63935"},"total_critical":1,"total_noncritical":6,"inspection_count":1,"inspections":[{"date":"20100402","facod":"1","inspection_type":"1","violations":{"critical":"1","noncritical":"6"},"followup":"2","inspector_number":"12"}]}

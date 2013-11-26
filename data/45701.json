@@ -1,0 +1,1 @@
+{"firm_id":"45701","name":"Marrakech Inc.","parent":"Marrakech Inc.","location":{"address":"504 33rd St\nOmaha, NE","lat":"41.26394","lng":" -95.96155"},"total_critical":10,"total_noncritical":5,"inspection_count":1,"inspections":[{"date":"20121212","facod":"1","inspection_type":"1","violations":{"critical":"10","noncritical":"5"},"followup":"2","inspector_number":"83"}]}

@@ -1,0 +1,1 @@
+{"firm_id":"40257","name":"Smokin Pig","parent":"","location":{"address":"15925 S 1345 Rd\nStockton, NE\n","lat":0,"lng":0},"total_critical":1,"total_noncritical":1,"inspection_count":1,"inspections":[{"date":"20120713","facod":"4","inspection_type":"1","violations":{"critical":"1","noncritical":"1"},"followup":"2","inspector_number":"99"}]}

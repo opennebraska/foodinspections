@@ -1,0 +1,1 @@
+{"firm_id":"47107","name":"Dairy Joe's","parent":"","location":{"address":"8235 W O St\nLincoln, NE","lat":"40.81389","lng":" -96.83240"},"total_critical":1,"total_noncritical":2,"inspection_count":1,"inspections":[{"date":"20130711","facod":"1","inspection_type":"1","violations":{"critical":"1","noncritical":"2"},"followup":"2","inspector_number":"64"}]}

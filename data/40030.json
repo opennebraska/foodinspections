@@ -1,0 +1,1 @@
+{"firm_id":"40030","name":"Baker Hardware Co","parent":"Baker Hardware Co","location":{"address":"801 N\nLincoln, NE","lat":"40.81249","lng":" -96.70934"},"total_critical":0,"total_noncritical":0,"inspection_count":1,"inspections":[{"date":"20120801","facod":"11","inspection_type":"1","violations":{"critical":"0","noncritical":"0"},"followup":"2","inspector_number":"63"}]}

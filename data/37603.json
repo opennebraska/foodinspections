@@ -1,0 +1,1 @@
+{"firm_id":"37603","name":"Park Ave Bar","parent":"MCMC Inc.","location":{"address":"3011 St Marys Ave\nOmaha, NE","lat":"41.25325","lng":" -95.95720"},"total_critical":1,"total_noncritical":3,"inspection_count":1,"inspections":[{"date":"20110531","facod":"12","inspection_type":"1","violations":{"critical":"1","noncritical":"3"},"followup":"2","inspector_number":"84"}]}

@@ -1,0 +1,1 @@
+{"firm_id":"46562","name":"Qilin","parent":"Qilin LLC","location":{"address":"8341 O St\nLincoln, NE","lat":"40.81344","lng":" -96.60712"},"total_critical":5,"total_noncritical":6,"inspection_count":1,"inspections":[{"date":"20130425","facod":"1","inspection_type":"1","violations":{"critical":"5","noncritical":"6"},"followup":"2","inspector_number":"60"}]}

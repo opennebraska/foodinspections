@@ -1,0 +1,1 @@
+{"firm_id":"47015","name":"Subway","parent":"Downtown Food Mart","location":{"address":"104 N Main St\nLouisville, NE","lat":"41.00382","lng":" -96.16207"},"total_critical":2,"total_noncritical":4,"inspection_count":1,"inspections":[{"date":"20130410","facod":"1","inspection_type":"1","violations":{"critical":"2","noncritical":"4"},"followup":"2","inspector_number":"11"}]}

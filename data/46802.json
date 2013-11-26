@@ -1,0 +1,1 @@
+{"firm_id":"46802","name":"Baxter's","parent":"Stephens Marr LLC","location":{"address":"6113 Maple St\nOmaha, NE","lat":"41.28500","lng":" -96.00777"},"total_critical":4,"total_noncritical":5,"inspection_count":1,"inspections":[{"date":"20130206","facod":"1","inspection_type":"1","violations":{"critical":"4","noncritical":"5"},"followup":"2","inspector_number":"82"}]}

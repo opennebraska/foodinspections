@@ -1,0 +1,1 @@
+{"firm_id":"40276","name":"Select Mart","parent":"RTA Inc.","location":{"address":"2604 S 13th St\nOmaha, NE","lat":"41.23462","lng":" -95.93333"},"total_critical":1,"total_noncritical":3,"inspection_count":1,"inspections":[{"date":"20100224","facod":"11","inspection_type":"1","violations":{"critical":"1","noncritical":"3"},"followup":"2","inspector_number":"87"}]}

@@ -1,0 +1,1 @@
+{"firm_id":"46844","name":"Hastings Hotel","parent":"BUI Inc.","location":{"address":"2205 Osborne Dr. East\nHastings, NE","lat":"40.60796","lng":" -98.38287"},"total_critical":1,"total_noncritical":6,"inspection_count":1,"inspections":[{"date":"20130130","facod":"1","inspection_type":"1","violations":{"critical":"1","noncritical":"6"},"followup":"2","inspector_number":"7"}]}

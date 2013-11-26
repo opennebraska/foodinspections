@@ -1,0 +1,1 @@
+{"firm_id":"44251","name":"Naper Grocery","parent":"Bill's Market Inc.","location":{"address":"123 Main St\nNaper, NE","lat":"42.96334","lng":" -99.09685"},"total_critical":1,"total_noncritical":11,"inspection_count":1,"inspections":[{"date":"20110228","facod":"3","inspection_type":"1","violations":{"critical":"1","noncritical":"11"},"followup":"2","inspector_number":"3"}]}

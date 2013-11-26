@@ -1,0 +1,1 @@
+{"firm_id":"41353","name":"Pelican's Grocery","parent":"","location":{"address":"201 Main St\nJohnson, NE","lat":"40.41074","lng":" -95.99795"},"total_critical":5,"total_noncritical":3,"inspection_count":1,"inspections":[{"date":"20100422","facod":"3","inspection_type":"1","violations":{"critical":"5","noncritical":"3"},"followup":"2","inspector_number":"14"}]}

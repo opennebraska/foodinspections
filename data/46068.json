@@ -1,0 +1,1 @@
+{"firm_id":"46068","name":"Tobacco Hut #10","parent":"Bails Inc","location":{"address":"4865 Center St\nOmaha, NE","lat":"41.24155","lng":" -95.98744"},"total_critical":1,"total_noncritical":4,"inspection_count":1,"inspections":[{"date":"20120629","facod":"11","inspection_type":"1","violations":{"critical":"1","noncritical":"4"},"followup":"2","inspector_number":"86"}]}
