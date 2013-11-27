@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     kgio (2.7.4)
+    multi_json (1.3.7)
     pg (0.17.0)
     rack (1.4.1)
     rack-protection (1.2.0)
@@ -12,6 +13,9 @@ GEM
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
+    sinatra-jsonp (0.4.2)
+      multi_json (~> 1.3.7)
+      sinatra (~> 1.0)
     tilt (1.3.3)
     unicorn (4.2.1)
       kgio (~> 2.6)
@@ -25,4 +29,5 @@ DEPENDENCIES
   pg
   sass
   sinatra
+  sinatra-jsonp
   unicorn
