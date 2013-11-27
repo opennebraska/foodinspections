@@ -13,7 +13,7 @@ $(document).ready(function() {
 			var location = data.rows[i];
 			var critical = 0, noncritical = 0;
 			var plotmark = new L.marker([location.lat, location.lng]).addTo(map)
-				.bindPopup("<span class='name'>" + location.name + "</span><br>Critical Issues: " + critical + "<br>Non-Critical Issues: " + noncritical);
+				.bindPopup("<span class='name'>" + '#NAME UNAVAILABLE#' /*location.name*/ + "</span><br>Critical Issues: " + critical + "<br>Non-Critical Issues: " + noncritical);
 			plotlayers.push(plotmark);
 		}
 		
