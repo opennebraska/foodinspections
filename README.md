@@ -1,9 +1,9 @@
 Nebraska Food Inspections
 =========================
 
-This repository contains code created at HO3 ([Hack Omaha III: Hack with a Vengeance](http://www.meetup.com/Open-Nebraska-Meetup/events/149197282/)). It's a huge work in progress right now.
+This repository contains code created at HO3 ([Hack Omaha III: Hack with a Vengeance](http://www.meetup.com/Open-Nebraska-Meetup/events/149197282/)).
 
-We ([Ross](http://twitter.com/rossnelson) and [Dustin](http://twitter.com/tacktaco)) will be working in the near future on getting our first real version of it done. We have plans beyond that, such as removing a dependency on a third party database and adding reviews from various social sites, but for now we simply want to get a working version that's much slower than [our prototype](http://foodinspections.opennebraska.io) up and running.
+We have plans beyond what works now, such as removing a dependency on a third party database and adding reviews from various social sites. Work in progress. Feel free to check out [our prototype](http://foodinspections.opennebraska.io).
 
 If you want to start hacking on it, our current setup is roughly as follows:
 
@@ -20,3 +20,5 @@ If you want to start hacking on it, our current setup is roughly as follows:
 A unicorn configuration file (`config/unicorn.rb`) is included and tailored to our production environment.
 
 Good luck!
+
+-[Ross](http://twitter.com/rossnelson) and [Dustin](http://twitter.com/tacktaco)
