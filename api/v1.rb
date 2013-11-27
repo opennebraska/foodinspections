@@ -15,7 +15,7 @@ get '/api/v1/firms/in/:lat/:lng/:radius' do
 end
 
 get '/api/v1/firms/by/name/:name' do
-  firms ||= Firm.all(:name.ilike => '%' + params[:name] + '%') || halt(404)
+  firms ||= Firm.byname('%' + params[:name] + '%') || halt(404)
   format_response(firms, request.accept)
 end
 
@@ -34,6 +34,6 @@ get '/api/v1/inspections/for/:id' do
 end
 
 get '/api/v1/parent/by/name/:name' do
-  firms ||= Firm.all(:parent_name.like => '%' + params[:name] + '%') || halt(404)
+  firms ||= Firm.byparent('%' + params[:name] + '%') || halt(404)
   format_response(firms, request.accept)
 end

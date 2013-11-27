@@ -27,16 +27,35 @@ class Firm
 		'ids' => ret
 	}
     return new_obj.to_json
-
-#     ret = []
-#     carto_result[:rows].each do |o|
-#       ret.push(Firm.get(o[:firm_id]))
-#     end
-# 
-# 	new_obj = {
-# 		'total_rows' => ret.count,
-# 		'rows' => ret
-# 	}
-#     return new_obj.to_json
+  end
+  
+  def self.byname(name)
+    ret = []
+    
+    all_data = Firm.all(:name.like => name)
+    all_data.each do |firm|
+      ret.push(firm['firm_id'])
+    end
+    
+    new_obj = {
+	    'count' => ret.count,
+	    'ids' => ret
+    }
+    return new_obj.to_json
+  end
+  
+  def self.byparent(parent_name)
+    ret = []
+    
+    all_data = Firm.all(:parent_name.like => parent_name)
+    all_data.each do |firm|
+      ret.push(firm['firm_id'])
+    end
+    
+    new_obj = {
+	    'count' => ret.count,
+	    'ids' => ret
+    }
+    return new_obj.to_json
   end
 end
