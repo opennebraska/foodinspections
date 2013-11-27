@@ -1,8 +1,21 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (3.2.12)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
     addressable (2.3.5)
     bcrypt-ruby (3.1.2)
+    cartodb-rb-client (0.4.3)
+      activesupport (>= 3.0.0)
+      i18n (>= 0.5.0, <= 0.6.0)
+      json (>= 1.5.3)
+      mime-types (>= 1.16)
+      oauth (= 0.4.5)
+      pg (>= 0.11.0, <= 0.13.2)
+      rgeo (>= 0.3.2)
+      rgeo-geojson (>= 0.2.1)
+      typhoeus (= 0.3.3)
     data_mapper (1.2.0)
       dm-aggregates (~> 1.2.0)
       dm-constraints (~> 1.2.0)
@@ -52,15 +65,21 @@ GEM
     do_postgres (0.10.13)
       data_objects (= 0.10.13)
     fastercsv (1.5.5)
+    i18n (0.6.0)
     json (1.8.1)
     json_pure (1.8.1)
     kgio (2.7.4)
+    mime-types (2.0)
     multi_json (1.3.7)
-    pg (0.17.0)
+    oauth (0.4.5)
+    pg (0.13.2)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
     raindrops (0.8.0)
+    rgeo (0.3.20)
+    rgeo-geojson (0.2.3)
+      rgeo (>= 0.3.7)
     sass (3.1.15)
     sinatra (1.3.2)
       rack (~> 1.3, >= 1.3.6)
@@ -71,6 +90,8 @@ GEM
       sinatra (~> 1.0)
     stringex (1.5.1)
     tilt (1.3.3)
+    typhoeus (0.3.3)
+      mime-types
     unicorn (4.2.1)
       kgio (~> 2.6)
       rack
@@ -81,9 +102,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cartodb-rb-client
   data_mapper
   dm-postgres-adapter
-  pg
   sass
   sinatra
   sinatra-jsonp

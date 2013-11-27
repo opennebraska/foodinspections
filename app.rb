@@ -24,6 +24,8 @@ configure :production do
   )
 end
 
+CartoDB::Init.start YAML.load_file('config/cartodb.yml')
+
 # get '/css/*.css' do
 # 	content_type 'text/css', :charset => 'utf-8'
 # 	scss params[:splat].join.to_sym, :style => :compressed

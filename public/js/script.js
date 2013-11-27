@@ -8,14 +8,10 @@ $(document).ready(function() {
 	var map = L.map('map');
 	var plotlayers=[];
 	
-	function drawMarkers(data) {
-		for (var i = 0; i < data.total_rows; i++) {
-			var location = data.rows[i];
-			var critical = 0, noncritical = 0;
-			var plotmark = new L.marker([location.lat, location.lng]).addTo(map)
-				.bindPopup("<span class='name'>" + '#NAME UNAVAILABLE#' /*location.name*/ + "</span><br>Critical Issues: " + critical + "<br>Non-Critical Issues: " + noncritical);
-			plotlayers.push(plotmark);
-		}
+	function drawMarker(data) {
+		var plotmark = new L.marker([data.lat, data.lng]).addTo(map)
+			.bindPopup("<span class='name'>" + data.name + "</span><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical);
+		plotlayers.push(plotmark);
 		
 		map.on('popupopen', function() {
 			var firm_id = L.marker[this.options.alt];
@@ -25,12 +21,12 @@ $(document).ready(function() {
 	function drawMap(lat, lng, zoomLevel) {
 	    map.setView([lat,lng], zoomLevel);
 	    
-	    var db = new InspectionsDatabase();
+	    var db = new Inspections();
 	    var layers = new Array();
 	    var result = getEndPoints();
 	    var marker;
 	    
-		db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarkers);
+		db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
 		
 		// add an OpenStreetMap tile layer
 		L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
@@ -44,7 +40,7 @@ $(document).ready(function() {
 			$('#loadingdiv').show();
 			var result = getEndPoints();
 			
-			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarkers);
+			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
 			$('#loadingdiv').hide();
 		});
 	
@@ -120,9 +116,10 @@ $(document).ready(function() {
 	
 	function searchNames() {
 		removeMarkers();
-		var g = new Geo();
+		var db = new Inspections();
 		var search = $('#search').val();
-		g.getPropertiesLikeName(search, drawMarkers);
+		
+		db.getPropertiesLikeName(search, drawMarker);
 	}
 	
 	$('#loadingdiv').slideUp().hide();
