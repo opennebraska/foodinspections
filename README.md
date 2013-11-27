@@ -7,11 +7,13 @@ We ([Ross](http://twitter.com/rossnelson) and [Dustin](http://twitter.com/tackta
 
 If you want to start hacking on it, our current setup is roughly as follows:
 
+0. Install Ruby 1.9+ and the following gems: unicorn, sinatra, sass, pg
 1. Create a CartoDB account
 2. Install [PostgreSQL](http://www.postgresql.org) and create necessary tables; example commands (including currently unused [PostGIS](http://postgis.net) stuff) is in `setup/process.rb`
 3. Modify `setup/process.rb` to point to your PostgreSQL install
 4. Run `setup/process.rb` to generate the CartoDB CSV, which contains (firm ID, latitude, longitude), and to populate the database
 5. Create a table on each CartoDB instance, one for each generated CSV. In the first, set `the_geometry` to use the imported latitude and longitude
 6. Modify `js/geo.js` to use your own API keys (yes, those are real ones; we'll be generating new ones and not sharing them shortly)
+7. Run `ruby app.rb` and view the site at [http://localhost:4567](http://localhost:4567)
 
 Good luck!
