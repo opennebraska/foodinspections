@@ -17,7 +17,7 @@ working_directory APP_PATH
 
 # Set what we're listening on
 listen APP_PATH + "/.unicorn.sock", :backlog => 64
-listen 8080, :tcp_nopush => true
+#listen 8080, :tcp_nopush => true
 
 # PIDs are nice
 pid APP_PATH + "/unicorn.pid"
