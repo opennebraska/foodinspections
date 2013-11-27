@@ -20,7 +20,7 @@ end
 configure :production do
   DataMapper.setup(
   	:default,
-  	'postgres://ho3:"Cwth8AR+E8J84WYKQo"@10.0.0.3/inspections'
+  	'postgres://ho3:"Cwth8AR+E8J84WYKQo"@15.126.244.50/inspections'
   )
 end
 
