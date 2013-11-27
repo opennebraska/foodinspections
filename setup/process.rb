@@ -187,7 +187,7 @@ firm_ids.each do |firm_id|
           'critical' => row[7].to_i,
           'noncritical' => row[8].to_i
         },
-        'followup' => row[9].to_i == 2 ? true : false,
+        'followup' => row[9].to_i == 2 ? false : true,
         'inspector_number' => row[10]
       }
       firm_obj['total_critical'] += row[7].to_i
