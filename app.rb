@@ -3,7 +3,26 @@ require 'net/http'
 require 'sinatra'
 require 'sinatra/jsonp'
 require 'sass'
+require 'json'
+require 'data_mapper'
+require './helpers/init'
+require './models/init'
+require './api/init'
 Bundler.require
+
+configure :development do
+  DataMapper::Logger.new($stdout, :debug)
+  DataMapper.setup(
+  	:default,
+  	'postgres://ho3:"Cwth8AR+E8J84WYKQo"@15.126.244.50/inspections'
+  )
+end
+configure :production do
+  DataMapper.setup(
+  	:default,
+  	'postgres://ho3:"Cwth8AR+E8J84WYKQo"@10.0.0.3/inspections'
+  )
+end
 
 # get '/css/*.css' do
 # 	content_type 'text/css', :charset => 'utf-8'
