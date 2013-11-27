@@ -1,7 +1,6 @@
-INSTALL.txt
-LICENSE.txt
-README.txt
-demos/
-extras/documentation
+.DS_Store
+Thumbs.db
+*~
+*.swp
 setup/cartodb_import.csv
 setup/json.log
