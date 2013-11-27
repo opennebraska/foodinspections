@@ -1,1 +1,0 @@
-{"firm_id":"5","name":"Happy Bar","parent":"","location":{"address":"601 N 16th\nOmaha, NE","lat":"41.26503","lng":" -95.93713"},"total_critical":0,"total_noncritical":3,"inspection_count":1,"inspections":[{"date":"20100505","facod":"12","inspection_type":"1","violations":{"critical":"0","noncritical":"3"},"followup":"2","inspector_number":"83"}]}

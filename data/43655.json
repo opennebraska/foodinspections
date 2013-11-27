@@ -1,1 +1,0 @@
-{"firm_id":"43655","name":"Sysco Lincoln","parent":"Sysco Corporation","location":{"address":"900 Kingbird Ln\nLincoln, NE","lat":"40.85243","lng":" -96.73455"},"total_critical":1,"total_noncritical":1,"inspection_count":1,"inspections":[{"date":"20121030","facod":"7","inspection_type":"1","violations":{"critical":"1","noncritical":"1"},"followup":"2","inspector_number":"62"}]}

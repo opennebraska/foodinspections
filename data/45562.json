@@ -1,1 +1,0 @@
-{"firm_id":"45562","name":"Bartley Cafe","parent":"Klotz Cafe LLC","location":{"address":"314 Commercial St\nBartley, NE","lat":"40.25112","lng":" -100.30601"},"total_critical":1,"total_noncritical":3,"inspection_count":1,"inspections":[{"date":"20120130","facod":"1","inspection_type":"1","violations":{"critical":"1","noncritical":"3"},"followup":"2","inspector_number":"12"}]}
