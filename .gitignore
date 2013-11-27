@@ -6,3 +6,4 @@ setup/cartodb_import.csv
 setup/json.log
 .sass-cache
 config/cartodb.yml
+logs/*
