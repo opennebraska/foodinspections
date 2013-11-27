@@ -20,5 +20,4 @@ If you want to start hacking on it, our current setup is roughly as follows:
 A unicorn configuration file (`config/unicorn.rb`) is included and tailored to our production environment.
 
 Good luck!
-
 -[Ross](http://twitter.com/rossnelson) and [Dustin](http://twitter.com/tacktaco)
