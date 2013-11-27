@@ -7,11 +7,11 @@ We ([Ross](http://twitter.com/rossnelson) and [Dustin](http://twitter.com/tackta
 
 If you want to start hacking on it, our current setup is roughly as follows:
 
-1. Create two CartoDB accounts
-2. Use `setup/gencarto1.rb` to generate the first CSV, which contains (firm ID, name, parent name, latitude, longitude, PostGIS POINT field)
-3. Use `setup/gencarto2.rb` to generate the second CSV, which contains the violation data
-4. Create a table on each CartoDB instance, one for each generated CSV. In the first, set `the_geometry` to use the imported latitude and longitude
-5. Modify `js/geo.js` to use your own API keys (yes, those are real ones; we'll be generating new ones and not sharing them shortly)
-6. Hope it works
+1. Create a CartoDB account
+2. Install [PostgreSQL](http://www.postgresql.org) and create necessary tables; example commands (including currently unused [PostGIS](http://postgis.net) stuff) is in `setup/process.rb`
+3. Modify `setup/process.rb` to point to your PostgreSQL install
+4. Run `setup/process.rb` to generate the CartoDB CSV, which contains (firm ID, latitude, longitude), and to populate the database
+5. Create a table on each CartoDB instance, one for each generated CSV. In the first, set `the_geometry` to use the imported latitude and longitude
+6. Modify `js/geo.js` to use your own API keys (yes, those are real ones; we'll be generating new ones and not sharing them shortly)
 
-Good luck.
+Good luck!
