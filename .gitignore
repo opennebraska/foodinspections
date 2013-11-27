@@ -4,3 +4,4 @@ Thumbs.db
 *.swp
 setup/cartodb_import.csv
 setup/json.log
+.sass-cache
