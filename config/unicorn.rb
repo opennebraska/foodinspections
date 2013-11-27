@@ -7,7 +7,6 @@ timeout 30            # restarts workers that hang for 30 seconds
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
-check_client_connection false
 
 # Run unpriviliged
 user "www-data", "www-data"
