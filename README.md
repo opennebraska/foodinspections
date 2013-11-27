@@ -7,7 +7,7 @@ We ([Ross](http://twitter.com/rossnelson) and [Dustin](http://twitter.com/tackta
 
 If you want to start hacking on it, our current setup is roughly as follows:
 
-0. Install Ruby 1.9+, grab the source, and from our root run `bundle install`
+0. Install Ruby 1.9+, `gem install bundler`, grab the source, and from our root run `bundle install`
 1. Create a CartoDB account
 2. Install [PostgreSQL](http://www.postgresql.org) and create necessary tables; example commands (including currently unused [PostGIS](http://postgis.net) stuff) is in `setup/process.rb`
 3. Modify `setup/process.rb` to point to your PostgreSQL install
