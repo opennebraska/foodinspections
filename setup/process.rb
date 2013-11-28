@@ -1,14 +1,19 @@
 #!/usr/bin/env ruby
 require 'csv'
 require 'pg'
+require 'yaml'
 
-INPUTFILE = 'State_restaurant_inspections.csv'
-OUTPUTFILE = 'cartodb_import.csv'
+# Read the config file
+config = YAML.load_file('../config/config.yml')
+
+# Set our constants
+INPUTFILE = config['process']['input_file']
+OUTPUTFILE = config['process']['output_file']
 DATABASE = {
-  'host' => '15.126.244.50',
-  'user' => 'ho3',
-  'pass' => 'Cwth8AR+E8J84WYKQo',
-  'name' => 'inspections'
+  'host' => config['process']['db_host'],
+  'user' => config['process']['db_user'],
+  'pass' => config['process']['db_pass'],
+  'name' => config['process']['db_name']
 }
 
 
