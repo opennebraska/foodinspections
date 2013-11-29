@@ -9,3 +9,40 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 .search-box { float: right; position: relative; right: 20px; }
 .search-box input[type="text"] { width: 300px; height: 29px; -webkit-appearance: none; border-radius: 5px; font-size: 18px; font-style: italic; margin-top: 5px;}
 .search-box input[type="submit"] { -webkit-appearance: none; font-size: 14px; color: #fff; width: 60px; height: 35px; position: relative; top: -3px; background: #27AB2C; border: 0; border-radius: 5px; }
+
+
+/* work with this shit */
+#panel-container {
+  position:absolute;
+  bottom:0;
+  width: 100%;
+  padding-bottom:2%;
+  z-index: 100;
+}
+#panel-open {
+  background: url("images/open.png") no-repeat scroll 68px 10px #414142;
+  color: #ececec;
+  cursor: pointer;
+  float: left;
+  font-size: 26px;
+  margin: -2px 0 0 10%;
+  padding: 0 15px 2px;
+  text-decoration: none;
+  width: 63px;
+}
+#panel-info {
+  background:#414142;
+  width:100%;
+  color: #CCCCCC;
+  text-align:center;
+  font-size: 46px;
+  margin: 0;
+  padding: 30px 0;
+  text-decoration: none;
+}
+#panel-container .panel-close {
+  background-image: url(images/close.png);
+}
+#panel-container #panel-info {
+  display: none;
+}
