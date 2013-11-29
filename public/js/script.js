@@ -4,18 +4,38 @@ $(document).ready(function() {
 	var DEFAULTZOOM = 15;
 	var NOGEOLOCATION_DEFAULTZOOM = 18;
 	
-	$('#loadingdiv').show();
+	//$('#loadingdiv').show();
 	var map = L.map('map');
 	var plotlayers=[];
-	
+	map.spin(true);
+	$('.leaflet-popup-pane').insertBefore('.leaflet-map-pane');
 	function drawMarker(data) {
-		var plotmark = new L.marker([data.lat, data.lng]).addTo(map)
-			.bindPopup("<span class='name'>" + data.name + "</span><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical);
+		// L.CustomPopup = L.Popup.extend({
+	 //  		options: {
+	 //                minWidth: 100,
+	 //                maxWidth: 10000,
+	 //                maxHeight: 50,
+	 //                autoPan: false,
+	 //                closeButton: true,
+	 //                offset: new L.Point(0, 6),
+	 //                autoPanPadding: new L.Point(5, 5),
+	 //                className: 'popup-info',
+	 //                zoomAnimation: false
+	 //        },
+		// });
+		var popupText = "<span class='name'>" + data.name + "</span><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical;
+		var plotmark = new L.marker([data.lat, data.lng]).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
 		plotlayers.push(plotmark);
+		map.spin(false);
 		
-		map.on('popupopen', function() {
-			var firm_id = L.marker[this.options.alt];
-		});
+		// map.on('click', function(event) {
+		// 	//if($(event.target).is('.leaflet-marker-icon')) {
+		// 	$('#panel-container #panel-info').slideToggle({
+		//       direction: "up"
+		//       }, 300);
+		//     $(this).toggleClass('panelclose');
+		// //}
+		// });
 	}
 	
 	function drawMap(lat, lng, zoomLevel) {
@@ -25,6 +45,7 @@ $(document).ready(function() {
 	    var layers = new Array();
 	    var result = getEndPoints();
 	    var marker;
+	    
 	    
 		db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
 		
@@ -37,11 +58,9 @@ $(document).ready(function() {
 		map.on('moveend', function() {
 			removeMarkers();
 			
-			$('#loadingdiv').show();
 			var result = getEndPoints();
-			
+			map.spin(true);
 			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
-			$('#loadingdiv').hide();
 		});
 	
 	}
@@ -121,6 +140,5 @@ $(document).ready(function() {
 		
 		db.getPropertiesLikeName(search, drawMarker);
 	}
-	
-	$('#loadingdiv').slideUp().hide();
+
 });
