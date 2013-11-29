@@ -12,7 +12,6 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 
 
 /* work with this shit */
-<<<<<<< HEAD
 .popup-info {  
   position: fixed !important;
   bottom: 0px !important;
@@ -92,39 +91,3 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 	    #8A0000 80%,
 	    #8A0000 100%
 	  );
-=======
-#panel-container {
-  position:absolute;
-  bottom:0;
-  width: 100%;
-  padding-bottom:2%;
-  z-index: 100;
-}
-#panel-open {
-  background: url("images/open.png") no-repeat scroll 68px 10px #414142;
-  color: #ececec;
-  cursor: pointer;
-  float: left;
-  font-size: 26px;
-  margin: -2px 0 0 10%;
-  padding: 0 15px 2px;
-  text-decoration: none;
-  width: 63px;
-}
-#panel-info {
-  background:#414142;
-  width:100%;
-  color: #CCCCCC;
-  text-align:center;
-  font-size: 46px;
-  margin: 0;
-  padding: 30px 0;
-  text-decoration: none;
-}
-#panel-container .panel-close {
-  background-image: url(images/close.png);
-}
-#panel-container #panel-info {
-  display: none;
-}
->>>>>>> 58898bb5b5a9890188c0a610f54f184a11b9e276
