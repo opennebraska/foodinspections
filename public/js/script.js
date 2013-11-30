@@ -16,7 +16,7 @@ $(document).ready(function() {
   	var matchFirm = queryString.match(/firm=(\d+)/);
   	if (matchFirm.length > 0) {
     	var db = new Inspections();
-    	db.getPropertiesById(matchFirm[1], drawMap);
+    	db.getPropertyById(matchFirm[1], drawMapWithPoints);
   	}
 	}
 	else {
@@ -24,26 +24,7 @@ $(document).ready(function() {
     	navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
   	}
 	}
-
-/*
-	if(window.location.pathname.length > 0) {
-		if(pathArray[0] == "api" && pathArray[1] == "v1" && pathArray[2] == "firms" && pathArray[3] == "in") {
-			DEFAULTLAT = pathArray[4];
-			DEFAULTLNG = pathArray[5];
-			DEFAULTZOOM = 18;
-			drawMap(DEFAULTLAT, DEFAULTLNG, NOGEOLOCATION_DEFAULTZOOM);
-		} else if (pathArray[0] == "api" && pathArray[1] == "v1" && pathArray[2] == "firms" && pathArray[3] == "id") {
-			var db = new Inspections();
-			db.getPropertiesById(pathArray[4], drawMap);
-		} else { 
-			if (navigator.geolocation) {
-	   			navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-		 }
-		}
-	}
-*/
 	
-	//$('#loadingdiv').show();
 	var map = L.map('map');
 	var plotlayers=[];
 	map.spin(true);
@@ -51,7 +32,7 @@ $(document).ready(function() {
 	function drawMarker(data) {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
 		var popupRating = "<div class='rating'>Rating (based upon ratio of critical to non-critical)" + ratioToCritical + "</div><div style='clear:both;'></div>";
-		var popupLinkTo = "<div class='linkTo'><a href='http://foodinspections.opennebraska.io/api/v1/firms/" + data.firm_id + "'>Share This Result</a></div>";
+		var popupLinkTo = "<div class='linkTo'><a href='http://foodinspections.opennebraska.io/?firm=" + data.firm_id + "'>Share This Result</a></div>";
 		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>"
 		var popupText = popupInfo + popupRating + popupLinkTo;
 		var plotmark = new L.marker([data.lat, data.lng]).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
@@ -59,7 +40,42 @@ $(document).ready(function() {
 		map.spin(false);
 	}
 	
+	function drawMapWithPoints(points, lat, lng, zoomLevel) {
+	    zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
+	    
+	    map.setView([lat,lng], zoomLevel);
+	    
+	    var db = new Inspections();
+	    var layers = new Array();
+	    var result = getEndPoints();
+	    var marker;
+	    
+	  
+	  for (var i = 0; i < points.length; i++) {
+  	  drawMarker(points[i]);
+	  }
+		
+		// add an OpenStreetMap tile layer
+		L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+	      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+	      subdomains: '1234'
+	    }).addTo(map);
+		
+/*
+    // What do we want to do here?
+		map.on('moveend', function() {
+			removeMarkers();
+			
+			var result = getEndPoints();
+			map.spin(true);
+			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
+		});
+*/
+	}
+	
 	function drawMap(lat, lng, zoomLevel) {
+	    zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
+	    
 	    map.setView([lat,lng], zoomLevel);
 	    
 	    var db = new Inspections();
