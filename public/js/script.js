@@ -5,10 +5,27 @@ $(document).ready(function() {
 	var NOGEOLOCATION_DEFAULTZOOM = 18;
 	var path = window.location.href;
 	var cleanPath = path.substr(path.indexOf("=") + 1);
-	console.log(cleanPath);
 	var pathArray = cleanPath.split( '/' );
-	console.log(pathArray);
+	
+	// Did we get an argument that we need to deal with?
+	var queryLocation = path.indexOf("?") + 1;
+	if (queryLocation > 0) {
+  	var queryString = path.substr(queryLocation);
+  	
+  	// Check to see if they passed in a firm ID
+  	var matchFirm = queryString.match(/firm=(\d+)/);
+  	if (matchFirm.length > 0) {
+    	var db = new Inspections();
+    	db.getPropertiesById(matchFirm[1], drawMap);
+  	}
+	}
+	else {
+  	if (navigator.geolocation) {
+    	navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+  	}
+	}
 
+/*
 	if(window.location.pathname.length > 0) {
 		if(pathArray[0] == "api" && pathArray[1] == "v1" && pathArray[2] == "firms" && pathArray[3] == "in") {
 			DEFAULTLAT = pathArray[4];
@@ -19,11 +36,12 @@ $(document).ready(function() {
 			var db = new Inspections();
 			db.getPropertiesById(pathArray[4], drawMap);
 		} else { 
-			// if (navigator.geolocation) {
-	  //  			navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-			// }
+			if (navigator.geolocation) {
+	   			navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+		 }
 		}
 	}
+*/
 	
 	//$('#loadingdiv').show();
 	var map = L.map('map');
