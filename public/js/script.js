@@ -3,6 +3,27 @@ $(document).ready(function() {
 	var DEFAULTLNG = -95.931284;
 	var DEFAULTZOOM = 15;
 	var NOGEOLOCATION_DEFAULTZOOM = 18;
+	var path = window.location.href;
+	var cleanPath = path.substr(path.indexOf("=") + 1);
+	console.log(cleanPath);
+	var pathArray = cleanPath.split( '/' );
+	console.log(pathArray);
+
+	if(window.location.pathname.length > 0) {
+		if(pathArray[0] == "api" && pathArray[1] == "v1" && pathArray[2] == "firms" && pathArray[3] == "in") {
+			DEFAULTLAT = pathArray[4];
+			DEFAULTLNG = pathArray[5];
+			DEFAULTZOOM = 18;
+			drawMap(DEFAULTLAT, DEFAULTLNG, NOGEOLOCATION_DEFAULTZOOM);
+		} else if (pathArray[0] == "api" && pathArray[1] == "v1" && pathArray[2] == "firms" && pathArray[3] == "id") {
+			var db = new Inspections();
+			db.getPropertiesById(pathArray[4], drawMap);
+		} else { 
+			// if (navigator.geolocation) {
+	  //  			navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+			// }
+		}
+	}
 	
 	//$('#loadingdiv').show();
 	var map = L.map('map');
@@ -10,32 +31,14 @@ $(document).ready(function() {
 	map.spin(true);
 	$('.leaflet-popup-pane').insertBefore('.leaflet-map-pane');
 	function drawMarker(data) {
-		// L.CustomPopup = L.Popup.extend({
-	 //  		options: {
-	 //                minWidth: 100,
-	 //                maxWidth: 10000,
-	 //                maxHeight: 50,
-	 //                autoPan: false,
-	 //                closeButton: true,
-	 //                offset: new L.Point(0, 6),
-	 //                autoPanPadding: new L.Point(5, 5),
-	 //                className: 'popup-info',
-	 //                zoomAnimation: false
-	 //        },
-		// });
-		var popupText = "<span class='name'>" + data.name + "</span><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical;
+		var ratioToCritical = (data.total_critical / data.total_noncritical);
+		var popupRating = "<div class='rating'>Rating (based upon ratio of critical to non-critical)" + ratioToCritical + "</div><div style='clear:both;'></div>";
+		var popupLinkTo = "<div class='linkTo'><a href='http://foodinspections.opennebraska.io/api/v1/firms/" + data.firm_id + "'>Share This Result</a></div>";
+		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>"
+		var popupText = popupInfo + popupRating + popupLinkTo;
 		var plotmark = new L.marker([data.lat, data.lng]).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
 		plotlayers.push(plotmark);
 		map.spin(false);
-		
-		// map.on('click', function(event) {
-		// 	//if($(event.target).is('.leaflet-marker-icon')) {
-		// 	$('#panel-container #panel-info').slideToggle({
-		//       direction: "up"
-		//       }, 300);
-		//     $(this).toggleClass('panelclose');
-		// //}
-		// });
 	}
 	
 	function drawMap(lat, lng, zoomLevel) {
@@ -63,10 +66,6 @@ $(document).ready(function() {
 			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
 		});
 	
-	}
-	
-	if (navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
 	}
 	
 	function successFunction(position) {
@@ -140,5 +139,7 @@ $(document).ready(function() {
 		
 		db.getPropertiesLikeName(search, drawMarker);
 	}
+
+
 
 });

@@ -18,13 +18,19 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
   width: 100%;
   left: 0px !important;
   height: 76px;
-  z-index: 1000000 !important;
-  -webkit-transform: scaleZ(25) !important;
 }
 
 .leaflet-map-pane {
 	width: 100%;
 	height: 100%; 
+}
+
+.popup-info .info, .popup-info .rating, .popup-info .linkTo {
+	float: left;
+}
+
+.popup-info .info { 
+	width: 25%; 
 }
 
 .leaflet-popup-content { 

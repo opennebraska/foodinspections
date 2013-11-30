@@ -10,6 +10,10 @@ function Inspections() {
 	this.getPropertiesLikeName = function(name, callback) {
 		this.asyncPropertyLookup('/api/v1/firms/by/name/' + name, callback)
 	}
+
+	this.getPropertiesById = function(firmId, callback) {
+		this.asyncPropertyLookup('/api/v1/firms/' + firmId, callback)
+	}
 	
 	
 	
