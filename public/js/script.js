@@ -10,32 +10,18 @@ $(document).ready(function() {
 	var plotlayers=[];
 	map.spin(true);
 	
-	// Did we get an argument that we need to deal with?
-	var queryLocation = path.indexOf("?") + 1;
-	if (queryLocation > 0) {
-	  	var queryString = path.substr(queryLocation);
-	  	
-	  	// Check to see if they passed in a firm ID
-	  	var matchFirm = queryString.match(/firm=(\d+)/);
-	  	var cLat = queryString.match(/lat=(\d+)/);
-	  	console.log(cLat);
-	  	var cLng = queryString.match(/lng=(\d+)/);
-	  	console.log(cLng);
-	  	cLat = -cLat;
-	  	var cRadius = queryString.match(/radius=(\d+)/);
-	  	console.log(cRadius);
-
-  		if (matchFirm.length > 0) {
-            var db = new Inspections();
-            db.getPropertyById(matchFirm[1], drawMapWithPoints);
-          } else if (cLat.length > 0 && cLng.length > 0 && cRadius.length > 0) {
-	  		drawMap(cLat[1], cLng[1], DEFAULTZOOM);
-	  	}
+	var urlBits = parseUrl();
+	if (undefined != urlBits['firm']) {
+		var db = new Inspections();
+		db.getPropertyById(urlBits['firm'], drawMapWithPoints);
+	}
+	else if (undefined != urlBits['view']) {
+		drawMap(urlBits['view']['lat'], urlBits['view']['lng'], DEFAULTZOOM);
 	}
 	else {
-	  	if (navigator.geolocation) {
-	    	navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-	  	}
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+		}
 	}
 	
 	$('.leaflet-popup-pane').insertBefore('.leaflet-map-pane');
@@ -190,7 +176,47 @@ $(document).ready(function() {
 		
 		db.getPropertiesLikeName(search, drawMarker);
 	}
-
-
-
+	
+	function parseUrl() {
+		var ret = {};
+		var haveQuery = false;
+		
+		// Grab the entire URL they visited
+		var url = window.location.href;
+		if (undefined != url) {
+			ret['url'] = url;
+		}
+		
+		// Check for a query string
+		var queryLocation = url.indexOf("?") + 1;
+		if (queryLocation > 0) {
+		  	var queryString = url.substr(queryLocation);
+		  	if (undefined != queryString) {
+			  	ret['query'] = queryString;
+			  	haveQuery = true;
+		  	}
+		}
+		
+		// If we have a query string, grab the individual parts
+		if (haveQuery) {
+			// Firm ID?
+		  	var matchFirm = queryString.match(/firm=(\d+)/);
+		  	if (null != matchFirm && matchFirm.length > 0) {
+			  	ret['firm'] = matchFirm[1];
+		  	}
+		  	
+		  	// Specific view?
+		  	var matchLat = queryString.match(/lat=(-?\d+.?\d+)/);
+		  	var matchLng = queryString.match(/lng=(-?\d+.?\d+)/);
+		  	var matchRadius = queryString.match(/radius=(\d+.?\d+)/);
+		  	if (null != matchLat && null != matchLng && null != matchRadius) {
+			  	ret['view'] = {};
+			  	ret['view']['lat'] = matchLat[1];
+			  	ret['view']['lng'] = matchLng[1];
+			  	ret['view']['radius'] = matchRadius[1];
+		  	}
+		}
+		
+		return ret;
+	}
 });
