@@ -3,13 +3,14 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 .heading { height: 45px; background-color: #000; color: #ccc; text-align: center;  }
 .map { position: relative; height: 94%; width: 100%; }
 #map { height: 100%; clear: both; }
-.name { font-weight: bold; }
+.name { font-weight: bold; font-size: 130%;}
 
 .heading-header { font-size: 23pt; text-align: left; position: relative; left: 10px; top: 4px; color: #fff; float: left; }
 .search-box { float: right; position: relative; right: 20px; }
 .search-box input[type="text"] { width: 300px; height: 29px; -webkit-appearance: none; border-radius: 5px; font-size: 18px; font-style: italic; margin-top: 5px;}
 .search-box input[type="submit"] { -webkit-appearance: none; font-size: 14px; color: #fff; width: 60px; height: 35px; position: relative; top: -3px; background: #27AB2C; border: 0; border-radius: 5px; }
-
+.share-link { float: left; color: #fff; text-decoration: none; }
+.share-link:visited { color: #fff; }
 
 /* work with this shit */
 .popup-info {  
@@ -35,6 +36,7 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 
 .leaflet-popup-content { 
 	margin-left: 50px !important;
+	margin: 10px 19px !important;
 }
 
 .leaflet-popup-pane {
@@ -62,12 +64,20 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 	  border-radius: 3px;
 	}
 	meter::-webkit-meter-bar {
-	  background: none; /* Required to get rid of the default background property */
-	  background-color: whiteSmoke;
+	  background: transparent; /* Required to get rid of the default background property */
 	  box-shadow: 0 5px 5px -5px #000 inset;
 	}
-	meter::-webkit-meter-optimum-value { -webkit-transition: width .5s; }
+
 	meter::-webkit-meter-optimum-value {
+		background: transparent;
+		border-right: 5px solid #fff;
+	}
+	div.mac {
+	  width: 500px;
+	  height: 25px;
+	  -webkit-appearance: none; /* Reset appearance */
+	  border: 0px solid #ccc;
+	  border-radius: 3px;
 	  box-shadow: 0 5px 5px -5px #000 inset;
 	  background-image: linear-gradient(
 	    90deg, 
@@ -83,17 +93,3 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 	  );
 	  background-size: 100% 100%;
 	}
-	meter::-webkit-meter-optimum-value:hover {
-	  /* Reset each sub-category to 20% */
-	  background-image: linear-gradient(
-	    90deg, 
-	    #8bcf69 20%, 
-	    #e6d450 20%,
-	    #e6d450 40%,
-	    #f28f68 40%,
-	    #f28f68 60%,
-	    #CF3C3C 60%,
-	    #CF3C3C 80%,
-	    #8A0000 80%,
-	    #8A0000 100%
-	  );

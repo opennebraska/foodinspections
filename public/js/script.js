@@ -6,33 +6,43 @@ $(document).ready(function() {
 	var path = window.location.href;
 	var cleanPath = path.substr(path.indexOf("=") + 1);
 	var pathArray = cleanPath.split( '/' );
+	var map = L.map('map');
+	var plotlayers=[];
+	map.spin(true);
 	
 	// Did we get an argument that we need to deal with?
 	var queryLocation = path.indexOf("?") + 1;
 	if (queryLocation > 0) {
-  	var queryString = path.substr(queryLocation);
-  	
-  	// Check to see if they passed in a firm ID
-  	var matchFirm = queryString.match(/firm=(\d+)/);
-  	if (matchFirm.length > 0) {
-    	var db = new Inspections();
-    	db.getPropertyById(matchFirm[1], drawMapWithPoints);
-  	}
+	  	var queryString = path.substr(queryLocation);
+	  	
+	  	// Check to see if they passed in a firm ID
+	  	var matchFirm = queryString.match(/firm=(\d+)/);
+	  	var cLat = queryString.match(/lat=(\d+)/);
+	  	console.log(cLat);
+	  	var cLng = queryString.match(/lng=(\d+)/);
+	  	console.log(cLng);
+	  	cLat = -cLat;
+	  	var cRadius = queryString.match(/radius=(\d+)/);
+	  	console.log(cRadius);
+
+  		if (matchFirm.length > 0) {
+            var db = new Inspections();
+            db.getPropertyById(matchFirm[1], drawMapWithPoints);
+          } else if (cLat.length > 0 && cLng.length > 0 && cRadius.length > 0) {
+	  		drawMap(cLat[1], cLng[1], DEFAULTZOOM);
+	  	}
 	}
 	else {
-  	if (navigator.geolocation) {
-    	navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-  	}
+	  	if (navigator.geolocation) {
+	    	navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+	  	}
 	}
 	
-	var map = L.map('map');
-	var plotlayers=[];
-	map.spin(true);
 	$('.leaflet-popup-pane').insertBefore('.leaflet-map-pane');
 	function drawMarker(data) {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
-		var popupRating = "<div class='rating'>Rating (based upon ratio of critical to non-critical)" + ratioToCritical + "</div><div style='clear:both;'></div>";
-		var popupLinkTo = "<div class='linkTo'><a href='http://foodinspections.opennebraska.io/?firm=" + data.firm_id + "'>Share This Result</a></div>";
+		var popupRating = "<div class='rating'><div class='mac'><meter value='" + ratioToCritical + "' min='0' max'1'></meter></div></div>";
+		var popupLinkTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Direct Link to This Result</a></div><div style='clear:both;'></div>";
 		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>"
 		var popupText = popupInfo + popupRating + popupLinkTo;
 		var plotmark = new L.marker([data.lat, data.lng]).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
@@ -42,7 +52,6 @@ $(document).ready(function() {
 	
 	function drawMapWithPoints(points, lat, lng, zoomLevel) {
 	    zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
-	    
 	    map.setView([lat,lng], zoomLevel);
 	    
 	    var db = new Inspections();
@@ -75,7 +84,7 @@ $(document).ready(function() {
 	
 	function drawMap(lat, lng, zoomLevel) {
 	    zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
-	    
+
 	    map.setView([lat,lng], zoomLevel);
 	    
 	    var db = new Inspections();
@@ -98,6 +107,7 @@ $(document).ready(function() {
 			var result = getEndPoints();
 			map.spin(true);
 			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
+			updateResultLink(result.centerLat, result.centerLng, result.radius);
 		});
 	
 	}
@@ -115,6 +125,13 @@ $(document).ready(function() {
 		}
 		
 		plotlayers = [];
+	}
+
+	function updateResultLink(cLat, cLng, cRadius) {
+		// this is a function to update the Share This View link
+		var shareLink = '?lat=' + cLat + '&lng=' + cLng + '&radius=' + cRadius;
+		console.log(shareLink);
+		$('.share-link').attr('href', shareLink);
 	}
 	
 	function getEndPoints() {
