@@ -9,8 +9,9 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
 .search-box { float: right; position: relative; right: 20px; }
 .search-box input[type="text"] { width: 300px; height: 29px; -webkit-appearance: none; border-radius: 5px; font-size: 18px; font-style: italic; margin-top: 5px;}
 .search-box input[type="submit"] { -webkit-appearance: none; font-size: 14px; color: #fff; width: 60px; height: 35px; position: relative; top: -3px; background: #27AB2C; border: 0; border-radius: 5px; }
-.share-link { float: left; color: #fff; text-decoration: none; }
+.share-link { position: relative; right: 7px; top: 15px;  float: right; color: #fff; text-decoration: none; }
 .share-link:visited { color: #fff; }
+.heading-header a, .heading-header a:visited { color: #fff; text-decoration: none; }
 
 /* work with this shit */
 .popup-info {  
@@ -18,7 +19,7 @@ html, body, .container { font-family: sans-serif; height: 100%; margin: 0;  }
   bottom: 0px !important;
   width: 100%;
   left: 0px !important;
-  height: 76px;
+  height: 89px;
 }
 
 .leaflet-map-pane {

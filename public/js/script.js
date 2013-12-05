@@ -18,6 +18,13 @@ $(document).ready(function() {
 	else if (undefined != urlBits['view']) {
 		drawMap(urlBits['view']['lat'], urlBits['view']['lng'], DEFAULTZOOM);
 	}
+	else if (undefined != urlBits['parent']) {
+		var db = new Inspections();
+		drawMapWithNoPoints(40.7912313,-96.6779901,5);
+		var result = db.getChildProperties(urlBits['parent'], function(result) {
+			drawMarker(result);
+		});
+	}
 	else {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
@@ -29,13 +36,22 @@ $(document).ready(function() {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
 		var popupRating = "<div class='rating'><div class='mac'><meter value='" + ratioToCritical + "' min='0' max'1'></meter></div></div>";
 		var popupLinkTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Direct Link to This Result</a></div><div style='clear:both;'></div>";
-		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>"
-		var popupText = popupInfo + popupRating + popupLinkTo;
-		var plotmark = new L.marker([data.lat, data.lng]).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
+		if (data.parent_name.length > 0) {
+			var popupParent = "<br><br><div class='parent'>Find all establishments owned by <a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div>";
+		} else {
+			var popupParent = "<div class='parent'>This establishment has no parent company information.</div>";
+		}
+		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>" + data.address + "<br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
+		var popupText = popupInfo + popupRating + popupParent + popupLinkTo;
+		var plotmark = L.marker([data.lat, data.lng]).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
 		plotlayers.push(plotmark);
+		if (plotlayers.length == 1) {
+			plotmark.openPopup();
+		}
 		map.spin(false);
+
 	}
-	
+
 	function drawMapWithPoints(points, lat, lng, zoomLevel) {
 	    zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
 	    map.setView([lat,lng], zoomLevel);
@@ -56,16 +72,6 @@ $(document).ready(function() {
 	      subdomains: '1234'
 	    }).addTo(map);
 		
-/*
-    // What do we want to do here?
-		map.on('moveend', function() {
-			removeMarkers();
-			
-			var result = getEndPoints();
-			map.spin(true);
-			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
-		});
-*/
 	}
 	
 	function drawMap(lat, lng, zoomLevel) {
@@ -96,6 +102,18 @@ $(document).ready(function() {
 			updateResultLink(result.centerLat, result.centerLng, result.radius);
 		});
 	
+	}
+
+	function drawMapWithNoPoints(lat, lng, zoomLevel) {
+		zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
+
+	    map.setView([lat,lng], zoomLevel);
+
+	   	// add an OpenStreetMap tile layer
+		L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+	      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+	      subdomains: '1234'
+	    }).addTo(map);
 	}
 	
 	function successFunction(position) {
@@ -214,6 +232,15 @@ $(document).ready(function() {
 			  	ret['view']['lat'] = matchLat[1];
 			  	ret['view']['lng'] = matchLng[1];
 			  	ret['view']['radius'] = matchRadius[1];
+		  	}
+
+		  	// Parent name?
+
+		  	var parentName = queryString.match(/parent\=(.*$)/);
+		  	parentName[1] = parentName[1].replace(/%20/g, ' ');
+		  	console.log(parentName[1]);
+		  	if (null != parentName) {
+		  		ret['parent'] = parentName[1];
 		  	}
 		}
 		
