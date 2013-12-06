@@ -134,7 +134,7 @@ $(document).ready(function() {
 	function updateResultLink(cLat, cLng, cRadius) {
 		// this is a function to update the Share This View link
 		var shareLink = '?lat=' + cLat + '&lng=' + cLng + '&radius=' + cRadius;
-		console.log(shareLink);
+		//console.log(shareLink);
 		$('.share-link').attr('href', shareLink);
 	}
 	
@@ -238,7 +238,7 @@ $(document).ready(function() {
 
 		  	var parentName = queryString.match(/parent\=(.*$)/);
 		  	parentName[1] = parentName[1].replace(/%20/g, ' ');
-		  	console.log(parentName[1]);
+		  	//console.log(parentName[1]);
 		  	if (null != parentName) {
 		  		ret['parent'] = parentName[1];
 		  	}
