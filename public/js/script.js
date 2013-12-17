@@ -237,9 +237,9 @@ $(document).ready(function() {
 		  	// Parent name?
 
 		  	var parentName = queryString.match(/parent\=(.*$)/);
-		  	parentName[1] = parentName[1].replace(/%20/g, ' ');
 		  	//console.log(parentName[1]);
 		  	if (null != parentName) {
+		  		parentName[1] = parentName[1].replace(/%20/g, ' ');
 		  		ret['parent'] = parentName[1];
 		  	}
 		}
