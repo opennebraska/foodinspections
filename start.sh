@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ -x ~/.rvm/scripts/rvm ]; then
   source ~/.rvm/scripts/rvm
