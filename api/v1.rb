@@ -14,7 +14,7 @@ get '/api/v1/firms/in/:lat/:lng/:radius' do
   format_response(firms, request.accept)
 end
 
-get '/api/v1/firms/by/name/:name' do
+get '/api/v1/firms/name/:name' do
   firms ||= Firm.byname('%' + params[:name] + '%') || halt(404)
   format_response(firms, request.accept)
 end
@@ -33,7 +33,7 @@ get '/api/v1/inspections/for/:id' do
   format_response(inspections, request.accept)
 end
 
-get '/api/v1/parent/by/name/:name' do
+get '/api/v1/parent/name/:name' do
   firms ||= Firm.byparent('%' + params[:name] + '%') || halt(404)
   format_response(firms, request.accept)
 end

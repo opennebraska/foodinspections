@@ -4,11 +4,11 @@ function Inspections() {
 	}
 	
 	this.getChildProperties = function(parent_name, callback) {
-		this.asyncPropertyListLookup('/api/v1/parent/by/name/' + parent_name, callback);
+		this.asyncPropertyListLookup('/api/v1/parent/name/' + parent_name, callback);
 	}
 	
 	this.getPropertiesLikeName = function(name, callback) {
-		this.asyncPropertyListLookup('/api/v1/firms/by/name/' + name, callback);
+		this.asyncPropertyListLookup('/api/v1/firms/name/' + name, callback);
 	}
 
 	this.getPropertiesById = function(firmId, callback) {
