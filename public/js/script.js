@@ -49,7 +49,6 @@ $(document).ready(function() {
 			plotmark.openPopup();
 		}
 		map.spin(false);
-
 	}
 
 	function drawMapWithPoints(points, lat, lng, zoomLevel) {
@@ -60,7 +59,7 @@ $(document).ready(function() {
 	    var layers = new Array();
 	    var result = getEndPoints();
 	    var marker;
-	    
+	    updateResultLink(lat, lng, zoomLevel);
 	  
 	  for (var i = 0; i < points.length; i++) {
   	  drawMarker(points[i]);
@@ -83,6 +82,7 @@ $(document).ready(function() {
 	    var layers = new Array();
 	    var result = getEndPoints();
 	    var marker;
+	    updateResultLink(lat, lng, zoomLevel);
 	    
 	    
 		db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
@@ -134,7 +134,6 @@ $(document).ready(function() {
 	function updateResultLink(cLat, cLng, cRadius) {
 		// this is a function to update the Share This View link
 		var shareLink = '?lat=' + cLat + '&lng=' + cLng + '&radius=' + cRadius;
-		//console.log(shareLink);
 		$('.share-link').attr('href', shareLink);
 	}
 	
