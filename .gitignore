@@ -7,3 +7,4 @@ setup/json.log
 .sass-cache
 config/config.yml
 logs/*
+*.pid
