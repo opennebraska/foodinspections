@@ -57,7 +57,7 @@ class Inspections < Sinatra::Base
   
   get '/css/*.css' do
     content_type 'text/css', :charset => 'utf-8'
-    path = '../public/css/#{params[:splat].join}'
+    path = "../public/css/#{params[:splat].join}"
     scss path.to_sym, :style => :compressed
   end
   
