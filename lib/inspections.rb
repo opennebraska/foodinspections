@@ -18,8 +18,9 @@ class Inspections < Sinatra::Base
     set :server, %w[thin mongrel webrick]
     set :cookie_options, { path: '/' }
     set :sessions, true
-    set :public_folder, File.join(File.dirname(__FILE__), '../public/')
-    set :views, File.join(File.dirname(__FILE__), '../views/')
+    set :root, File.join(File.dirname(__FILE__), '../')
+    #set :public_folder, File.join(File.dirname(__FILE__), '../public/')
+    #set :views, File.join(File.dirname(__FILE__), '../views/')
   end
   
   configure :development do
@@ -35,7 +36,7 @@ class Inspections < Sinatra::Base
   
   # Load the user's config file
   set :environments, %w{process development production}
-  config_file '../config/config.yml'
+  config_file 'config/config.yml'
   
   # Database setup
   db_url = 'postgres://' + settings.db_user + ':' + settings.db_pass + '@' + settings.db_host + '/' + settings.db_name
