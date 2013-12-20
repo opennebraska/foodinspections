@@ -8,6 +8,7 @@ $(document).ready(function() {
 	var pathArray = cleanPath.split( '/' );
 	var map = L.map('map');
 	var plotlayers=[];
+	var numberOfResults = 0;
 	map.spin(true);
 	
 	var urlBits = parseUrl();
@@ -45,10 +46,8 @@ $(document).ready(function() {
 		var popupText = popupInfo + popupRating + popupParent + popupLinkTo;
 		var plotmark = L.marker([data.lat, data.lng]).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
 		plotlayers.push(plotmark);
-		if (plotlayers.length == 1) {
-			plotmark.openPopup();
-		}
 		map.spin(false);
+		numberOfResults++;
 	}
 
 	function drawMapWithPoints(points, lat, lng, zoomLevel) {
@@ -64,13 +63,16 @@ $(document).ready(function() {
 	  for (var i = 0; i < points.length; i++) {
   	  drawMarker(points[i]);
 	  }
-		
 		// add an OpenStreetMap tile layer
 		L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
 	      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 	      subdomains: '1234'
 	    }).addTo(map);
-		
+
+	    if (numberOfResults == 1) {
+			plotlayers[0].openPopup();
+		}
+	
 	}
 	
 	function drawMap(lat, lng, zoomLevel) {
@@ -100,8 +102,13 @@ $(document).ready(function() {
 			map.spin(true);
 			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
 			updateResultLink(result.centerLat, result.centerLng, result.radius);
+			numberOfResults = 0;
 		});
-	
+
+		map.on('popupopen', function() {
+			$('.popup-info').attr('style', '');
+			console.log('hello');
+		});
 	}
 
 	function drawMapWithNoPoints(lat, lng, zoomLevel) {
@@ -114,6 +121,7 @@ $(document).ready(function() {
 	      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 	      subdomains: '1234'
 	    }).addTo(map);
+
 	}
 	
 	function successFunction(position) {

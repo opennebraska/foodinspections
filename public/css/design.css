@@ -5,13 +5,13 @@ a:hover { text-decoration: underline;}
 .heading { width: 100%; position: absolute; background: transparent; color: #000; text-align: center; z-index: 5; }
 .map { position: relative; height: 100%; width: 100%; }
 #map { height: 100%; clear: both; }
-.name { font-weight: bold; font-size: 130%;}
+.name { font-weight: bold; font-size: 130%; }
 .rating { display: none; }
 
 .heading-header { font-size: 23pt; text-align: left; position: relative; left: -10px;float: left; background: rgba(0,0,0,.8); padding: 0 20px; -webkit-transform: skew(-10deg); -moz-transform: skew(-10deg); -ms-transform: skew(-10deg); transform: skew(-10deg); }
 .search-box { float: right; position: relative; top: 10px; width: 440px; }
 .search-box input[type="text"] { float: left; font-family: 'Open Sans'; font-weight: 300; width: 300px; height: 29px; box-shadow: 0 0 20px #aaa; -webkit-appearance: none; border: 0px; font-size: 18px; font-style: italic; padding: 0 10px; }
-.search-box input[type="submit"] { float: left; background: url('../img/search.png') no-repeat center center #27AB2C; -webkit-appearance: none; font-size: 14px; color: #fff; width: 65px; height: 31px; position: relative; top: -1px; left: -3px; border: 0; margin: 0; padding: 0; }
+.search-box input[type="submit"] { float: left; background: url('../img/search.png') no-repeat center center #27AB2C; -webkit-appearance: none; font-size: 14px; color: #fff; width: 65px; height: 31px; position: relative; top: -1px; left: -3px; border: 0; border-top-right-radius: 3px; border-bottom-right-radius: 3px; margin: 0; padding: 0; }
 .share-link, .share-link:visited { float: left; color: #000; text-decoration: none; position: relative; top: 4px; left: -10px; }
 .heading-header a, .heading-header a:visited { color: #fff; text-decoration: none;  }
 .heading-header a:hover { background: rgba(0,0,0,.4); transition: .5s background ease-in-out; }
@@ -20,10 +20,12 @@ a:hover { text-decoration: underline;}
 .popup-info {  
   position: fixed !important;
   font-family: 'Open Sans';
-  bottom: 0px !important;
-  width: 100%;
-  left: 0px !important;
-  height: 89px;
+  font-size: 120%;
+  top: 50px !important;
+  right: 15px !important;
+  width: 380px;
+  opacity: 1 !important;
+
 }
 
 .leaflet-map-pane {
@@ -39,13 +41,6 @@ a:hover { text-decoration: underline;}
 	background: rgba(255,255,255,.7);
 }
 
-.popup-info .info, .popup-info .rating, .popup-info .linkTo {
-	float: left;
-}
-
-.popup-info .info { 
-	width: 25%; 
-}
 
 .leaflet-popup-content { 
 	margin-left: 50px !important;
