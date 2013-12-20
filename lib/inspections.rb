@@ -22,11 +22,11 @@ class Inspections < Sinatra::Base
   end
   
   configure :development do
-    require 'sinatra/reloader'
-    register Sinatra::Reloader
-    also_reload 'helpers/**/*.rb'
-    also_reload 'models/**/*.rb'
-    also_reload 'api/**/*.rb'
+    #require 'sinatra/reloader'
+    #register Sinatra::Reloader
+    #also_reload 'helpers/**/*.rb'
+    #also_reload 'models/**/*.rb'
+    #also_reload 'api/**/*.rb'
     set :raise_errors, true
     
     DataMapper::Logger.new($stdout, :debug)
@@ -54,11 +54,11 @@ class Inspections < Sinatra::Base
     halt 404, 'File not found'
   end
   
-  get '/css/*.css' do
-    content_type 'text/css', :charset => 'utf-8'
-    path = "../public/css/#{params[:splat].join}"
-    scss path.to_sym, :style => :compressed
-  end
+  #get '/css/*.css' do
+  #  content_type 'text/css', :charset => 'utf-8'
+  #  path = "../public/css/#{params[:splat].join}"
+  #  scss path.to_sym, :style => :compressed
+  #end
   
   get '/' do
     erb :index
