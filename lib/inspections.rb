@@ -19,8 +19,6 @@ class Inspections < Sinatra::Base
     set :cookie_options, { path: '/' }
     set :sessions, true
     set :root, File.join(File.dirname(__FILE__), '../')
-    #set :public_folder, File.join(File.dirname(__FILE__), '../public/')
-    #set :views, File.join(File.dirname(__FILE__), '../views/')
   end
   
   configure :development do
