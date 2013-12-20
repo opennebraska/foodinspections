@@ -22,11 +22,11 @@ class Inspections < Sinatra::Base
   end
   
   configure :development do
-    #require 'sinatra/reloader'
-    #register Sinatra::Reloader
-    #also_reload 'helpers/**/*.rb'
-    #also_reload 'models/**/*.rb'
-    #also_reload 'api/**/*.rb'
+    require 'sinatra/reloader'
+    register Sinatra::Reloader
+    also_reload 'helpers/**/*.rb'
+    also_reload 'models/**/*.rb'
+    also_reload 'api/**/*.rb'
     set :raise_errors, true
     
     DataMapper::Logger.new($stdout, :debug)
