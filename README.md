@@ -32,7 +32,7 @@ Both the `process.rb` script that helps you get data into your databases and the
 
 ### Running
 
-Simply run `bundle exec ruby app.rb` (or `dev.sh`) and view the site at [http://localhost:4567](http://localhost:4567)
+Simply run `rackup`) and view the site at [http://localhost:9292](http://localhost:9292)
 
 
 Credits
