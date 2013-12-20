@@ -18,8 +18,7 @@ class Inspections < Sinatra::Base
     set :server, %w[thin mongrel webrick]
     set :cookie_options, { path: '/' }
     set :sessions, true
-    
-    set :public_file, File.join(File.dirname(__FILE__), '../public/')
+    set :public_folder, File.join(File.dirname(__FILE__), '../public/')
     set :views, File.join(File.dirname(__FILE__), '../views/')
   end
   
