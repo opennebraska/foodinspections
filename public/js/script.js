@@ -35,6 +35,7 @@ $(document).ready(function() {
 	$('.leaflet-popup-pane').insertBefore('.leaflet-map-pane');
 	function drawMarker(data) {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
+		var Icon = configureIcon(data.total_critical, data.total_noncritical);
 		var popupRating = "<div class='rating'><div class='mac'><meter value='" + ratioToCritical + "' min='0' max'1'></meter></div></div>";
 		var popupLinkTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Direct Link to This Result</a></div><div style='clear:both;'></div>";
 		if (data.parent_name.length > 0) {
@@ -44,9 +45,8 @@ $(document).ready(function() {
 		}
 		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>" + data.address + "<br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
 		var popupText = popupInfo + popupRating + popupParent + popupLinkTo;
-		var plotmark = L.marker([data.lat, data.lng]).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
+		var plotmark = L.marker([data.lat, data.lng], {icon: Icon}).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
 		plotlayers.push(plotmark);
-		map.spin(false);
 		numberOfResults++;
 	}
 
@@ -107,7 +107,6 @@ $(document).ready(function() {
 
 		map.on('popupopen', function() {
 			$('.popup-info').attr('style', '');
-			console.log('hello');
 		});
 	}
 
@@ -129,6 +128,7 @@ $(document).ready(function() {
 	    var lng = position.coords.longitude;
 	    
 	    drawMap(lat, lng, DEFAULTZOOM);	
+	    map.spin(false);
 	}
 	
 	function removeMarkers() {
@@ -201,6 +201,32 @@ $(document).ready(function() {
 		
 		db.getPropertiesLikeName(search, drawMarker);
 	}
+
+	function configureIcon(critical, noncritical) {
+		if (critical > 10 && (noncritical > 0 || noncritical == 0)) {
+			var Icon = L.icon({
+			    iconUrl: '../img/red.png',
+			    shadowUrl: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-shadow.png',
+			    iconSize: [25, 41],
+    			iconAnchor: [12, 41]
+			});
+		} else if ((10 > critical > 0 || critical == 0) && noncritical > 0) {
+			var Icon = L.icon({
+			    iconUrl: '../img/yellow.png',
+			    shadowUrl: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-shadow.png',
+			    iconSize: [25, 41],
+    			iconAnchor: [12, 41]
+			});
+		} else if (critical == 0 && noncritical == 0) {
+			var Icon = L.icon({
+			    iconUrl: '../img/green.png',
+			    shadowUrl: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-shadow.png',
+			    iconSize: [25, 41],
+    			iconAnchor: [12, 41]
+			});
+		}
+		return Icon;
+	}
 	
 	function parseUrl() {
 		var ret = {};
@@ -253,4 +279,11 @@ $(document).ready(function() {
 		
 		return ret;
 	}
+	$('.heading-header').mouseover(function() {
+		$('.home').fadeIn(50);
+	});
+	$('.heading-header').mouseout(function() {
+		$('.home').fadeOut(50);
+	});
+
 });
