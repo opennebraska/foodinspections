@@ -48,6 +48,7 @@ $(document).ready(function() {
 		var plotmark = L.marker([data.lat, data.lng], {icon: Icon}).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
 		plotlayers.push(plotmark);
 		numberOfResults++;
+		map.spin(false);
 	}
 
 	function drawMapWithPoints(points, lat, lng, zoomLevel) {
@@ -279,11 +280,12 @@ $(document).ready(function() {
 		
 		return ret;
 	}
+	if (matchMedia('only screen and (min-width: 640px)').matches) {
 	$('.heading-header').mouseover(function() {
 		$('.home').fadeIn(50);
 	});
 	$('.heading-header').mouseout(function() {
 		$('.home').fadeOut(50);
 	});
-
+}
 });

@@ -50,7 +50,6 @@ a:hover { text-decoration: underline;}
 
 .leaflet-popup-pane {
 	width: 100%;
-	z-index: 1 !important; 
 }
 
 .leaflet-popup-content-wrapper { 
@@ -102,3 +101,13 @@ a:hover { text-decoration: underline;}
 	  );
 	  background-size: 100% 100%;
 	}
+
+@media all and (max-width: 480px) {
+	.heading-header { width: 100%; float: none; font-size: 17pt; -webkit-transform: none; }
+	.search-box { position: relative; top: 10px; right: 0px; margin: 0 auto; width: 310px; }
+	.search-box input[type="text"] { width: 166px; }
+	.leaflet-top { top: 80px !important; }
+	.leaflet-map-pane { z-index: 4 !important; }
+	.popup-info { z-index: 7; top: initial; right: initial; bottom: 0px !important; width: 100%; }
+	.leaflet-popup-pane { left: 0px; z-index: 5 !important; }
+}
