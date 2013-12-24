@@ -104,9 +104,14 @@ $(document).ready(function() {
 			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
 			updateResultLink(result.centerLat, result.centerLng, result.radius);
 			numberOfResults = 0;
+			$('.popup-info').attr('style', '');
 		});
 
 		map.on('popupopen', function() {
+			$('.popup-info').attr('style', '');
+		});
+
+		map.on('click', function() {
 			$('.popup-info').attr('style', '');
 		});
 	}
@@ -207,21 +212,18 @@ $(document).ready(function() {
 		if (critical > 10 && (noncritical > 0 || noncritical == 0)) {
 			var Icon = L.icon({
 			    iconUrl: '../img/red.png',
-			    shadowUrl: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-shadow.png',
 			    iconSize: [25, 41],
     			iconAnchor: [12, 41]
 			});
 		} else if ((10 > critical > 0 || critical == 0) && noncritical > 0) {
 			var Icon = L.icon({
 			    iconUrl: '../img/yellow.png',
-			    shadowUrl: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-shadow.png',
 			    iconSize: [25, 41],
     			iconAnchor: [12, 41]
 			});
 		} else if (critical == 0 && noncritical == 0) {
 			var Icon = L.icon({
 			    iconUrl: '../img/green.png',
-			    shadowUrl: 'http://cdn.leafletjs.com/leaflet-0.6.4/images/marker-shadow.png',
 			    iconSize: [25, 41],
     			iconAnchor: [12, 41]
 			});
@@ -281,11 +283,31 @@ $(document).ready(function() {
 		return ret;
 	}
 	if (matchMedia('only screen and (min-width: 640px)').matches) {
-	$('.heading-header').mouseover(function() {
-		$('.home').fadeIn(50);
+		$('.heading-header').mouseover(function() {
+			$('.home').fadeIn(50);
+		});
+		$('.heading-header').mouseout(function() {
+			$('.home').fadeOut(50);
+		});
+	}
+
+
+	$('.heading-header-links a.link-about').click(function () {
+		$('#how, #soon').hide();
+		$('.popup-window').slideDown(300);
+		$('#about').fadeIn(100);
 	});
-	$('.heading-header').mouseout(function() {
-		$('.home').fadeOut(50);
+	$('.heading-header-links a.link-how').click(function () {
+		$('#about, #soon').hide();
+		$('.popup-window').slideDown(300);
+		$('#how').fadeIn(100);
 	});
-}
+	$('.heading-header-links a.link-soon').click(function () {
+		$('#about, #how').hide();
+		$('.popup-window').slideDown(300);
+		$('#soon').fadeIn(100);
+	});
+	$('.popup-window a.link-close, #map').click(function () {
+		$('.popup-window').slideUp(300);
+	});
 });
