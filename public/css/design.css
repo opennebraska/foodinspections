@@ -2,7 +2,7 @@ html, body, .container { font-family: 'Open Sans'; height: 100%; margin: 0;  }
 a, a:visited, a:active { text-decoration: none; }
 a:hover { text-decoration: underline;}
 #loadingdiv { display: none; transition: display 1s; height: 100%; width: 100%; background: url('../img/loader.gif') center center rgba(0,0,0,.2); color: #fff; }
-.heading { width: 100%; position: absolute; background: transparent; color: #000; text-align: center; }
+.heading { width: 100%; position: absolute; background: transparent; color: #000; text-align: center; z-index: 7; }
 .map { position: relative; height: 100%; width: 100%; }
 #map { height: 100%; clear: both; }
 .name { font-weight: bold; font-size: 130%; }
