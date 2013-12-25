@@ -17,7 +17,7 @@ function Inspections() {
 	
 	this.getPropertyById = function(firmId, callback) {
     $.getJSON('/api/v1/firms/' + firmId, function(data) {
-  		callback([data], data.lat, data.lng);
+  		callback([data], data.lat, data.lng, data.count);
 		});
 	}
 	
@@ -25,11 +25,23 @@ function Inspections() {
 	
 	this.asyncPropertyListLookup = function(url, callback) {
 		$.getJSON(url, function(data) {
+			$('#meter-inside').css('width', '0%');
+			$('.meter').slideDown(400);
 			var list = $.parseJSON(data);
+			var resultCount = list.count;
+			var resultCounter = 0;
 			
 			$.each(list.ids, function(key, val) {
 				$.getJSON('/api/v1/firms/' + val, function(result) {
 					callback(result);
+					resultCounter++;
+					var resultMath = resultCounter / resultCount;
+					resultMath = resultMath * 100;
+					console.log(resultMath);
+					document.getElementById("meter-inside").style.width = resultMath + "%";
+					if(resultMath == 100) {
+						$('.meter').slideUp(300);
+					}
 				});
 			});
 		});

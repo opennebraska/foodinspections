@@ -36,6 +36,7 @@ $(document).ready(function() {
 	function drawMarker(data) {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
 		var Icon = configureIcon(data.total_critical, data.total_noncritical);
+		console.log(data);
 		var popupRating = "<div class='rating'><div class='mac'><meter value='" + ratioToCritical + "' min='0' max'1'></meter></div></div>";
 		var popupLinkTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Direct Link to This Result</a></div><div style='clear:both;'></div>";
 		if (data.parent_name.length > 0) {
@@ -51,7 +52,7 @@ $(document).ready(function() {
 		map.spin(false);
 	}
 
-	function drawMapWithPoints(points, lat, lng, zoomLevel) {
+	function drawMapWithPoints(points, lat, lng, count, zoomLevel) {
 	    zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
 	    map.setView([lat,lng], zoomLevel);
 	    
@@ -60,7 +61,6 @@ $(document).ready(function() {
 	    var result = getEndPoints();
 	    var marker;
 	    updateResultLink(lat, lng, zoomLevel);
-	  
 	  for (var i = 0; i < points.length; i++) {
   	  drawMarker(points[i]);
 	  }
@@ -74,7 +74,7 @@ $(document).ready(function() {
 			plotlayers[0].openPopup();
 		}
 	
-	}
+	} 
 	
 	function drawMap(lat, lng, zoomLevel) {
 	    zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
@@ -86,7 +86,6 @@ $(document).ready(function() {
 	    var result = getEndPoints();
 	    var marker;
 	    updateResultLink(lat, lng, zoomLevel);
-	    
 	    
 		db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
 		
@@ -209,13 +208,13 @@ $(document).ready(function() {
 	}
 
 	function configureIcon(critical, noncritical) {
-		if (critical > 10 && (noncritical > 0 || noncritical == 0)) {
+		if (critical > 10 && noncritical >= 0) {
 			var Icon = L.icon({
 			    iconUrl: '../img/red.png',
 			    iconSize: [25, 41],
     			iconAnchor: [12, 41]
 			});
-		} else if ((10 > critical > 0 || critical == 0) && noncritical > 0) {
+		} else if (10 >= critical >= 0 && noncritical >= 0) {
 			var Icon = L.icon({
 			    iconUrl: '../img/yellow.png',
 			    iconSize: [25, 41],

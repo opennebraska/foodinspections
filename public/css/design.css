@@ -25,6 +25,8 @@ a:hover { text-decoration: underline;}
 .popup-window .link-close { cursor: pointer; color: #fff; float: right; border-radius: 3px; position: absolute; top: 15px; right: 15px; padding: 10px 30px; background: #800; font-size: 18pt; text-decoration: none; }
 .popup-window .link-close:hover { text-decoration: none; background: #a33; }
 .popup-window p span { font-size: 14pt; font-weight: bold; color: #ddd; }
+.meter { width: 100%; clear: both; height: 5px; position: relative; z-index: 919191; display: none; }
+#meter-inside { width: 0%; background-color: #f00; height: 5px; -webkit-transition: .3s width; }
 
 /* work with this shit */
 .popup-info {  
