@@ -36,7 +36,6 @@ $(document).ready(function() {
 	function drawMarker(data) {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
 		var Icon = configureIcon(data.total_critical, data.total_noncritical);
-		console.log(data);
 		var popupRating = "<div class='rating'><div class='mac'><meter value='" + ratioToCritical + "' min='0' max'1'></meter></div></div>";
 		var popupLinkTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Direct Link to This Result</a></div><div style='clear:both;'></div>";
 		if (data.parent_name.length > 0) {
@@ -204,7 +203,24 @@ $(document).ready(function() {
 		var db = new Inspections();
 		var search = $('#search').val();
 		
-		db.getPropertiesLikeName(search, drawMarker);
+		db.getPropertiesLikeName(search, function(data) {
+			if(data == false) {
+				queryGoogle(search);
+			}
+		});
+	}
+
+	function queryGoogle(search) {
+		var url = "http://maps.google.com/maps/api/geocode/json?address=";
+		var search = search.replace(',', '+');
+		var search = search.replace(' ', '+');
+		var sensor = "&sensor=false";
+		url = url + search + sensor;
+		$.getJSON(url, function(googleData) {
+			var lat = googleData.results[0].geometry.location.lat;
+			var lng = googleData.results[0].geometry.location.lng;
+			map.panTo(new L.LatLng(lat, lng));
+		});
 	}
 
 	function configureIcon(critical, noncritical) {
@@ -214,7 +230,7 @@ $(document).ready(function() {
 			    iconSize: [25, 41],
     			iconAnchor: [12, 41]
 			});
-		} else if (10 >= critical >= 0 && noncritical >= 0) {
+		} else if (10 >= critical > 0 && noncritical >= 0) {
 			var Icon = L.icon({
 			    iconUrl: '../img/yellow.png',
 			    iconSize: [25, 41],
@@ -272,7 +288,6 @@ $(document).ready(function() {
 		  	// Parent name?
 
 		  	var parentName = queryString.match(/parent\=(.*$)/);
-		  	//console.log(parentName[1]);
 		  	if (null != parentName) {
 		  		parentName[1] = parentName[1].replace(/%20/g, ' ');
 		  		ret['parent'] = parentName[1];

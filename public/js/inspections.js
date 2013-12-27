@@ -30,20 +30,22 @@ function Inspections() {
 			var list = $.parseJSON(data);
 			var resultCount = list.count;
 			var resultCounter = 0;
-			
-			$.each(list.ids, function(key, val) {
-				$.getJSON('/api/v1/firms/' + val, function(result) {
-					callback(result);
-					resultCounter++;
-					var resultMath = resultCounter / resultCount;
-					resultMath = resultMath * 100;
-					console.log(resultMath);
-					document.getElementById("meter-inside").style.width = resultMath + "%";
-					if(resultMath == 100) {
-						$('.meter').slideUp(300);
-					}
+			if(resultCount == 0) {
+				callback(false);
+			} else {
+				$.each(list.ids, function(key, val) {
+					$.getJSON('/api/v1/firms/' + val, function(result) {
+						callback(result);
+						resultCounter++;
+						var resultMath = resultCounter / resultCount;
+						resultMath = resultMath * 100;
+						document.getElementById("meter-inside").style.width = resultMath + "%";
+						if(resultMath == 100) {
+							$('.meter').slideUp(300);
+						}
+					});
 				});
-			});
+			}
 		});
 	}
 }
