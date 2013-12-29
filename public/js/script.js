@@ -41,7 +41,7 @@ $(document).ready(function() {
 		if (data.parent_name.length > 0) {
 			var popupParent = "<br><br><div class='parent'>Find all establishments owned by <a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div>";
 		} else {
-			var popupParent = "<div class='parent'>This establishment has no parent company information.</div>";
+			var popupParent = "<br><br><div class='parent'>This establishment has no parent company information.</div>";
 		}
 		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>" + data.address + "<br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
 		var popupText = popupInfo + popupRating + popupParent + popupLinkTo;
