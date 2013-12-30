@@ -32,7 +32,7 @@ Both the `process.rb` script that helps you get data into your databases and the
 
 ### Running
 
-Simply run `rackup`) and view the site at [http://localhost:9292](http://localhost:9292)
+Simply run `rackup` and view the site at [http://localhost:9292](http://localhost:9292)
 
 
 Credits
