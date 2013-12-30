@@ -38,4 +38,4 @@ Simply run `rackup` and view the site at [http://localhost:9292](http://localhos
 Credits
 -------
 
-This project was written by [Ross Nelson](http://twitter.com/rossnelson) and [Dustin Lipskey](http://twitter.com/tacktaco). Data procured by [Matt Wynn](http://twitter.com/mattwynn). Thanks to [Nate Benes](http://twitter.com/natebenes) and [Marcus Ross](http://twitter.com/marcusross) for their invaluable help getting us to a demo-able point during HO3.
+See [CONTRIBUTORS](https://github.com/rnelson/ne_state_restaurant_inspections/blob/master/CONTRIBUTORS.md).
