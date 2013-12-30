@@ -15,6 +15,11 @@ class ApiV1 < Sinatra::Base
     firms ||= Firm.inarea(params[:lat], params[:lng], params[:radius]) || halt(404)
     format_response(firms, request.accept)
   end
+
+  get '/firms/bbox/:bbox' do
+    firms ||= Firm.bbox(params[:bbox]) || halt(404)
+    format_response(firms, request.accept)
+  end
   
   get '/firms/name/:name' do
     firms ||= Firm.byname('%' + params[:name] + '%') || halt(404)
@@ -42,12 +47,12 @@ class ApiV1 < Sinatra::Base
 
   # TODO: remove, fix helper
   def format_response(data, accept)
-  accept.each do |type|
-    return data.to_xml  if type.downcase.eql? 'text/xml'
-    return data.to_json if type.downcase.eql? 'application/json'
-    return data.to_yaml if type.downcase.eql? 'text/x-yaml'
-    return data.to_csv  if type.downcase.eql? 'text/csv'
-    return data.to_json
+    accept.each do |type|
+      return data.to_xml  if type.downcase.eql? 'text/xml'
+      return data.to_json if type.downcase.eql? 'application/json'
+      return data.to_yaml if type.downcase.eql? 'text/x-yaml'
+      return data.to_csv  if type.downcase.eql? 'text/csv'
+      return data.to_json
+    end
   end
-end
 end
