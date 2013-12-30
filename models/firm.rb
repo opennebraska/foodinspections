@@ -12,6 +12,12 @@ class Firm
   property :lng,                Float
   
   has n, :inspections, :child_key => [ :firm_id ]
+
+  def self.bbox(bbox)
+    # top, left, bottom, right
+    coordinates = bbox.split(',').map {|el| el.to_f || 0.0}
+    return all(:lat.lte => coordinates[0], :lat.gte => coordinates[2], :lng.gte => coordinates[1], :lng.lte => coordinates[3])
+  end
   
   def self.inarea(lat, lng, radius)
     query = "SELECT firm_id FROM ne_restaurant_inspections l WHERE ST_Dwithin(l.the_geom::geography, ST_GeogFromText('POINT(" + lng.to_s + " " + lat.to_s + ")'), " + radius.to_s + ")"
