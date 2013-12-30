@@ -40,13 +40,6 @@ class Inspections < Sinatra::Base
   db_url = 'postgres://' + settings.db_user + ':' + settings.db_pass + '@' + settings.db_host + '/' + settings.db_name
   DataMapper.setup(:default, db_url)
   
-  # CartoDB setup
-  carto_settings = {
-    'host' => settings.cartodb_host,
-    'api_key' => settings.cartodb_apikey
-  }
-  CartoDB::Init.start carto_settings
-  
   error do
     halt 500, 'Server error'
   end

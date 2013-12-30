@@ -84,58 +84,9 @@ end
 
 
 
-#########################################################
-# Output all of the (firm_id, lat, long) pairs to #
-# a separate file to import them into CartoDB           #
-#########################################################
-
-# Read in the entire inspections file
-data = []
-CSV.foreach(INPUTFILE, :headers => true) do |row|
-  if row[11].end_with?(')')
-    # Firm ID
-    fid = row[0]
-    
-    # Coordinate string
-    last_paren = row[11].rindex('(')
-    coords = row[11][last_paren+1..-1]
-    
-    # Lat and long
-    lat = coords.split(',')[0]
-    lng = coords.split(',')[1]
-    
-    # Truncate latitude
-    period = lat.index('.')
-    last_char = period + 5
-    new_lat = lat[0..last_char]
-    
-    # Truncate longitude
-    period = lng.index('.')
-    last_char = period + 5
-    new_lng = lng[0..last_char]
-    
-    # Add a new data point
-    data_point = fid + ',' + new_lat + ',' + new_lng
-    data.push(data_point)
-  end
-end
-
-# Find unique (firm_id, lat, long) pairs and spit
-# those out to a CartoDB input file
-uniq_data = data.uniq
-File.open(OUTPUTFILE, 'w') do |f|
-  uniq_data.each do |entry|
-    f.puts entry
-  end
-end
 
 
 
-
-#########################################################
-# Create individual JSON files for each of the          #
-# locations                                             #
-#########################################################
 
 firm_ids = []
 CSV.foreach(OUTPUTFILE) do |row|

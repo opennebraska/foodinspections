@@ -10,7 +10,7 @@ Getting Started
 
 ### Prerequisites
 
-This project is written in [Ruby](https://www.ruby-lang.org) (1.9+, 2.0+ recommended) and uses [PostgreSQL](http://www.postgresql.org) (developed against 9.1). Dependency management is done with [Bundler](http://bundler.io).
+This project is written in [Ruby](https://www.ruby-lang.org) (developed against 2.0/2.1) and uses [PostgreSQL](http://www.postgresql.org) (developed against 9.1). Dependency management is done with [Bundler](http://bundler.io).
 
 If you don't currently have a Ruby environment set up, check out [RVM](http://rvm.io).
 
@@ -24,10 +24,8 @@ Both the `process.rb` script that helps you get data into your databases and the
 
 ### Data
 
-1. Create a [CartoDB](http://cartodb.com) account
-2. Create the necessary tables in your database; example commands (including currently unused [PostGIS](http://postgis.net) stuff) is in `setup/process.rb`
-3. Run `setup/process.rb` to generate the CartoDB CSV, which contains (firm ID, latitude, longitude), and to populate the database
-4. Create a table on your CartoDB instance for the generated CSV. Set `the_geometry` to use the imported latitude and longitude
+1. Create the necessary tables in your database; example commands (including currently unused [PostGIS](http://postgis.net) stuff) is in `setup/process.rb`
+2. Run `setup/process.rb` to populate the database
 
 
 ### Running

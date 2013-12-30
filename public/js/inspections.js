@@ -1,8 +1,4 @@
 function Inspections() {
-	this.getPointsInBounds = function(centerLat, centerLng, radius, callback) {
-		this.asyncPropertyListLookup('/api/v1/firms/in/' + centerLat + '/' + centerLng + '/' + radius, callback);
-	}
-
 	this.getPointsInBoundingBox = function(boxTop, boxLeft, boxBottom, boxRight, callback) {
 		var bbox = [boxTop, boxLeft, boxBottom, boxRight].join(',');
 		$.getJSON('/api/v1/firms/bbox/' + bbox, function(data) {

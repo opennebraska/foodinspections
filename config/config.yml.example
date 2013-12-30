@@ -1,23 +1,18 @@
 # File locations are relative to the script, e.g. in setup/
 process:
   input_file: 'State_restaurant_inspections.csv'
-  output_file: 'cartodb_import.csv'
   db_host: '127.0.0.0'
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
 
 development:
-  cartodb_host: 'http://myuser.cartodb.com'
-  cartodb_apikey: '648c658c812419eb99b6b30962797a0582131c03'
   db_host: '127.0.0.0'
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
 
 production:
-  cartodb_host: 'http://myuser.cartodb.com'
-  cartodb_apikey: '648c658c812419eb99b6b30962797a0582131c03'
   db_host: '127.0.0.0'
   db_name: 'inspections'
   db_user: 'inspections_user'
