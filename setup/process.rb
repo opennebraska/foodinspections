@@ -36,6 +36,7 @@ DATABASE = {
 # create table firms (id serial primary key, firm_id bigint, name varchar(255), parent_name varchar(255), total_critical integer, total_noncritical integer, address varchar(255), lat real, lng real);
 # create table inspections (id serial primary key, firm_id bigint, inspection_date date, inspection_type integer, business_type integer, critical_violations integer, noncritical_violations integer, followup boolean, inspector_number integer);
 # --select AddGeometryColumn("coord", 4326, "POINT", 2);
+# create index latlng_index on firms (lat, lng);
 
 
 
