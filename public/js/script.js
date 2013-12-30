@@ -33,6 +33,13 @@ $(document).ready(function() {
 	}
 	
 	$('.leaflet-popup-pane').insertBefore('.leaflet-map-pane');
+
+	function drawMarkers(markers) {
+		$.each(markers, function(idx, val) {
+			drawMarker(val);
+		})
+	}
+
 	function drawMarker(data) {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
 		var Icon = configureIcon(data.total_critical, data.total_noncritical);
@@ -82,11 +89,11 @@ $(document).ready(function() {
 	    
 	    var db = new Inspections();
 	    var layers = new Array();
-	    var result = getEndPoints();
+	    var bounds = map.getBounds();
 	    var marker;
 	    updateResultLink(lat, lng, zoomLevel);
 	    
-		db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
+		db.getPointsInBoundingBox(bounds.getNorth(), bounds.getWest(), bounds.getSouth(), bounds.getEast(), drawMarkers);
 		
 		// add an OpenStreetMap tile layer
 		L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
@@ -96,10 +103,10 @@ $(document).ready(function() {
 		
 		map.on('moveend', function() {
 			removeMarkers();
-			
+			var bounds = map.getBounds();
 			var result = getEndPoints();
 			map.spin(true);
-			db.getPointsInBounds(result.centerLat, result.centerLng, result.radius, drawMarker);
+			db.getPointsInBoundingBox(bounds.getNorth(), bounds.getWest(), bounds.getSouth(), bounds.getEast(), drawMarkers);
 			updateResultLink(result.centerLat, result.centerLng, result.radius);
 			numberOfResults = 0;
 			$('.popup-info').attr('style', '');
@@ -143,12 +150,12 @@ $(document).ready(function() {
 		plotlayers = [];
 	}
 
-	function updateResultLink(cLat, cLng, cRadius) {
-		// this is a function to update the Share This View link
-		var shareLink = '?lat=' + cLat + '&lng=' + cLng + '&radius=' + cRadius;
-		$('.share-link').attr('href', shareLink);
-	}
-	
+        function updateResultLink(cLat, cLng, cRadius) {
+                // this is a function to update the Share This View link
+                var shareLink = '?lat=' + cLat + '&lng=' + cLng + '&radius=' + cRadius;
+                $('.share-link').attr('href', shareLink);
+        }
+
 	function getEndPoints() {
 	    var center = map.getCenter();
 	    var centerLat = center.lat;
