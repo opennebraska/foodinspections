@@ -8,8 +8,8 @@ class Firm
   property :total_critical,     Integer
   property :total_noncritical,  Integer
   property :address,            Text
-  property :lat,                Float
-  property :lng,                Float
+  property :lat,                Float, :index => :latlng
+  property :lng,                Float, :index => :latlng
   
   has n, :inspections, :child_key => [ :firm_id ]
 
