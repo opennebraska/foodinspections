@@ -78,6 +78,7 @@ $(document).ready(function() {
 
 	    if (numberOfResults == 1) {
 			plotlayers[0].openPopup();
+			$('.popup-info').attr('style', '');
 		}
 	
 	} 
@@ -231,21 +232,21 @@ $(document).ready(function() {
 	}
 
 	function configureIcon(critical, noncritical) {
-		if (critical > 10 && noncritical >= 0) {
+		if (critical > 15) {
 			var Icon = L.icon({
 			    iconUrl: '../img/red.png',
 			    iconSize: [25, 41],
     			iconAnchor: [12, 41]
 			});
-		} else if (10 >= critical > 0 && noncritical >= 0) {
+		} else if (critical == 0 && noncritical < 5) {
 			var Icon = L.icon({
-			    iconUrl: '../img/yellow.png',
+			    iconUrl: '../img/green.png',
 			    iconSize: [25, 41],
     			iconAnchor: [12, 41]
 			});
-		} else if (critical == 0 && noncritical == 0) {
+		} else {
 			var Icon = L.icon({
-			    iconUrl: '../img/green.png',
+			    iconUrl: '../img/yellow.png',
 			    iconSize: [25, 41],
     			iconAnchor: [12, 41]
 			});
