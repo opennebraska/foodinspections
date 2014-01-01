@@ -7,3 +7,7 @@ end
 map '/api/v1' do
   run ApiV1
 end
+
+map '/api/foursquare' do
+  run FoursquareApi
+end

@@ -36,6 +36,10 @@ class Inspections < Sinatra::Base
   set :environments, %w{process development production}
   config_file 'config/config.yml'
   
+  # Pass Foursquare creds on to the API
+  FoursquareApi.id = settings.fsq_client_id
+  FoursquareApi.secret = settings.fsq_client_secret
+  
   # Database setup
   db_url = 'postgres://' + settings.db_user + ':' + settings.db_pass + '@' + settings.db_host + '/' + settings.db_name
   DataMapper.setup(:default, db_url)

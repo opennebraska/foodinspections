@@ -11,5 +11,5 @@ class Inspection
   property :followup,                Boolean
   property :inspector_number,        Integer
   
-  belongs_to :firm, 'Firm', :parent_key => [:firm_id], :child_key => [:firm_id], :required => true
+  has 1, :inspections, :parent_key => [:firm_id], :child_key => [ :firm_id ], :required => true, :through => Resource
 end

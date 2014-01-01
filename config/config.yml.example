@@ -5,15 +5,21 @@ process:
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
+  fsq_client_id: 'MYCLIENTID'
+  fsq_client_secret: 'MYCLIENTSECRET'
 
 development:
   db_host: '127.0.0.0'
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
+  fsq_client_id: 'MYCLIENTID'
+  fsq_client_secret: 'MYCLIENTSECRET'
 
 production:
   db_host: '127.0.0.0'
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
+  fsq_client_id: 'MYCLIENTID'
+  fsq_client_secret: 'MYCLIENTSECRET'
