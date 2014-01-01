@@ -19,7 +19,9 @@ DATABASE = {
 
 # # aptitude install postgresql-9.1-postgis
 # # su - postgres
+# $ psql
 # postgres=# create database inspections;
+# postgres=# create user ho3 with password 'MYPASSWORD';
 # postgres=# grant all privileges on database inspections to ho3;
 # postgres=# \q
 # $ psql --username=postgres --dbname=inspections --file=/usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sqlpostgres@ho3db:~$ psql --username=postgres --dbname=inspections --file=/usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
