@@ -41,12 +41,24 @@ class FoursquareClient
     return res.body #if res.is_a?(Net::HTTPSuccess)
   end
   
+  def venue_info(venue_id)
+    params = build_query(nil)
+    
+    uri = URI(@@api_root + '/venues/' + venue_id.to_s)
+    uri.query = URI.encode_www_form(params)
+    
+    res = Net::HTTP.get_response(uri)
+    return res.body
+  end
+  
   def build_query(arg_map)
     query = get_creds
     query['v'] = @@api_version
     
-    arg_map.each do |k, v|
-      query[k] = v
+    if not arg_map.nil?
+      arg_map.each do |k, v|
+        query[k] = v
+        end
     end
     
     return query

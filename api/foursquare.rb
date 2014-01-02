@@ -25,4 +25,9 @@ class FoursquareApi < Sinatra::Base
     client = FoursquareClient.new(@@client_id, @@client_secret)
     client.search(params[:lat], params[:lng], params[:name])
   end
+  
+  get '/venues/:id' do
+    client = FoursquareClient.new(@@client_id, @@client_secret)
+    client.venue_info(params[:id])
+  end
 end
