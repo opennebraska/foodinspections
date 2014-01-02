@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require './helpers/init'
 
+# /api/v1/*
 class ApiV1 < Sinatra::Base
   get '/firms' do
     format_response(Firm.all, request.accept)

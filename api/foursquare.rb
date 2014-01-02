@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'sinatra/config_file'
 require './lib/foursquare'
 
+# /api/foursquare/*
 class FoursquareApi < Sinatra::Base
   @@client_id = ''
   @@client_secret = ''
