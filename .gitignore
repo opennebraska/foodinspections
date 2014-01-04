@@ -8,3 +8,4 @@ setup/json.log
 config/config.yml
 logs/*
 *.pid
+.bundle/install.log
