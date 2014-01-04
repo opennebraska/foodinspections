@@ -45,6 +45,58 @@ class ApiV1 < Sinatra::Base
     firms ||= Firm.byparent('%' + params[:name] + '%') || halt(404)
     format_response(firms, request.accept)
   end
+  
+  get '/areas' do
+    format_response(Area.all, request.accept)
+  end
+  
+  get '/areas/:id' do
+    area ||= Area.get(params[:id]) || halt(404)
+    format_response(area, request.accept)
+  end
+  
+  get '/areas/:id/counties' do
+    area ||= Area.counties(params[:id]) || halt(404)
+    format_response(area, request.accept)
+  end
+  
+  get '/areas/year/:year' do
+    areas ||= Area.all(:year => params[:year]) || halt(404)
+    format_response(areas, request.accept)
+  end
+  
+  get '/counties' do
+    format_response(County.all, request.accept)
+  end
+  
+  get '/counties/:id' do
+    county ||= County.get(params[:id]) || halt(404)
+    format_response(county, request.accept)
+  end
+  
+  get '/counties/year/:year' do
+    counties ||= County.all(:year => params[:year]) || halt(404)
+    format_response(counties, request.accept)
+  end
+  
+  get '/counties/inspector/:id' do
+    counties ||= County.byinspector(params[:id]) || halt(404)
+    format_response(counties, request.accept)
+  end
+  
+  get '/inspectors' do
+    format_response(Inspector.all, request.accept)
+  end
+  
+  get '/inspectors/:id' do
+    inspector ||= Inspector.get(params[:id]) || halt(404)
+    format_response(inspector, request.accept)
+  end
+  
+  get '/inspectors/:id/counties' do
+    counties ||= County.byinspector(params[:id]) || halt(404)
+    format_response(counties, request.accept)
+  end
 
   # TODO: remove, fix helper
   def format_response(data, accept)

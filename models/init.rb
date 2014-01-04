@@ -1,2 +1,1 @@
-require './models/firm'
-require './models/inspection'
+Dir.glob("./{models}/*.rb").each { |file| require file }
