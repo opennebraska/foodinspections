@@ -27,11 +27,7 @@ class Firm
       ret.push(firm['firm_id'])
     end
     
-    new_obj = {
-	    'count' => ret.count,
-	    'ids' => ret
-    }
-    return new_obj.to_json
+    return ret
   end
   
   def self.byparent(parent_name)
@@ -42,10 +38,6 @@ class Firm
       ret.push(firm['firm_id'])
     end
     
-    new_obj = {
-	    'count' => ret.count,
-	    'ids' => ret
-    }
-    return new_obj.to_json
+    return ret
   end
 end
