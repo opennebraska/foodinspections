@@ -42,6 +42,11 @@ class ApiV1 < Sinatra::Base
     format_response(inspections, request.accept)
   end
   
+  get '/inspections/for/:id/on/:date' do
+    inspections ||= Inspection.all(:firm_id => params[:id], :inspection_date => params[:date]) || halt(404)
+    format_response(inspections, request.accept)
+  end
+  
   get '/parent/name/:name' do
     firms ||= Firm.byparent('%' + params[:name] + '%') || halt(404)
     format_response(firms, request.accept)
