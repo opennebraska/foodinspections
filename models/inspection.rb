@@ -16,6 +16,7 @@ class Inspection
   def self.firm_summary(firm_id)
     inspections ||= Inspection.all(:firm_id => firm_id)
     
+    dates = 0
     ret = {}
     inspections.each do |ins|
       if ret[ins.inspection_date.to_s].nil?
@@ -26,6 +27,8 @@ class Inspection
           'any_followups' => false,
           'ids' => []
         }
+        
+        dates += 1
       end
       
       ret[ins.inspection_date.to_s]['ids'].push(ins.id)
@@ -34,6 +37,7 @@ class Inspection
       ret[ins.inspection_date.to_s]['any_followups'] = true if ins.followup
     end
     
+    ret['date_count'] = dates
     return ret
   end
   
