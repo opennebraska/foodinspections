@@ -42,8 +42,18 @@ class ApiV1 < Sinatra::Base
     format_response(inspections, request.accept)
   end
   
+  get '/inspections/for/:id/summary' do
+    inspections ||= Inspection.firm_summary(params[:id]) || halt(404)
+    format_response(inspections, request.accept)
+  end
+  
   get '/inspections/for/:id/on/:date' do
     inspections ||= Inspection.all(:firm_id => params[:id], :inspection_date => params[:date]) || halt(404)
+    format_response(inspections, request.accept)
+  end
+  
+  get '/inspections/for/:id/on/:date/summary' do
+    inspections ||= Inspection.dated_firm_summary(params[:id], params[:date]) || halt(404)
     format_response(inspections, request.accept)
   end
   
