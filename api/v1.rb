@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'active_support/all'
 require './helpers/init'
 
 # /api/v1/*
