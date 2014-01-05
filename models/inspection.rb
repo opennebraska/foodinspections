@@ -34,7 +34,7 @@ class Inspection
       ret[ins.inspection_date.to_s]['any_followups'] = true if ins.followup
     end
     
-    return [].push(ret)
+    return ret
   end
   
   def self.dated_firm_summary(firm_id, date)
