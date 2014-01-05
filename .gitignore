@@ -9,3 +9,4 @@ config/config.yml
 logs/*
 *.pid
 .bundle/install.log
+setup/vagrant/.vagrant
