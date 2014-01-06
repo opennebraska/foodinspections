@@ -1,13 +1,13 @@
 # File locations are relative to the script, e.g. in setup/
 process:
   input_file: 'State_restaurant_inspections.csv'
-  db_host: '127.0.0.0'
+  db_host: '127.0.0.1'
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
 
 development:
-  db_host: '127.0.0.0'
+  db_host: '127.0.0.1'
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
@@ -15,7 +15,7 @@ development:
   fsq_client_secret: 'MYCLIENTSECRET'
 
 production:
-  db_host: '127.0.0.0'
+  db_host: '127.0.0.1'
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
