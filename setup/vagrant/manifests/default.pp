@@ -30,17 +30,17 @@ class packages {
 	  require => Exec["pkgupdate"]
   }
   
-  package { "postgresql":
+  package { "postgresql-9.1":
       ensure => present,
       require => Exec["pkgupdate"]
   }
   
-  package { "postgresql-client":
+  package { "postgresql-client-9.1":
       ensure => present,
       require => Exec["pkgupdate"]
   }
   
-  package { "postgresql-server-dev-all":
+  package { "postgresql-server-dev-9.1":
 	  ensure => present,
 	  require => Exec["pkgupdate"]
   }
