@@ -37,21 +37,33 @@ $(document).ready(function() {
 	function drawMarkers(markers) {
 		$.each(markers, function(idx, val) {
 			drawMarker(val);
-		})
+		});
 	}
 
 	function drawMarker(data) {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
 		var Icon = configureIcon(data.total_critical, data.total_noncritical);
 		var popupRating = "<div class='rating'><div class='mac'><meter value='" + ratioToCritical + "' min='0' max'1'></meter></div></div>";
-		var popupLinkTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Direct Link to This Result</a></div><div style='clear:both;'></div>";
+		var popupLinkTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Inspection Details</a></div>";
+		var popupShareTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Share This Result</a></div>";
 		if (data.parent_name.length > 0) {
-			var popupParent = "<br><br><div class='parent'>Find all establishments owned by <a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div>";
+			var popupParent = "<br><div class='parent'>Find all establishments owned by <br><a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div><div style='clear:both;'></div>";
 		} else {
-			var popupParent = "<br><br><div class='parent'>This establishment has no parent company information.</div>";
+			var popupParent = "<br><div class='parent'>This establishment has no parent company information.</div><div style='clear:both;'></div>";
 		}
-		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>" + data.address + "<br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
-		var popupText = popupInfo + popupRating + popupParent + popupLinkTo;
+		var inspectionData = new String();
+		var isFirmPage = false;
+		for(var i = 0; i < data.inspections; i++) {
+			inspectionData += '<br><div><b>' + data[i].date + '</b><br><span>Critical Violations: ' + data[i].total_critical + '</span><br><span>Non-Critical Violations: ' + data[i].total_noncritical + '</span></div>';
+			isFirmPage = true;
+		}
+		var inspectionDataSan = inspectionData.substring(9);
+		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>" + data.address + "<br><br><b>Issue Summary</b><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
+		if (isFirmPage == true) {
+			var popupText = popupInfo + popupRating + popupParent + popupShareTo + inspectionDataSan;
+		} else {
+			var popupText = popupInfo + popupRating + popupLinkTo + popupParent; 
+		}
 		var plotmark = L.marker([data.lat, data.lng], {icon: Icon}).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
 		plotlayers.push(plotmark);
 		numberOfResults++;
