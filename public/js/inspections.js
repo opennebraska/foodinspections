@@ -31,16 +31,18 @@ function Inspections() {
 		});
 	}
 	
-	
-	
 	this.asyncPropertyListLookup = function(url, callback) {
 		$.getJSON(url, function(data) {
-			var list = $.parseJSON(data);
-			$.each(list.ids, function(key, val) {
-				$.getJSON('/api/v1/firms/' + val, function(result) {
-					callback(result);
+			if (0 < data.length) {
+				var list = $.parseJSON(data);
+				$.each(list.ids, function(key, val) {
+					$.getJSON('/api/v1/firms/' + val, function(result) {
+						callback(result);
+					});
 				});
-			});
+			} else {
+				callback(false);
+			}
 		});
 	}
 }
