@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Installing Puppet"
 wget --quiet --tries=5 --timeout=10 -O "/tmp/puppetlabs.deb" "http://apt.puppetlabs.com/puppetlabs-release-wheezy.deb"
 dpkg -i "/tmp/puppetlabs.deb" >/dev/null
 apt-get update >/dev/null
