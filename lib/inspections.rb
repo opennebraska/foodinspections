@@ -33,7 +33,7 @@ class Inspections < Sinatra::Base
   end
   
   # Load the user's config file
-  set :environments, %w{development production}
+  set :environments, %w{process development production}
   config_file 'config/config.yml'
   
   # Pass Foursquare creds on to the API
