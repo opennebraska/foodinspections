@@ -43,7 +43,7 @@ class ApiV1 < Sinatra::Base
   end
   
   get '/inspections/for/:id/summary' do
-    inspections ||= Inspection.firm_summary(params[:id]) || halt(404)
+    inspections ||= Inspection.firm_summary_array(params[:id]) || halt(404)
     format_response(inspections, request.accept)
   end
   

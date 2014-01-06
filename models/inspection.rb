@@ -41,6 +41,21 @@ class Inspection
     return ret
   end
   
+  def self.firm_summary_array(firm_id)
+    arr = []
+    
+    summary = Inspection.firm_summary(firm_id)
+    summary.each do |date, data|
+      if not date == 'date_count'
+        data['date'] = date
+        
+        arr.push(data)
+      end
+    end
+    
+    return arr
+  end
+  
   def self.dated_firm_summary(firm_id, date)
     inspections ||= Inspection.all(:firm_id => firm_id, :inspection_date => date)
     
