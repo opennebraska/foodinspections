@@ -1,6 +1,7 @@
 Nebraska Food Inspections
 =========================
 
+[![Build Status](https://travis-ci.org/rnelson/ne_state_restaurant_inspections.png?branch=master)](https://travis-ci.org/rnelson/ne_state_restaurant_inspections)
 [![Code Climate](https://codeclimate.com/github/rnelson/ne_state_restaurant_inspections.png)](https://codeclimate.com/github/rnelson/ne_state_restaurant_inspections)
 [![Dependency Status](https://gemnasium.com/rnelson/ne_state_restaurant_inspections.png)](https://gemnasium.com/rnelson/ne_state_restaurant_inspections)
 
