@@ -10,3 +10,4 @@ logs/*
 *.pid
 .bundle/install.log
 setup/vagrant/.vagrant
+inspections.tar.gz
