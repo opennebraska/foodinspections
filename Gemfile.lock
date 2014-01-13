@@ -68,7 +68,7 @@ GEM
     json_pure (1.8.1)
     kgio (2.8.1)
     minitest (4.7.5)
-    multi_json (1.8.2)
+    multi_json (1.8.4)
     rack (1.5.2)
     rack-protection (1.5.1)
       rack
@@ -96,7 +96,7 @@ GEM
       atomic
     tilt (1.4.1)
     tzinfo (0.3.38)
-    unicorn (4.7.0)
+    unicorn (4.8.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
