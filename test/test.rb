@@ -2,10 +2,10 @@ ENV['RACK_ENV'] = 'test'
 
 #require './lib/inspections'
 require 'test/unit'
-require 'rack/test'
+#require 'rack/test'
 
 class Tests < Test::Unit::TestCase
-  include Rack::Test::Methods
+#  include Rack::Test::Methods
   
   def placeholder
     assert true
