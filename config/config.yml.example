@@ -13,6 +13,9 @@ development:
   db_pass: 'p4ssw0rd'
   fsq_client_id: 'MYCLIENTID'
   fsq_client_secret: 'MYCLIENTSECRET'
+  ua: off
+  ua_key: 'UA-42-1'
+  ua_dom: 'local'
 
 production:
   db_host: '127.0.0.1'
@@ -21,3 +24,6 @@ production:
   db_pass: 'p4ssw0rd'
   fsq_client_id: 'MYCLIENTID'
   fsq_client_secret: 'MYCLIENTSECRET'
+  ua: on
+  ua_key: 'UA-42-1'
+  ua_dom: 'local'

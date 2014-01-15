@@ -58,6 +58,12 @@ class Inspections < Sinatra::Base
   #end
   
   get '/' do
+    @ua = settings.ua
+    if @ua
+      @ua_key = settings.ua_key
+      @ua_dom = settings.ua_dom
+    end
+    
     erb :index
   end
 end
