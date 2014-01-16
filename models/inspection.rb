@@ -14,7 +14,7 @@ class Inspection
   has 1, :inspections, :parent_key => [:firm_id], :child_key => [:firm_id], :required => true, :through => Resource
   
   def self.firm_summary(firm_id)
-    inspections ||= Inspection.all(:firm_id => firm_id)
+    inspections = Inspection.all(:firm_id => firm_id)
     
     dates = 0
     ret = {}
@@ -41,6 +41,26 @@ class Inspection
     return ret
   end
   
+  def self.sorted_firm_summary(firm_id)
+    inspections = Inspection.firm_summary(firm_id)
+    
+    # Save and remove the date_count item from the hash
+    date_count = inspections['date_count']
+    inspections.delete('date_count')
+    
+    # Sort the remainder of the items
+    ret = {}
+    dates = inspections.keys
+    dates.sort!
+    dates.each do |date|
+      ret[date.to_s] = inspections[date.to_s]
+    end
+    
+    ret['date_count'] = date_count
+    
+    return ret
+  end
+  
   def self.firm_summary_array(firm_id)
     arr = []
     
@@ -54,6 +74,20 @@ class Inspection
     end
     
     return arr
+  end
+  
+  def self.sorted_firm_summary_array(firm_id)
+    ret = []
+    
+    inspections = Inspection.sorted_firm_summary(firm_id)
+    inspections.each do |date, data|
+      if not date == 'date_count'
+        data['date'] = date
+        ret.push(data)
+      end
+    end
+    
+    return ret
   end
   
   def self.dated_firm_summary(firm_id, date)

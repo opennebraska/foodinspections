@@ -42,8 +42,18 @@ class ApiV1 < Sinatra::Base
     format_response(inspections, request.accept)
   end
   
+  get '/inspections/for/:id/sorted' do
+    inspections ||= Inspection.all(:firm_id => params[:id], :order => [:inspection_date.asc]) || halt(404)
+    format_response(inspections, request.accept)
+  end
+  
   get '/inspections/for/:id/summary' do
     inspections ||= Inspection.firm_summary_array(params[:id]) || halt(404)
+    format_response(inspections, request.accept)
+  end
+  
+  get '/inspections/for/:id/summary/sorted' do
+    inspections ||= Inspection.sorted_firm_summary_array(params[:id]) || halt(404)
     format_response(inspections, request.accept)
   end
   
