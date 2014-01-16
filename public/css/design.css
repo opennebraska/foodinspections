@@ -25,13 +25,19 @@ a:hover { text-decoration: underline;}
 #meter-inside { width: 0%; background-color: rgba(255,64,64,.7); height: 5px; -webkit-transition: .3s width; }
 
 /* popups n stuff */
-.popup-info { position: absolute !important; font-family: 'Open Sans'; font-size: 120%; top: 50px; right: 50px; width: 380px; left: initial; bottom: initial; opacity: 1 !important; -webkit-transition: 1s opacity; -moz-transition: 1s opacity; -ms-transition: 1s opacity; transition: 1s opacity; }
+.popup-info { position: absolute !important; font-family: 'Open Sans'; font-size: 120%; top: 50px; right: 50px; width: 380px; height: 400px; overflow-y: auto; overflow-x: hidden; left: initial; bottom: initial; opacity: 1 !important; -webkit-transition: 1s opacity; -moz-transition: 1s opacity; -ms-transition: 1s opacity; transition: 1s opacity; }
 .popup-window { padding: 10px 0px; width: 100%; margin: 0 auto; z-index: 5; position: relative; display: none; background: #000; color: #aaa; }
+.leaflet-popup-content-wrapper { box-shadow: 0px 0px 40px #666; }
 .popup-window a { color: #acf; }
 .popup-window p, .popup-window ul { width: 60%; margin-left: 10%; font-size: 10pt; -webkit-transition: .5s padding; }
 .popup-window .link-close { cursor: pointer; color: #fff; float: right; border-radius: 3px; position: absolute; top: 15px; right: 15px; padding: 10px 30px; background: #800; font-size: 18pt; text-decoration: none; }
 .popup-window .link-close:hover { text-decoration: none; background: #a33; }
 .popup-window p span { font-size: 14pt; font-weight: bold; color: #ddd; }
+.shareTo { position: absolute; top: 30px; right: 5px; }
+.shareTo a { float: right; clear: both; }
+.shareTo .twitter-link { margin-right: 2px; }
+.fb-link:hover:before { content: 'share on facebook'; background: #000; color: #fff; padding: 0px; position: relative; top: -4px; right: 5px; padding: 5px; text-decoration: none; }
+.twitter-link:hover:before { content: 'tweet this result'; background: #000; color: #fff; padding: 0px; position: relative; top: -4px; right: 5px; padding: 5px; text-decoration: none; }
 
 /* leaflet customizations */
 .leaflet-map-pane { width: 100%; height: 100%; }

@@ -44,8 +44,8 @@ $(document).ready(function() {
 		var ratioToCritical = (data.total_critical / data.total_noncritical);
 		var Icon = configureIcon(data.total_critical, data.total_noncritical);
 		var popupRating = "<div class='rating'><div class='mac'><meter value='" + ratioToCritical + "' min='0' max'1'></meter></div></div>";
-		var popupLinkTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Inspection Details</a></div>";
-		var popupShareTo = "<div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Share This Result</a></div>";
+		var popupLinkTo = "<br><div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Inspection Details</a></div>";
+		var popupShareTo = "<div class='shareTo'><a target='_blank' class='fb-link' href='http://www.facebook.com/sharer.php?s=100&p[url]=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&p[title]=Food%20Inspection%20of%20" + encodeURIComponent(data.name) + "&p[summary]=A%20quick%20glance%20at%20the%20number%20of%20critical%20and%20non-critical%20violations%20establishments%20have%20had%20in%20the%20last%203%20years%20in%20Nebraska.%20Still%20a%20work%20in%20progress%2C%20and%20not%20meant%20to%20scare.&p[images][0]=http%3A%2F%2Fopenclipart.org%2Fimage%2F800px%2Fsvg_to_png%2F33385%2Fpizza_4_stagioni_archite_01.png'><img src='http://i.stack.imgur.com/L8rHf.png' alt='Share on Facebook' /></a><a class='twitter-link' href='https://twitter.com/intent/tweet?text=Food%20Inspection%20for%20" + encodeURIComponent(data.name) + "&url=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&via=nefoodinspect' target='_blank'><img src='https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16_1.png' alt='Tweet This' /></a></div>";
 		if (data.parent_name.length > 0) {
 			var popupParent = "<br><div class='parent'>Find all establishments owned by <br><a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div><div style='clear:both;'></div>";
 		} else {
@@ -57,10 +57,9 @@ $(document).ready(function() {
 			inspectionData += '<br><div><b>' + data[i].date + '</b><br><span>Critical Violations: ' + data[i].total_critical + '</span><br><span>Non-Critical Violations: ' + data[i].total_noncritical + '</span></div>';
 			isFirmPage = true;
 		}
-		var inspectionDataSan = inspectionData.substring(9);
 		var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>" + data.address + "<br><br><b>Issue Summary</b><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
 		if (isFirmPage == true) {
-			var popupText = popupInfo + popupRating + popupParent + popupShareTo + inspectionDataSan;
+			var popupText = popupInfo + popupRating + popupParent + popupShareTo + '<div class="inspectionsData">' + inspectionData + '</div>';
 		} else {
 			var popupText = popupInfo + popupRating + popupLinkTo + popupParent; 
 		}

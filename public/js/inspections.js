@@ -24,7 +24,7 @@ function Inspections() {
 	
 	this.getPropertyById = function(firmId, callback) {
 	    $.getJSON('/api/v1/firms/' + firmId, function(data) {
-	  		$.getJSON('/api/v1/inspections/for/' + firmId + '/summary', function(details) {
+	  		$.getJSON('/api/v1/inspections/for/' + firmId + '/summary/sorted/desc', function(details) {
 	  			var finalresult = $.extend(data, details, {inspections: details.length});
 	  			callback([finalresult], finalresult.lat, finalresult.lng);
 	  		});
