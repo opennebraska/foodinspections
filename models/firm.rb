@@ -22,7 +22,7 @@ class Firm
   def self.byname(name)
     ret = []
     
-    all_data = Firm.all(:name.like => name)
+    all_data = Firm.all(:name.ilike => name)
     all_data.each do |firm|
       ret.push(firm['firm_id'])
     end
