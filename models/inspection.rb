@@ -41,7 +41,7 @@ class Inspection
     return ret
   end
   
-  def self.sorted_firm_summary(firm_id)
+  def self.sorted_firm_summary(firm_id, direction)
     inspections = Inspection.firm_summary(firm_id)
     
     # Save and remove the date_count item from the hash
@@ -51,7 +51,13 @@ class Inspection
     # Sort the remainder of the items
     ret = {}
     dates = inspections.keys
-    dates.sort!
+    
+    if :desc == direction
+      dates.sort! { |a, b| b <=> a }
+    else
+      dates.sort!
+    end
+    
     dates.each do |date|
       ret[date.to_s] = inspections[date.to_s]
     end
@@ -76,10 +82,10 @@ class Inspection
     return arr
   end
   
-  def self.sorted_firm_summary_array(firm_id)
+  def self.sorted_firm_summary_array(firm_id, direction)
     ret = []
     
-    inspections = Inspection.sorted_firm_summary(firm_id)
+    inspections = Inspection.sorted_firm_summary(firm_id, direction)
     inspections.each do |date, data|
       if not date == 'date_count'
         data['date'] = date
