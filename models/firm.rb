@@ -22,7 +22,9 @@ class Firm
   def self.byname(name)
     ret = []
     
-    all_data = Firm.all(:name.ilike => name)
+    modified_name = name.sub(/'|"/, '%')
+    
+    all_data = Firm.all(:name.ilike => modified_name)
     all_data.each do |firm|
       ret.push(firm['firm_id'])
     end
