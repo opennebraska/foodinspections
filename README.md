@@ -10,6 +10,8 @@ This repository contains code created at HO3 ([Hack Omaha III: Hack with a Venge
 
 We have plans beyond what works now, such as removing a dependency on a third party database and adding reviews from various social sites. Work in progress. Feel free to check out [our prototype](http://foodinspections.opennebraska.io).
 
+Follow us on Twitter! [@nefoodinspect](http://twitter.com/nefoodinspect)
+
 
 Getting Started
 ---------------
