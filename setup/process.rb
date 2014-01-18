@@ -21,13 +21,14 @@ DATABASE = {
 # # su - postgres
 # $ psql
 # postgres=# create database inspections;
-# postgres=# create user ho3 with password 'MYPASSWORD';
-# postgres=# grant all privileges on database inspections to ho3;
+# postgres=# create user inspections_user with password 'p4ssw0rd';
+# postgres=# grant all privileges on database inspections to inspections_user;
 # postgres=# \q
-# $ psql --username=postgres --dbname=inspections --file=/usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sqlpostgres@ho3db:~$ psql --username=postgres --dbname=inspections --file=/usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
+# $ psql --username=postgres --dbname=inspections --file=/usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql
+# $ psql --username=postgres --dbname=inspections --file=/usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
 # $ psql -d inspections
-# inspections=# GRANT Truncate, Insert, Select, Delete, Trigger, References, Update ON TABLE "public"."spatial_ref_sys" TO "ho3";
-# inspections=# GRANT Truncate, Insert, Select, Delete, References, Trigger, Update ON TABLE "public"."geometry_columns" TO "ho3";
+# inspections=# GRANT Truncate, Insert, Select, Delete, Trigger, References, Update ON TABLE "public"."spatial_ref_sys" TO 'inspections_user';
+# inspections=# GRANT Truncate, Insert, Select, Delete, References, Trigger, Update ON TABLE "public"."geometry_columns" TO 'inspections_user';
 # inspections=# \q
 # $
 # $ exit
@@ -37,7 +38,7 @@ DATABASE = {
 # drop table if exists inspections;
 # create table firms (id serial primary key, firm_id bigint, name varchar(255), parent_name varchar(255), total_critical integer, total_noncritical integer, address varchar(255), lat real, lng real);
 # create table inspections (id serial primary key, firm_id bigint, inspection_date date, inspection_type integer, business_type integer, critical_violations integer, noncritical_violations integer, followup boolean, inspector_number integer);
-# --select AddGeometryColumn("coord", 4326, "POINT", 2);
+# --select AddGeometryColumn('firms', 'coord', 4326, 'POINT', 2)
 # create index latlng_index on firms (lat, lng);
 
 
