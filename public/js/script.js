@@ -153,7 +153,6 @@ $(document).ready(function() {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         subdomains: '1234'
       }).addTo(map);
-
   }
   
   function successFunction(position) {
