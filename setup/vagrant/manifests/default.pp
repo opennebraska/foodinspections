@@ -44,6 +44,11 @@ class packages {
 	  ensure => present,
 	  require => Exec["pkgupdate"]
   }
+  
+  package { "postgresql-9.1-postgis":
+    ensure => present,
+    require => Exec["pkgupdate"]
+  }
 }
 
 node default {

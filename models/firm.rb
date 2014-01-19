@@ -19,6 +19,23 @@ class Firm
     return all(:lat.lte => coordinates[0], :lat.gte => coordinates[2], :lng.gte => coordinates[1], :lng.lte => coordinates[3])
   end
   
+  def self.inarea(lat, lng, radius)
+    radius_in_radians = radius.to_f * Math::PI / 180 / 1000
+    
+    # Get IDs for firms in the bounds
+    query  = 'SELECT firm_id FROM firms WHERE ST_Dwithin(coord::geometry, ST_GeomFromEWKT('
+    query += 'ST_SetSRID(ST_MakePoint(' + lng.to_s + ', ' + lat.to_s + '), 4326)), ' + radius_in_radians.to_s + ')'
+    ids = DataMapper.repository(:default).adapter.select(query)
+    
+    # Get all of the actual Firm objects
+    ret = []
+    ids.each do |id|
+      ret.push(Firm.get(id))
+    end
+    
+    return ret
+  end
+  
   def self.byname(name)
     ret = []
     
