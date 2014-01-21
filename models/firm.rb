@@ -43,7 +43,7 @@ class Firm
     
     all_data = Firm.all(:name.ilike => modified_name)
     all_data.each do |firm|
-      ret.push(firm['firm_id'])
+      ret.push(Firm.get(firm['firm_id']))
     end
     
     return ret
@@ -54,7 +54,7 @@ class Firm
     
     all_data = Firm.all(:parent_name.like => parent_name)
     all_data.each do |firm|
-      ret.push(firm['firm_id'])
+      ret.push(Firm.get(firm['firm_id']))
     end
     
     return ret
