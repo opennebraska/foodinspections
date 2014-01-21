@@ -25,7 +25,7 @@ a:hover { text-decoration: underline;}
 #meter-inside { width: 0%; background-color: rgba(255,64,64,.7); height: 5px; -webkit-transition: .3s width; }
 
 /* popups n stuff */
-.popup-info { position: absolute !important; font-family: 'Open Sans'; font-size: 120%; top: 50px; right: 50px; width: 380px; height: 400px; overflow-y: auto; overflow-x: hidden; left: initial; bottom: initial; opacity: 1 !important; -webkit-transition: 1s opacity; -moz-transition: 1s opacity; -ms-transition: 1s opacity; transition: 1s opacity; }
+.popup-info { position: absolute !important; font-family: 'Open Sans'; font-size: 120%; top: 50px; right: 50px; width: 380px; overflow-y: auto; overflow-x: hidden; left: initial; bottom: initial; opacity: 1 !important; -webkit-transition: 1s opacity; -moz-transition: 1s opacity; -ms-transition: 1s opacity; transition: 1s opacity; }
 .popup-window { padding: 10px 0px; width: 100%; margin: 0 auto; z-index: 5; position: relative; display: none; background: #000; color: #aaa; }
 .leaflet-popup-content-wrapper { box-shadow: 0px 0px 40px #666; }
 .popup-window a { color: #acf; }
@@ -38,6 +38,7 @@ a:hover { text-decoration: underline;}
 .shareTo .twitter-link { margin-right: 2px; }
 .fb-link:hover:before { content: 'share on facebook'; background: #000; color: #fff; padding: 0px; position: relative; top: -4px; right: 5px; padding: 5px; text-decoration: none; }
 .twitter-link:hover:before { content: 'tweet this result'; background: #000; color: #fff; padding: 0px; position: relative; top: -4px; right: 5px; padding: 5px; text-decoration: none; }
+.notice { position: fixed; bottom: 0px !important; width: 100%; background: #faa; color: #700; font-size: 12pt; display: none; z-index: 10000; padding: 7px 0; text-align: center; }
 
 /* leaflet customizations */
 .leaflet-map-pane { width: 100%; height: 100%; }
@@ -53,8 +54,13 @@ a:hover { text-decoration: underline;}
 @media all and (max-width: 768px) {
 	.heading-header { font-size: 17pt; }
 	.heading-header-links { padding-left: 40px; }
+	.home img { height: 22px; }
 	.search-box { width: 310px; }
 	.search-box input[type="text"] { width: 166px; border-radius: 0px; }
+}
+
+@media all and (min-width: 640px) { 
+	.popup-info { height: 400px; }
 }
 
 @media all and (max-width: 640px) {
