@@ -120,7 +120,7 @@ $(document).ready(function() {
       if(data.length > 0) {
         drawMarkers(data);
       } else {
-        $('.notice').html('We redirected you to our default location (Omaha, Nebraska) due to no points within 6 miles of your location.').delay(1000).fadeIn().delay(10000).fadeOut();
+        $('.notice').html('We redirected you to our default location (Omaha, Nebraska) due to no points within 6 miles of your location.').fadeIn().delay(10000).fadeOut();
         drawMap(DEFAULTLAT, DEFAULTLNG, NOGEOLOCATION_DEFAULTZOOM);
       }
     });
@@ -144,7 +144,7 @@ $(document).ready(function() {
         if(data.length > 0) {
           drawMarkers(data);
         } else {
-          $('.notice').html('There are no points within this map view. Please zoom out or move the map, or go to our <a href="#" onClick="Javascript:drawMap(DEFAULTLAT, DEFAULTLNG, NOGEOLOCATION_DEFAULTZOOM);">default location</a>.').delay(1000).fadeIn();
+          $('.notice').html('There are no points within this map view. Please zoom out or move the map, or go to our <a href="#" onClick="Javascript:drawMap(DEFAULTLAT, DEFAULTLNG, NOGEOLOCATION_DEFAULTZOOM);">default location</a>.').fadeIn();
           map.spin(false);
         }
       });
