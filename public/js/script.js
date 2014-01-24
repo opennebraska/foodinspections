@@ -4,8 +4,8 @@ $(document).ready(function() {
   var DEFAULTZOOM = 15;
   var NOGEOLOCATION_DEFAULTZOOM = 18;
   var path = window.location.href;
-  var cleanPath = path.substr(path.indexOf("=") + 1);
-  var pathArray = cleanPath.split( '/' );
+  var cleanPath = path.substr(path.indexOf('=') + 1);
+  var pathArray = cleanPath.split('/');
   var map = L.map('map');
   var plotlayers=[];
   var numberOfResults = 0;
@@ -21,7 +21,7 @@ $(document).ready(function() {
   }
   else if (undefined != urlBits['parent']) {
     var db = new Inspections();
-    drawMapWithNoPoints(40.7912313,-96.6779901,5);
+    drawMapWithNoPoints(40.7912313, -96.6779901, 5);
     db.getChildProperties(urlBits['parent'], function(result) {
       drawMarker(result);
     });
