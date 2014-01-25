@@ -100,7 +100,8 @@ $(document).ready(function() {
     var popupLinkTo = "<br><div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Inspection Details</a></div>";
     if (data.parent_name.length > 0) {
       var popupParent = "<br><div class='parent'>Find all establishments owned by <br><a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div><div style='clear:both;'></div>";
-    } else {
+    }
+    else {
       var popupParent = "<br><div class='parent'>This establishment has no parent company information.</div><div style='clear:both;'></div>";
     }
 
