@@ -34,12 +34,10 @@ function Inspections() {
   this.asyncPropertyListLookupJson = function(url, callback) {
     $.getJSON(url, function(data) {
       if (0 < data.length) {
-        console.log(data);
         var list = $.parseJSON(data);
         $.each(list.ids, function(key, val) {
           $.getJSON('/api/v1/firms/' + val, function(result) {
             callback(result);
-            console.log(result);
           });
         });
       } else {

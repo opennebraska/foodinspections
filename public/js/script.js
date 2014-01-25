@@ -21,8 +21,8 @@ $(document).ready(function() {
   }
   else if (undefined != urlBits['parent']) {
     var db = new Inspections();
-    drawMapWithNoPoints(40.7912313, -96.6779901, 5);
     db.getChildProperties(urlBits['parent'], function(result) {
+      drawMapWithNoPoints(result.lat, result.lng, 10);
       drawMarker(result);
     });
   }
@@ -41,19 +41,14 @@ $(document).ready(function() {
   }
 
   function drawMarker(data) {
-    var ratioToCritical = (data.total_critical / data.total_noncritical);
     var Icon = configureIcon(data.total_critical, data.total_noncritical);
-    var dataNameClean = data.name.replace("'", "");
-    var popupRating = "<div class='rating'><div class='mac'><meter value='" + ratioToCritical + "' min='0' max'1'></meter></div></div>";
     var popupLinkTo = "<br><div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Inspection Details</a></div>";
-    var popupShareTo = "<div class='shareTo'><a target='_blank' class='fb-link' href='http://www.facebook.com/sharer.php?s=100&p[url]=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&p[title]=Food%20Inspection%20of%20" + encodeURIComponent(data.name) + "&p[summary]=A%20quick%20glance%20at%20the%20number%20of%20critical%20and%20non-critical%20violations%20establishments%20have%20had%20in%20the%20last%203%20years%20in%20Nebraska.%20Still%20a%20work%20in%20progress%2C%20and%20not%20meant%20to%20scare.&p[images][0]=http%3A%2F%2Fopenclipart.org%2Fimage%2F800px%2Fsvg_to_png%2F33385%2Fpizza_4_stagioni_archite_01.png'><img src='http://i.stack.imgur.com/L8rHf.png' alt='Share on Facebook' /></a><a class='twitter-link' href='https://twitter.com/intent/tweet?text=Food%20Inspection%20for%20" + encodeURIComponent(dataNameClean) + "&url=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&via=nefoodinspect' target='_blank'><img src='https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16_1.png' alt='Tweet This' /></a></div>";
-    
-    if (data.parent_name != null) {
+    if (data.parent_name.length > 0) {
       var popupParent = "<br><div class='parent'>Find all establishments owned by <br><a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div><div style='clear:both;'></div>";
-    }
-    else {
+    } else {
       var popupParent = "<br><div class='parent'>This establishment has no parent company information.</div><div style='clear:both;'></div>";
     }
+
     var inspectionData = new String();
     var isFirmPage = false;
     
@@ -65,10 +60,11 @@ $(document).ready(function() {
     var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>" + data.address + "<br><br><b>Issue Summary</b><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
     
     if (isFirmPage == true) {
-      var popupText = popupInfo + popupRating + popupParent + popupShareTo + '<div class="inspectionsData">' + inspectionData + '</div>';
-    }
-    else {
-      var popupText = popupInfo + popupRating + popupLinkTo + popupParent; 
+      var dataNameClean = data.name.replace("'", "");
+      var popupShareTo = "<div class='shareTo'><a target='_blank' class='fb-link' href='http://www.facebook.com/sharer.php?s=100&p[url]=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&p[title]=Food%20Inspection%20of%20" + encodeURIComponent(data.name) + "&p[summary]=A%20quick%20glance%20at%20the%20number%20of%20critical%20and%20non-critical%20violations%20establishments%20have%20had%20in%20the%20last%203%20years%20in%20Nebraska.%20Still%20a%20work%20in%20progress%2C%20and%20not%20meant%20to%20scare.&p[images][0]=http%3A%2F%2Fopenclipart.org%2Fimage%2F800px%2Fsvg_to_png%2F33385%2Fpizza_4_stagioni_archite_01.png'><img src='http://i.stack.imgur.com/L8rHf.png' alt='Share on Facebook' /></a><a class='twitter-link' href='https://twitter.com/intent/tweet?text=Food%20Inspection%20for%20" + encodeURIComponent(dataNameClean) + "&url=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&via=nefoodinspect' target='_blank'><img src='https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16_1.png' alt='Tweet This' /></a></div>";
+      var popupText = popupInfo + popupParent + popupShareTo + '<div class="inspectionsData">' + inspectionData + '</div>';
+    } else {
+      var popupText = popupInfo + popupLinkTo + popupParent; 
     }
     
     var plotmark = L.marker([data.lat, data.lng], {icon: Icon}).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
@@ -99,9 +95,13 @@ $(document).ready(function() {
         reuseTiles: true
       }).addTo(map);
 
+    map.on('popupopen', function() {
+      $('.popup-info').attr('style', '');
+    });
+
       if (numberOfResults == 1) {
       plotlayers[0].openPopup();
-      $('.popup-info').attr('style', '');
+    
     }
   } 
   
@@ -164,7 +164,7 @@ $(document).ready(function() {
   }
 
   function drawMapWithNoPoints(lat, lng, zoomLevel) {
-    zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
+    //zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
     map.setView([lat,lng], zoomLevel);
 
     // add an OpenStreetMap tile layer
@@ -174,6 +174,10 @@ $(document).ready(function() {
         detectRetina: true,
         reuseTiles: true
       }).addTo(map);
+
+    map.on('popupopen', function() {
+      $('.popup-info').attr('style', '');
+    });
   }
   
   function successFunction(position) {
@@ -255,6 +259,13 @@ $(document).ready(function() {
     db.getPropertiesLikeName(search, function(data) {
       if(data == false) {
         queryGoogle(search);
+      } else {
+        console.log(data);
+        drawMapWithNoPoints(41, 99, 5);
+        map.setZoom(3);
+        // for (var i = 0; i < data.length; i++) {
+        //   drawMarker(data[i]);
+        // }
       }
     });
   }
@@ -278,21 +289,21 @@ $(document).ready(function() {
       var Icon = L.icon({
           iconUrl: '../img/red.svg',
           iconSize: [50, 50],
-          iconAnchor: [25, 67]
+          iconAnchor: [25, 44]
       });
     }
     else if (critical == 0 && noncritical < 5) {
       var Icon = L.icon({
           iconUrl: '../img/green.svg',
           iconSize: [50, 50],
-          iconAnchor: [25, 67]
+          iconAnchor: [25, 44]
       });
     }
     else {
       var Icon = L.icon({
           iconUrl: '../img/yellow.svg',
           iconSize: [50, 50],
-          iconAnchor: [25, 67]
+          iconAnchor: [25, 44]
       });
     }
     
