@@ -11,6 +11,51 @@ $(document).ready(function() {
   var numberOfResults = 0;
   map.spin(true);
   
+  
+  
+  // Here be jQuery magic.
+  $('.leaflet-popup-pane').insertBefore('.leaflet-map-pane');
+  
+  if (matchMedia('only screen and (min-width: 640px)').matches) {
+    $('.heading-header').mouseover(function() {
+      $('.home').fadeIn(50);
+    });
+    
+    $('.heading-header').mouseout(function() {
+      $('.home').fadeOut(50);
+    });
+  }
+
+  $('.heading-header-links a.link-about').click(function () {
+    $('#how, #soon').hide();
+    $('.popup-window').slideDown(300);
+    $('#about').fadeIn(100);
+  });
+  
+  $('.heading-header-links a.link-how').click(function () {
+    $('#about, #soon').hide();
+    $('.popup-window').slideDown(300);
+    $('#how').fadeIn(100);
+  });
+  
+  $('.heading-header-links a.link-soon').click(function () {
+    $('#about, #how').hide();
+    $('.popup-window').slideDown(300);
+    $('#soon').fadeIn(100);
+  });
+  
+  $('.popup-window a.link-close, #map').click(function () {
+    $('.popup-window').slideUp(300);
+  });
+  
+  $('#form').submit(function() {
+    searchNames();
+    event.preventDefault();
+  });
+  
+  
+  
+  // Parse the URL and determine what we need to do
   var urlBits = parseUrl();
   if (undefined != urlBits['firm']) {
     var db = new Inspections();
@@ -28,18 +73,28 @@ $(document).ready(function() {
   }
   else {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+      navigator.geolocation.getCurrentPosition(geolocationSuccessful, geolocationFailure);
     }
   }
   
-  $('.leaflet-popup-pane').insertBefore('.leaflet-map-pane');
-
+  
+  
+  /**
+   * Adds an array of markers to the map.
+   * 
+   * @param {array} markers - Data to build Leaflet markers for.
+   */
   function drawMarkers(markers) {
     $.each(markers, function(idx, val) {
       drawMarker(val);
     });
   }
-
+  
+  /**
+   * Adds a single marker to the map.
+   * 
+   * @param {object} data - The data used to build a marker.
+   */
   function drawMarker(data) {
     var Icon = configureIcon(data.total_critical, data.total_noncritical);
     var popupLinkTo = "<br><div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Inspection Details</a></div>";
@@ -72,8 +127,16 @@ $(document).ready(function() {
     numberOfResults++;
     map.spin(false);
   }
-
-  function drawMapWithPoints(points, lat, lng, count, zoomLevel) {
+  
+  /**
+   * Draws the map and a set of points on top of it.
+   * 
+   * @param {array} points - Data to build Leaflet markers for.
+   * @param {number} lat - Latitude.
+   * @param {number} lng - Longitude.
+   * @param {number} zoomLevel - The zoom level to display the map at.
+   */
+  function drawMapWithPoints(points, lat, lng, zoomLevel) {
     zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
     map.setView([lat,lng], zoomLevel);
     
@@ -99,12 +162,18 @@ $(document).ready(function() {
       $('.popup-info').attr('style', '');
     });
 
-      if (numberOfResults == 1) {
+    if (numberOfResults == 1) {
       plotlayers[0].openPopup();
-    
     }
   } 
   
+  /**
+   * Draws the map.
+   * 
+   * @param {number} lat - Latitude.
+   * @param {number} lng - Longitude.
+   * @param {number} zoomLevel - The zoom level to display the map at.
+   */
   function drawMap(lat, lng, zoomLevel) {
     zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
 
@@ -142,7 +211,8 @@ $(document).ready(function() {
       db.getPointsInBoundingBox(bounds.getNorth(), bounds.getWest(), bounds.getSouth(), bounds.getEast(), function(data){
         if(data.length > 0) {
           drawMarkers(data);
-        } else {
+        }
+        else {
           $('.notice').html('There are no points within this map view. Please zoom out or move the map.').fadeIn();
           map.spin(false);
         }
@@ -162,24 +232,35 @@ $(document).ready(function() {
     });
   }
 
+  /**
+   * Draws the map.
+   * 
+   * @param {number} lat - Latitude.
+   * @param {number} lng - Longitude.
+   * @param {number} zoomLevel - The zoom level to display the map at.
+   */
   function drawMapWithNoPoints(lat, lng, zoomLevel) {
-    //zoomLevel = typeof a !== 'undefined' ? zoomLevel : DEFAULTZOOM;
     map.setView([lat,lng], zoomLevel);
 
     // add an OpenStreetMap tile layer
     L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: '1234',
-        detectRetina: true,
-        reuseTiles: true
-      }).addTo(map);
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: '1234',
+      detectRetina: true,
+      reuseTiles: true
+    }).addTo(map);
 
     map.on('popupopen', function() {
       $('.popup-info').attr('style', '');
     });
   }
   
-  function successFunction(position) {
+  /**
+   * Draws the map cover the area the browser's geolocation gave us.
+   * 
+   * @param {object} position - Geolocation object containing a coordinate to map.
+   */
+  function geolocationSuccessful(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
 
@@ -187,6 +268,9 @@ $(document).ready(function() {
     map.spin(false);
   }
   
+  /**
+   * Removes all markers from the map.
+   */
   function removeMarkers() {
     for (i = 0; i < plotlayers.length; i++) {
       map.removeLayer(plotlayers[i]);
@@ -194,13 +278,24 @@ $(document).ready(function() {
     
     plotlayers = [];
   }
-
+  
+  /**
+   * Updates the 'Share This View' link.
+   * 
+   * @param {number} cLat - Center point's latitude.
+   * @param {number} cLng - Center point's longitude.
+   * @param {number} cRadius - Radius from the center point to the edge.
+   */
   function updateResultLink(cLat, cLng, cRadius) {
-    // this is a function to update the Share This View link
     var shareLink = '?lat=' + cLat + '&lng=' + cLng + '&radius=' + cRadius;
     $('.share-link').attr('href', shareLink);
   }
-
+  
+  /**
+   * Gets the center point and radius for the current view.
+   * 
+   * @returns {object} Object containing properties 'centerLat', 'centerLng', and 'radius'.
+   */
   function getEndPoints() {
     var center = map.getCenter();
     var centerLat = center.lat;
@@ -217,10 +312,24 @@ $(document).ready(function() {
     return {'centerLat': centerLat, 'centerLng': centerLng, 'radius': radius};
   }
   
+  /**
+   * Converts a value to radians.
+   * 
+   * @param {number} Value - The value to convert.
+   * @returns {number} The value converted to radians.
+   */
   function toRad(Value) {
     return Value * Math.PI / 180;
   }
   
+  /**
+   * Calculates the radius of the specified view.
+   * 
+   * @param {number} centerLat - Latitude of the center point.
+   * @param {number} centerLng - Longitude of the center point.
+   * @param {number} eastLng - Longitude of the east edge.
+   * @returns {number} The radius in meters.
+   */
   function calculateDistance(centerLat, centerLng, eastLng) {
     var lat1 = centerLat;
     var lat2 = centerLat;
@@ -241,15 +350,16 @@ $(document).ready(function() {
     return d;
   }
   
-  function errorFunction(){
+  /**
+   * Draws a default map after geolocation has either failured or not been approved by the user.
+   */
+  function geolocationFailure(){
     drawMap(DEFAULTLAT, DEFAULTLNG, NOGEOLOCATION_DEFAULTZOOM);
   }
   
-  $('#form').submit(function() {
-    searchNames();
-    event.preventDefault();
-  });
-  
+  /**
+   * Shows search results for a name entered on the page.
+   */
   function searchNames() {
     removeMarkers();
     var db = new Inspections();
@@ -258,17 +368,19 @@ $(document).ready(function() {
     db.getPropertiesLikeName(search, function(data) {
       if(data == false) {
         queryGoogle(search);
-      } else {
-        console.log(data);
+      }
+      else {
         drawMapWithNoPoints(41, 99, 5);
         map.setZoom(3);
-        // for (var i = 0; i < data.length; i++) {
-        //   drawMarker(data[i]);
-        // }
       }
     });
   }
-
+  
+  /**
+   * Geocodes an address using Google Maps.
+   * 
+   * @param {string} The search string.
+   */
   function queryGoogle(search) {
     var url = "http://maps.google.com/maps/api/geocode/json?address=";
     var search = search.replace(',', '+');
@@ -282,7 +394,14 @@ $(document).ready(function() {
       map.panTo(new L.LatLng(lat, lng));
     });
   }
-
+  
+  /**
+   * Constructs a Leaflet icon object based on inspection counts.
+   * 
+   * @param {number} critical - The number of critical violations.
+   * @param {number} noncritical - The number of non-critical violations.
+   * @returns {object} The icon.
+   */
   function configureIcon(critical, noncritical) {
     if (critical > 15) {
       var Icon = L.icon({
@@ -309,6 +428,11 @@ $(document).ready(function() {
     return Icon;
   }
   
+  /**
+   * Parses the window's current URL.
+   * 
+   * @returns {object} An object containing values found for valid GET arguments to the URL.
+   */
   function parseUrl() {
     var ret = {};
     var haveQuery = false;
@@ -358,36 +482,4 @@ $(document).ready(function() {
     
     return ret;
   }
-  
-  if (matchMedia('only screen and (min-width: 640px)').matches) {
-    $('.heading-header').mouseover(function() {
-      $('.home').fadeIn(50);
-    });
-    
-    $('.heading-header').mouseout(function() {
-      $('.home').fadeOut(50);
-    });
-  }
-
-  $('.heading-header-links a.link-about').click(function () {
-    $('#how, #soon').hide();
-    $('.popup-window').slideDown(300);
-    $('#about').fadeIn(100);
-  });
-  
-  $('.heading-header-links a.link-how').click(function () {
-    $('#about, #soon').hide();
-    $('.popup-window').slideDown(300);
-    $('#how').fadeIn(100);
-  });
-  
-  $('.heading-header-links a.link-soon').click(function () {
-    $('#about, #how').hide();
-    $('.popup-window').slideDown(300);
-    $('#soon').fadeIn(100);
-  });
-  
-  $('.popup-window a.link-close, #map').click(function () {
-    $('.popup-window').slideUp(300);
-  });
 });
