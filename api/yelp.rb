@@ -1,20 +1,16 @@
 require 'sinatra/base'
 require 'sinatra/config_file'
+require './api/apibase'
 require './lib/yelp'
 
 # /api/yelp/*
 # Display requirements: http://www.yelp.com/developers/getting_started/display_requirements
-class YelpApi < Sinatra::Base
-  @@enabled = false
+class YelpApi < ApiBase
   @@consumer_key = ''
   @@consumer_secret = ''
   @@token = ''
   @@token_secret = ''
-  
-  def self.enabled=(is_enabled)
-    @@enabled = is_enabled
-  end
-  
+    
   def self.consumer_key=(new_consumer_key)
     @@consumer_key = new_consumer_key
   end
@@ -33,18 +29,6 @@ class YelpApi < Sinatra::Base
   
   def get_client
     return YelpClient.new(@@consumer_key, @@consumer_secret, @@token, @@token_secret)
-  end
-  
-  before do
-    # Ensure this API is even enabled
-    if not @@enabled
-      halt 403, {'Content-Type' => 'text/plain'}, 'Yelp support disabled'
-    end
-    
-    # Disallow remote access to authenticated third-party APIs
-    if not '127.0.0.1' == request.ip.to_s
-      halt 403, {'Content-Type' => 'text/plain'}, 'Access denied'
-    end
   end
   
   get '/v1/search/:lat/:lng/:name' do
