@@ -25,7 +25,7 @@ function Yelp() {
    * @param {number} longitude - Center point longitude.
    * @param {number} radius - Radius (in meters) to search.
    */
-  this.search = function(name, latitude, longitude, radius, callback) {
+  this.searchWithRadius = function(name, latitude, longitude, radius, callback) {
     $.getJSON('/api/yelp/v1/search/' + latitude + '/' + longitude + '/' + name + '/' + radius, function(data) {
       callback(data);
     });
