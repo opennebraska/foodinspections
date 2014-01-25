@@ -11,3 +11,7 @@ end
 map '/api/foursquare' do
   run FoursquareApi
 end
+
+map '/api/yelp' do
+  run YelpApi
+end

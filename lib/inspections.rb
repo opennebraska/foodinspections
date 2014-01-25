@@ -36,9 +36,21 @@ class Inspections < Sinatra::Base
   set :environments, %w{process development production}
   config_file 'config/config.yml'
   
-  # Pass Foursquare creds on to the API
-  FoursquareApi.id = settings.fsq_client_id
-  FoursquareApi.secret = settings.fsq_client_secret
+  # Pass Foursquare creds on to that API
+  FoursquareApi.enabled = settings.fsq
+  if settings.fsq
+    FoursquareApi.id = settings.fsq_client_id
+    FoursquareApi.secret = settings.fsq_client_secret
+  end
+  
+  # Pass Yelp creds on to that API
+  YelpApi.enabled = settings.yelp
+  if settings.yelp
+    YelpApi.consumer_key = settings.yelp_consumer_key
+    YelpApi.consumer_secret = settings.yelp_consumer_secret
+    YelpApi.token = settings.yelp_token
+    YelpApi.token_secret = settings.yelp_token_secret
+  end
   
   # Database setup
   db_url = 'postgres://' + settings.db_user + ':' + settings.db_pass + '@' + settings.db_host + '/' + settings.db_name

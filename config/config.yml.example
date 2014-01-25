@@ -11,8 +11,14 @@ development:
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
+  fsq: off
   fsq_client_id: 'MYCLIENTID'
   fsq_client_secret: 'MYCLIENTSECRET'
+  yelp: on
+  yelp_consumer_key: 'MYCONSUMERKEY'
+  yelp_consumer_secret: 'MYCONSUMERSECRET'
+  yelp_token: 'MYTOKEN'
+  yelp_token_secret: 'MYTOKENSECRET'
   ua: off
   ua_key: 'UA-42-1'
   ua_dom: 'local'
@@ -22,8 +28,14 @@ production:
   db_name: 'inspections'
   db_user: 'inspections_user'
   db_pass: 'p4ssw0rd'
+  fsq: off
   fsq_client_id: 'MYCLIENTID'
   fsq_client_secret: 'MYCLIENTSECRET'
+  yelp: on
+  yelp_consumer_key: 'MYCONSUMERKEY'
+  yelp_consumer_secret: 'MYCONSUMERSECRET'
+  yelp_token: 'MYTOKEN'
+  yelp_token_secret: 'MYTOKENSECRET'
   ua: on
   ua_key: 'UA-42-1'
   ua_dom: 'local'
