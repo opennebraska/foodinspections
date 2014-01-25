@@ -154,11 +154,11 @@ $(document).ready(function() {
     
     // add an OpenStreetMap tile layer
     L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: '1234',
-        detectRetina: true,
-        reuseTiles: true
-      }).addTo(map);
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: '1234',
+      detectRetina: true,
+      reuseTiles: true
+    }).addTo(map);
 
     map.on('popupopen', function() {
       $('.popup-info').attr('style', '');
