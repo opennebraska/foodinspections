@@ -3,6 +3,7 @@ require 'sinatra/config_file'
 require './lib/yelp'
 
 # /api/yelp/*
+# Display requirements: http://www.yelp.com/developers/getting_started/display_requirements
 class YelpApi < Sinatra::Base
   @@enabled = false
   @@consumer_key = ''
