@@ -2,7 +2,12 @@ require 'sinatra/base'
 require 'sinatra/config_file'
 
 class ApiBase < Sinatra::Base
+  @@creds = {}
   @@enabled = false
+  
+  def self.creds
+    return @@creds
+  end
   
   def self.enabled=(is_enabled)
     @@enabled = is_enabled
