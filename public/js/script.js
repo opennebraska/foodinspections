@@ -58,6 +58,7 @@ $(document).ready(function() {
   // Parse the URL and determine what we need to do
   var urlBits = parseUrl();
   if (undefined != urlBits['firm']) {
+    $('body').addClass('firm-page');
     var db = new Inspections();
     db.getPropertyById(urlBits['firm'], drawMapWithPoints);
   }
@@ -98,32 +99,29 @@ $(document).ready(function() {
   function drawMarker(data) {
     var Icon = configureIcon(data.total_critical, data.total_noncritical);
     var popupLinkTo = "<br><div class='linkTo'><a href='/?firm=" + data.firm_id + "'>Inspection Details</a></div>";
+    
+    // Figure out what to do if parent name exists.
     if (data.parent_name.length > 0) {
-      var popupParent = "<br><div class='parent'>Find all establishments owned by <br><a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div><div style='clear:both;'></div>";
+      var popupParent = "<br><div class='parent'><div class='heading-popup-info'>Parent Company Information</div> <br />Find all establishments owned by <br><a href='/?parent=" + data.parent_name + "'>" + data.parent_name + "</a></div><div style='clear:both;'></div>";
     }
     else {
-      var popupParent = "<br><div class='parent'>This establishment has no parent company information.</div><div style='clear:both;'></div>";
+      var popupParent = "<br><div class='parent'><div class='heading-popup-info'>Parent Company Information</div> <br />This establishment has no parent company information.</div><div style='clear:both;'></div>";
     }
 
+    // Loop through the inspection data.
     var inspectionData = new String();
-    var isFirmPage = false;
-    
     for(var i = 0; i < data.inspections; i++) {
-      inspectionData += '<br><div><b>' + data[i].date + '</b><br><span>Critical Violations: ' + data[i].total_critical + '</span><br><span>Non-Critical Violations: ' + data[i].total_noncritical + '</span></div>';
-      isFirmPage = true;
+      inspectionData += '<br /><div><b>' + data[i].date + '</b><br><span>Critical Violations: ' + data[i].total_critical + '</span><br><span>Non-Critical Violations: ' + data[i].total_noncritical + '</span></div>';
     }
     
-    var popupInfo = "<div class='info'><span class='name'>" + data.name + "</span><br>" + data.address + "<br><br><b>Issue Summary</b><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
+    var popupInfo = "<div class='info' data-lat='" + data.lat + "' data-lng='" + data.lng + "' data-name='" + data.name + "'><span class='name'>" + data.name + "</span><br>" + data.address + "<br><br><div class='heading-popup-info'>Issue Summary</div><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
+    var yelpContainer = "<br /><div class='heading-popup-info'>Yelp Reviews</div><br /><div class='yelp'><img src='../img/loader.gif' />Loading Yelp rating...</div>";
     
-    if (isFirmPage == true) {
-      var dataNameClean = data.name.replace("'", "");
-      var popupShareTo = "<div class='shareTo'><a target='_blank' class='fb-link' href='http://www.facebook.com/sharer.php?s=100&p[url]=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&p[title]=Food%20Inspection%20of%20" + encodeURIComponent(data.name) + "&p[summary]=A%20quick%20glance%20at%20the%20number%20of%20critical%20and%20non-critical%20violations%20establishments%20have%20had%20in%20the%20last%203%20years%20in%20Nebraska.%20Still%20a%20work%20in%20progress%2C%20and%20not%20meant%20to%20scare.&p[images][0]=http%3A%2F%2Fopenclipart.org%2Fimage%2F800px%2Fsvg_to_png%2F33385%2Fpizza_4_stagioni_archite_01.png'><img src='http://i.stack.imgur.com/L8rHf.png' alt='Share on Facebook' /></a><a class='twitter-link' href='https://twitter.com/intent/tweet?text=Food%20Inspection%20for%20" + encodeURIComponent(dataNameClean) + "&url=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&via=nefoodinspect' target='_blank'><img src='https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16_1.png' alt='Tweet This' /></a></div>";
-      var popupText = popupInfo + popupParent + popupShareTo + '<div class="inspectionsData">' + inspectionData + '</div>';
-    }
-    else {
-      var popupText = popupInfo + popupLinkTo + popupParent; 
-    }
+    var dataNameClean = data.name.replace("'", "");
+    var popupShareTo = "<div class='shareTo'><a target='_blank' class='fb-link' href='http://www.facebook.com/sharer.php?s=100&p[url]=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&p[title]=Food%20Inspection%20of%20" + encodeURIComponent(data.name) + "&p[summary]=A%20quick%20glance%20at%20the%20number%20of%20critical%20and%20non-critical%20violations%20establishments%20have%20had%20in%20the%20last%203%20years%20in%20Nebraska.%20Still%20a%20work%20in%20progress%2C%20and%20not%20meant%20to%20scare.&p[images][0]=http%3A%2F%2Fopenclipart.org%2Fimage%2F800px%2Fsvg_to_png%2F33385%2Fpizza_4_stagioni_archite_01.png'><img src='http://i.stack.imgur.com/L8rHf.png' alt='Share on Facebook' /></a><a class='twitter-link' href='https://twitter.com/intent/tweet?text=Food%20Inspection%20for%20" + encodeURIComponent(dataNameClean) + "&url=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&via=nefoodinspect' target='_blank'><img src='https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16_1.png' alt='Tweet This' /></a></div>";
+    var popupText = popupInfo + yelpContainer + popupParent + popupLinkTo + popupShareTo + '<br /><div class="inspectionsData"><div class="heading-popup-info">Inspection Details</div>' + inspectionData + '</div>';
     
+    // Draw the marker.
     var plotmark = L.marker([data.lat, data.lng], {icon: Icon}).addTo(map).bindPopup(popupText, { autoPan: false, className: 'popup-info', minWidth: "100%", zoomAnimation: false });
     plotlayers.push(plotmark);
     numberOfResults++;
@@ -162,6 +160,11 @@ $(document).ready(function() {
 
     map.on('popupopen', function() {
       $('.popup-info').attr('style', '');
+      var yelpLat = $('.info').attr('data-lat');
+      var yelpLng = $('.info').attr('data-lng');
+      var yelpName = $('.info').attr('data-name').split("\\s+");
+      console.log('yelpname: ' + yelpName);
+      getYelp(yelpName, yelpLat, yelpLng);
     });
 
     if (numberOfResults == 1) {
@@ -227,6 +230,11 @@ $(document).ready(function() {
 
     map.on('popupopen', function() {
       $('.popup-info').attr('style', '');
+      var yelpLat = $('.info').attr('data-lat');
+      var yelpLng = $('.info').attr('data-lng');
+      var yelpName = $('.info').attr('data-name').split("\\s+");
+      console.log('yelpname: ' + yelpName);
+      getYelp(yelpName, yelpLat, yelpLng);
     });
 
     map.on('click', function() {
@@ -394,6 +402,23 @@ $(document).ready(function() {
       var lat = googleData.results[0].geometry.location.lat;
       var lng = googleData.results[0].geometry.location.lng;
       map.panTo(new L.LatLng(lat, lng));
+    });
+  }
+
+  function getYelp(name, lat, lng) {
+    var yelp = new Yelp();
+    yelp.search(name, lat, lng, function(data) {
+      // Make data happen!
+      console.log(data);
+      if(data.total > 0) {
+        var yelpAttribution = "<div class='yelp-attrib'><img src='../img/yelp-logo.png' height='30' alt='Yelp Logo' /></div>";
+        var ratingDiv = "<div class='rating'><b>" + data.businesses[0].rating + "</b> <img src='" + data.businesses[0].rating_img_url_small + "' alt='Yelp Rating of " + data.businesses[0].rating + " stars' /> (based on " + data.businesses[0].review_count + " reviews)</div>";
+        var moreInfo = "<div class='more-info'><a href='" + data.businesses[0].url + "'>View Profile on Yelp</a></div>"
+        $('.yelp').html(yelpAttribution + ratingDiv + moreInfo);
+      }
+      else {
+        $('.yelp').html('There was an error loading Yelp results.');
+      }
     });
   }
   
