@@ -1,13 +1,13 @@
 ---
 category: Inspections
-path: '/inspections/for/:id'
-title: 'Get inspections for a firm'
+path: '/inspections/for/:id/sorted'
+title: 'Get a sorted list of inspections for a firm'
 type: 'GET'
 
 layout: nil
 ---
 
-Returns inspections for the requested firm.
+Returns sorted inspections for the requested firm.
 
 ### Request
 
@@ -15,7 +15,7 @@ Returns inspections for the requested firm.
 
 ### Response
 
-Sends back inspections for a given firm.
+Sends back inspections for a given firm, sorted by date.
 
 ```Status: 200 OK```
 ```[
