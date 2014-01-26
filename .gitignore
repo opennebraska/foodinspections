@@ -12,3 +12,4 @@ logs/*
 setup/vagrant/.vagrant
 inspections.tar.gz
 tmp/*
+_site
