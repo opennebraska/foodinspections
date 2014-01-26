@@ -16,7 +16,7 @@ class ApiBase < Sinatra::Base
   before do
     # Ensure this API is even enabled
     if not @@enabled
-      halt 403, {'Content-Type' => 'text/plain'}, 'Yelp support disabled'
+      halt 403, {'Content-Type' => 'text/plain'}, 'Disabled'
     end
     
     # Disallow remote access to authenticated third-party APIs
