@@ -1,4 +1,13 @@
-.DS_Store
-Thumbs.db
+.*
+!.gitignore
+!.gitmodules
+*~
+
+components/
+
+_site/
+
 *~
 *.swp
+Thumbs.db
+.DS_Store
