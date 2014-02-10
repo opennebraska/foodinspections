@@ -115,7 +115,7 @@ $(document).ready(function() {
     }
     
     var popupInfo = "<div class='info' data-lat='" + data.lat + "' data-lng='" + data.lng + "' data-name='" + data.name + "'><span class='name'>" + data.name + "</span><br>" + data.address + "<br><br><div class='heading-popup-info'>Issue Summary</div><br>Critical Issues: " + data.total_critical + "<br>Non-Critical Issues: " + data.total_noncritical + "</div>";
-    var yelpContainer = "<br /><div class='heading-popup-info'>Yelp Reviews</div><br /><div class='yelp'><img src='../img/loader.gif' />Loading Yelp rating...</div>";
+    var yelpContainer = "<div class='heading-popup-info yelp-parent'><br />Yelp Reviews</div><div class='yelp'><img src='../img/loader.gif' />Loading Yelp rating...</div>";
     
     var dataNameClean = data.name.replace("'", "");
     var popupShareTo = "<div class='shareTo'><a target='_blank' class='fb-link' href='http://www.facebook.com/sharer.php?s=100&p[url]=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&p[title]=Food%20Inspection%20of%20" + encodeURIComponent(data.name) + "&p[summary]=A%20quick%20glance%20at%20the%20number%20of%20critical%20and%20non-critical%20violations%20establishments%20have%20had%20in%20the%20last%203%20years%20in%20Nebraska.%20Still%20a%20work%20in%20progress%2C%20and%20not%20meant%20to%20scare.&p[images][0]=http%3A%2F%2Fopenclipart.org%2Fimage%2F800px%2Fsvg_to_png%2F33385%2Fpizza_4_stagioni_archite_01.png'><img src='http://i.stack.imgur.com/L8rHf.png' alt='Share on Facebook' /></a><a class='twitter-link' href='https://twitter.com/intent/tweet?text=Food%20Inspection%20for%20" + encodeURIComponent(dataNameClean) + "&url=http%3A%2F%2Ffoodinspections.opennebraska.io%2F%3Ffirm%3D" + data.firm_id + "&via=nefoodinspect' target='_blank'><img src='https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16_1.png' alt='Tweet This' /></a></div>";
@@ -162,8 +162,7 @@ $(document).ready(function() {
       $('.popup-info').attr('style', '');
       var yelpLat = $('.info').attr('data-lat');
       var yelpLng = $('.info').attr('data-lng');
-      var yelpName = $('.info').attr('data-name').split("\\s+");
-      console.log('yelpname: ' + yelpName);
+      var yelpName = $('.info').attr('data-name');
       getYelp(yelpName, yelpLat, yelpLng);
     });
 
@@ -232,8 +231,7 @@ $(document).ready(function() {
       $('.popup-info').attr('style', '');
       var yelpLat = $('.info').attr('data-lat');
       var yelpLng = $('.info').attr('data-lng');
-      var yelpName = $('.info').attr('data-name').split("\\s+");
-      console.log('yelpname: ' + yelpName);
+      var yelpName = $('.info').attr('data-name');
       getYelp(yelpName, yelpLat, yelpLng);
     });
 
@@ -407,14 +405,18 @@ $(document).ready(function() {
 
   function getYelp(name, lat, lng) {
     var yelp = new Yelp();
-    yelp.search(name, lat, lng, function(data) {
+    //var nameSanitized = name.substr(/^[a-zA-Z]*?\s/);
+    var nameSanitized = name.substr(0,100);
+    console.log(nameSanitized);
+    yelp.search(nameSanitized, lat, lng, function(data) {
       // Make data happen!
       console.log(data);
       if(data.total > 0) {
         var yelpAttribution = "<div class='yelp-attrib'><img src='../img/yelp-logo.png' height='30' alt='Yelp Logo' /></div>";
         var ratingDiv = "<div class='rating'><b>" + data.businesses[0].rating + "</b> <img src='" + data.businesses[0].rating_img_url_small + "' alt='Yelp Rating of " + data.businesses[0].rating + " stars' /> (based on " + data.businesses[0].review_count + " reviews)</div>";
         var moreInfo = "<div class='more-info'><a href='" + data.businesses[0].url + "'>View Profile on Yelp</a></div>"
-        $('.yelp').html(yelpAttribution + ratingDiv + moreInfo);
+        $('.yelp-parent').show();
+        $('.yelp').html(yelpAttribution + ratingDiv + moreInfo).show();
       }
       else {
         $('.yelp').html('There was an error loading Yelp results.');
