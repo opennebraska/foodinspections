@@ -38,6 +38,8 @@ a:hover { text-decoration: underline;}
 .twitter-link:hover:before { content: 'tweet this result'; background: #000; color: #fff; padding: 0px; position: relative; top: -4px; right: 5px; padding: 5px; text-decoration: none; }
 .notice { position: fixed; bottom: 0px !important; width: 100%; background: #faa; color: #700; font-size: 12pt; display: none; z-index: 10000; padding: 7px 0; text-align: center; }
 body:not(.firm-page) .inspectionsData .heading-popup-info { display: none; }
+.yelp-parent { margin-bottom: 10px; }
+.yelp-parent, .yelp { display: none; }
 
 /* leaflet customizations */
 .leaflet-map-pane { width: 100%; height: 100%; }
