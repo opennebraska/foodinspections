@@ -29,7 +29,7 @@ class ApiV1 < Sinatra::Base
   end
   
   get '/inspections' do
-    format_response(Inspection.all, request.accept)
+    halt(403)
   end
   
   get '/inspections/:id' do
