@@ -2,7 +2,6 @@ APP_PATH = "/var/www" # install location
 worker_processes 4    # amount of unicorn workers to spin up
 timeout 30            # restarts workers that hang for 30 seconds
 
-### Configuration for HP Cloud servers
 # Speed things up
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
