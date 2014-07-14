@@ -1,5 +1,8 @@
 Dir.glob("./{helpers,lib}/*.rb").each { |file| require file }
 
+require 'unicorn/worker_killer'
+use Unicorn::WorkerKiller::Oom, (192*(1024**2)), (256*(1024**2))
+
 map '/' do
   run Inspections
 end
