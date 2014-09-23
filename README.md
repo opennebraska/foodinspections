@@ -18,4 +18,4 @@ Credits
 
 See [CONTRIBUTORS](https://github.com/rnelson/ne_state_restaurant_inspections/blob/master/CONTRIBUTORS.md).
 
-Follow us on Twitter! [@nefoodinspect](http://twitter.com/nefoodinspect)
+Follow us on Twitter! [@foodinspections](http://twitter.com/foodinspections)
