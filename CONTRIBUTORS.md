@@ -2,7 +2,7 @@
 
 [Ross Nelson](http://twitter.com/rossnelson) - Primary developer
 
-[Dustin Lipskey](http://twitter.com/tacktaco) - Primary developer
+[Claire Lipskey](http://twitter.com/tackjhompson) - Primary developer
 
 [Matt Wynn](http://twitter.com/mattwynn) - Procured data
 
