@@ -3,9 +3,9 @@ Nebraska Food Inspections
 
 This repository contains the Nebraska Food Inspections project initially created at HO3 ([Hack Omaha III: Hack with a Vengeance](http://www.meetup.com/Open-Nebraska-Meetup/events/149197282/)).
 
-This project, formerly located at [rnelson/ne_state_restaurant_inspections](https://github.com/rnelson/ne_state_restaurant_inspections), 
-uses some data from the NE Deptartment of Agriculture. We will soon be creating a new project (based on this one) that is Lancaster-speciic, as the [Lincoln-Lancaster County Health Department](http://lincoln.ne.gov/city/health/) has agreed to work with us, providing far better data to create a more useful product. This one will remain here as an archive, but future work on it is unlikely.
+This project uses [data from the Nebraska Department of Agriculture](https://data.opennebraska.io/dataset/state-restaurant-inspections) regarding food inspections in 2013. Since starting it, we discovered that the data isn't terribly awesome and this project is still only alive because we haven't finished our rewrite.
 
+We're working with the [Lincoln-Lancaster County Health Department](http://lincoln.ne.gov/city/health/) to build a much more useful project. We will be getting better data that is updated far more frequently and, at least initially, will refocus from Nebraska-wide to Lancaster-specific data.
 
 Getting Started
 ---------------
