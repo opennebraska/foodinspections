@@ -2,19 +2,21 @@
 <html>
 <head>
 <title>
-	Nebraska Food Inspections 
+	Nebraska Food Inspections
 </title>
 <meta name="viewport" content="width=device-width, user-scalable=yes">
 <meta property="og:title" content="Nebraska Food Inspections"/>
 <meta property="og:url" content="http://foodinspections.opennebraska.io"/>
 <meta property="og:site_name" content="Nebraska Food Inspections"/>
-<meta name="description" content="This site is designed to help you quickly identify businesses and other food establishments that have had critical and non critical issues. This map's sole purpose is to disseminate raw data provided to us by the Nebraska Department of Agriculture.">	
+<meta name="description" content="This site is designed to help you quickly identify businesses and other food establishments that have had critical and non critical issues. This map's sole purpose is to disseminate raw data provided to us by the Nebraska Department of Agriculture.">
 <!--[if lte IE 9]><script src="/js/matchMedia.js"></script><![endif]-->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,600,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/css/design.css" type="text/css" />
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
 <link rel="icon" type="image/png" href="/img/favicon.png" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 <script src="/js/inspections.js"></script>
 <script src="/js/yelp.js"></script>
@@ -24,6 +26,25 @@
 </head>
 
 <body>
+	<div class="modal fade" tabindex="-1" role="dialog" id="alertModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Food Inspections v1</h4>
+      </div>
+      <div class="modal-body">
+				<div class="alert alert-danger">
+					<p><span class="glyphicon glyphicon-exclamation-sign"></span> This prototype was created with outdated data.</p>
+				</div>
+				<p>These ratings do not reflect any establishment accurately and should be treated as such.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 	<div class="container">
 			<div class="notice"></div>
 			<div class="popup-window">
@@ -91,14 +112,17 @@
 	</div>
 	<% if @ua %>
   <script>
+		$(window).load(function(){
+				$('#alertModal').modal('show');
+		});
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  
+
     ga('create', '<%= @ua_key %>', '<%= @ua_dom %>');
     ga('send', 'pageview');
-  
+
   </script>
 	<% end %>
 </body>
