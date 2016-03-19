@@ -1,4 +1,4 @@
-html, body, .container { font-family: 'Open Sans'; height: 100%; margin: 0; }
+html, body, .container-s { font-family: 'Open Sans'; height: 100%; margin: 0; }
 a, a:visited, a:active { text-decoration: none; }
 a:hover { text-decoration: underline;}
 .heading { width: 100%; position: absolute; background: transparent; color: #000; text-align: center; z-index: 7; }
@@ -60,7 +60,7 @@ body:not(.firm-page) .inspectionsData .heading-popup-info { display: none; }
 	.search-box input[type="text"] { width: 166px; border-radius: 0px; }
 }
 
-@media all and (min-width: 640px) { 
+@media all and (min-width: 640px) {
 	.popup-info { height: 400px; }
 }
 
