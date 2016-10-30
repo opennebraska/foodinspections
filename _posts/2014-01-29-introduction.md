@@ -31,13 +31,13 @@ To avoid violating Terms of Services and conserve daily API requests, we disallo
 access to these calls.
 
 If you would like to use these APIs, you will need to 
-[fork our code](https://github.com/rnelson/ne_state_restaurant_inspections/fork) 
+[fork our code](https://github.com/opennebraska/foodinspections/fork) 
 and run your own copy. Next, sign up for credentials with the third parties that you 
 are interested in using, then add those credentials to 
-[config.yml](https://github.com/rnelson/ne_state_restaurant_inspections/blob/master/config/config.yml.example).
+[config.yml](https://github.com/opennebraska/foodinspections/blob/master/config/config.yml.example).
 
 If you run your own copy of the site and enable these APIs but want remote access (check 
 the TOS to ensure you aren't violating them by potentially allowing someone else to use 
 their API through you), you can remove 
-[a few lines of code](https://github.com/rnelson/ne_state_restaurant_inspections/blob/c02021885742cdbdb06dc0cf32d06cdb91875499/api/apibase.rb#L22-L25) 
+[a few lines of code](https://github.com/opennebraska/foodinspections/blob/master/api/apibase.rb)
 in **ApiBase** to allow systems other than the web server to access them.
