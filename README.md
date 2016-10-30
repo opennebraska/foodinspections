@@ -5,7 +5,7 @@ is accessible to the public, allowing anyone to build something else awesome usi
 
 ### Using the API
 
-The API is a simple REST interface. [View the documentation](http://rnelson.github.io/ne_state_restaurant_inspections/) 
+The API is a simple REST interface. [View the documentation](http://opennebraska.github.io/ne_state_restaurant_inspections/) 
 for more information.
 
 At present we don't require any form of authentication. This is subject to change.
@@ -17,7 +17,7 @@ those APIs generally have a limit on the number of calls you can make per day (w
 easier to hit if it wasn't just [our site](http://foodinspections.opennebraska.io) calling them) and 
 because it's often against the Terms of Service to make their APIs available to others.
 
-If you wish to use them, you can [fork our code](https://github.com/rnelson/ne_state_restaurant_inspections/fork) 
+If you wish to use them, you can [fork our code](https://github.com/opennebraska/ne_state_restaurant_inspections/fork) 
 and run a copy yourself. You'll need to register with those third parties, agreeing to their terms 
 of services and obtaining credentials to fill in 
-[config.yml](https://github.com/rnelson/ne_state_restaurant_inspections/blob/master/config/config.yml.example).
+[config.yml](https://github.com/opennebraska/ne_state_restaurant_inspections/blob/master/config/config.yml.example).
