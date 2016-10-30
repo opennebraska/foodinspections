@@ -10,12 +10,12 @@ We're working with the [Lincoln-Lancaster County Health Department](http://linco
 Getting Started
 ---------------
 
-The instructions to work with this code now have their very own wiki page, [Getting Started](https://github.com/opennebraska/ne_state_restaurant_inspections/wiki/Getting-Started).
+The instructions to work with this code now have their very own wiki page, [Getting Started](https://github.com/opennebraska/foodinspections/wiki/Getting-Started).
 
 
 Credits
 -------
 
-See [CONTRIBUTORS](https://github.com/opennebraska/ne_state_restaurant_inspections/blob/master/CONTRIBUTORS.md).
+See [CONTRIBUTORS](https://github.com/opennebraska/foodinspections/blob/master/CONTRIBUTORS.md).
 
 Follow us on Twitter! [@foodinspections](http://twitter.com/foodinspections)
