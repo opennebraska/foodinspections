@@ -1,6 +1,7 @@
 ---
 exclude: ['README.markdown']
 permalink: ':title'
-pygments: true
+#pygments: true
+highlighter: rogue
 safe: false
 title: 'Food Inspections API'
